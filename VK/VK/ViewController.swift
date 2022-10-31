@@ -1,19 +1,12 @@
-//
-//  ViewController.swift
-//  VK
-//
-//  Created by Олег Яковлев on 31.10.22.
-//
+// ViewController.swift
+// Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
+///
 class ViewController: UIViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-
-
 }
-

@@ -36,7 +36,8 @@ final class AuthViewController: UIViewController {
         super.viewWillDisappear(animated)
         removeObservers()
     }
-
+    
+    //MARK: - Navigation
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if checkLogin() {
             clearTextFields()

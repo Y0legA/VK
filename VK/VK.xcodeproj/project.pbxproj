@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E10623722911860100779500 /* TextField+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10623712911860100779500 /* TextField+Extention.swift */; };
+		E10623722911860100779500 /* TextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10623712911860100779500 /* TextField+Extension.swift */; };
 		E10AF80E291012C80077251D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10AF80D291012C80077251D /* AppDelegate.swift */; };
 		E10AF810291012C80077251D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10AF80F291012C80077251D /* SceneDelegate.swift */; };
 		E10AF812291012C80077251D /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10AF811291012C80077251D /* AuthViewController.swift */; };
@@ -17,7 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E10623712911860100779500 /* TextField+Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextField+Extention.swift"; sourceTree = "<group>"; };
+		E10623712911860100779500 /* TextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextField+Extension.swift"; sourceTree = "<group>"; };
 		E10AF80A291012C80077251D /* VK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E10AF80D291012C80077251D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E10AF80F291012C80077251D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -39,6 +39,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E1062373291246EE00779500 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E10AF811291012C80077251D /* AuthViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		E1062374291246FD00779500 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E10623712911860100779500 /* TextField+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		E10AF801291012C80077251D = {
 			isa = PBXGroup;
 			children = (
@@ -60,8 +76,8 @@
 			children = (
 				E10AF80D291012C80077251D /* AppDelegate.swift */,
 				E10AF80F291012C80077251D /* SceneDelegate.swift */,
-				E10AF811291012C80077251D /* AuthViewController.swift */,
-				E10623712911860100779500 /* TextField+Extention.swift */,
+				E1062373291246EE00779500 /* Controllers */,
+				E1062374291246FD00779500 /* Extensions */,
 				E10AF813291012C80077251D /* Main.storyboard */,
 				E10AF816291012CC0077251D /* Assets.xcassets */,
 				E10AF818291012CC0077251D /* LaunchScreen.storyboard */,
@@ -186,7 +202,7 @@
 			files = (
 				E10AF812291012C80077251D /* AuthViewController.swift in Sources */,
 				E10AF80E291012C80077251D /* AppDelegate.swift in Sources */,
-				E10623722911860100779500 /* TextField+Extention.swift in Sources */,
+				E10623722911860100779500 /* TextField+Extension.swift in Sources */,
 				E10AF810291012C80077251D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

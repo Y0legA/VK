@@ -6,19 +6,19 @@ import UIKit
 // Экран авторизации
 final class AuthViewController: UIViewController {
     private enum Constants {
-        static let segue = "enterSegue"
-        static let mistake = "Ошибка"
-        static let enteredDataText = "Введены неверные данные пользователя"
-        static let okText = "OK"
+        static let segueName = "enterSegue"
+        static let alertTitleText = "Ошибка"
+        static let alertMessageText = "Введены неверные данные пользователя"
+        static let alertOkText = "OK"
         static let login = "admin"
         static let password = "12345"
     }
 
-    // MARK: - Private IBoutlet
+    // MARK: - Private IBOutlet
 
-    @IBOutlet var scrollView: UIScrollView!
-    @IBOutlet var loginTextField: UITextField!
-    @IBOutlet var passwordTextField: UITextField!
+    @IBOutlet private var scrollView: UIScrollView!
+    @IBOutlet private var loginTextField: UITextField!
+    @IBOutlet private var passwordTextField: UITextField!
 
     // MARK: - LifeCycle
 
@@ -44,7 +44,7 @@ final class AuthViewController: UIViewController {
             return true
         } else {
             clearTextFields()
-            createAlertController()
+            showAlert(title: Constants.alertTitleText, message: Constants.alertMessageText, actionTitle: Constants.alertOkText)
             return false
         }
     }
@@ -70,21 +70,10 @@ final class AuthViewController: UIViewController {
 
     // MARK: - Private Methods
 
-    private func createAlertController() {
-        let alertController = UIAlertController(
-            title: Constants.mistake,
-            message: Constants.enteredDataText,
-            preferredStyle: .alert
-        )
-        let alertControllerAction = UIAlertAction(title: Constants.okText, style: .cancel, handler: nil)
-        alertController.addAction(alertControllerAction)
-        present(alertController, animated: true, completion: nil)
-    }
-
     private func checkLogin() -> Bool {
         let loginText = loginTextField.text ?? String()
-        let pwdText = passwordTextField.text ?? String()
-        if loginText == Constants.login, pwdText == Constants.password {
+        let passwordText = passwordTextField.text ?? String()
+        if loginText == Constants.login, passwordText == Constants.password {
             return true
         } else {
             return false
@@ -97,8 +86,8 @@ final class AuthViewController: UIViewController {
     }
 
     private func setPaddingTextfields() {
-        loginTextField.setWallsPadingPoints(10)
-        passwordTextField.setWallsPadingPoints(10)
+        loginTextField.setWallsPaddingPoints(10)
+        passwordTextField.setWallsPaddingPoints(10)
     }
 
     private func clearTextFields() {
@@ -132,3 +121,12 @@ final class AuthViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 }
+
+extension UIViewController {
+     func showAlert(title: String?, message: String?, actionTitle: String?) {
+         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+         let alertControllerAction = UIAlertAction(title: actionTitle, style: .default, handler: nil)
+         alertController.addAction(alertControllerAction)
+         present(alertController, animated: true)
+     }
+ }

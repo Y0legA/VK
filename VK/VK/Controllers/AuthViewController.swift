@@ -12,6 +12,7 @@ final class AuthViewController: UIViewController {
         static let alertOkText = "OK"
         static let login = "admin"
         static let password = "12345"
+        static let emptyString = ""
     }
 
     // MARK: - Private IBOutlet
@@ -36,21 +37,26 @@ final class AuthViewController: UIViewController {
         super.viewWillDisappear(animated)
         removeObservers()
     }
-    
-    //MARK: - Navigation
+
+    // MARK: - Public Methods
+
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if checkLogin() {
             clearTextFields()
             return true
         } else {
             clearTextFields()
-            showAlert(title: Constants.alertTitleText, message: Constants.alertMessageText, actionTitle: Constants.alertOkText)
+            showAlert(
+                title: Constants.alertTitleText,
+                message: Constants.alertMessageText,
+                actionTitle: Constants.alertOkText
+            )
             return false
         }
     }
 
-    // MARK: - Private IBAction
-
+    // MARK: - Private Methods
+    
     @objc private func keyboardWillShownAction(_ notification: Notification) {
         let info = notification.userInfo as? NSDictionary
         let kbSize = (info?.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as? NSValue)?.cgRectValue.size
@@ -68,11 +74,9 @@ final class AuthViewController: UIViewController {
         scrollView.endEditing(true)
     }
 
-    // MARK: - Private Methods
-
     private func checkLogin() -> Bool {
-        let loginText = loginTextField.text ?? String()
-        let passwordText = passwordTextField.text ?? String()
+        let loginText = loginTextField.text ?? Constants.emptyString
+        let passwordText = passwordTextField.text ?? Constants.emptyString
         if loginText == Constants.login, passwordText == Constants.password {
             return true
         } else {
@@ -91,8 +95,8 @@ final class AuthViewController: UIViewController {
     }
 
     private func clearTextFields() {
-        loginTextField.text = String()
-        passwordTextField.text = String()
+        loginTextField.text = Constants.emptyString
+        passwordTextField.text = Constants.emptyString
     }
 
     private func configureScrollView() {
@@ -122,11 +126,12 @@ final class AuthViewController: UIViewController {
     }
 }
 
-extension UIViewController {
-     func showAlert(title: String?, message: String?, actionTitle: String?) {
-         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-         let alertControllerAction = UIAlertAction(title: actionTitle, style: .default, handler: nil)
-         alertController.addAction(alertControllerAction)
-         present(alertController, animated: true)
-     }
- }
+// добавление вызова алертКонтроллера для AuthViewController
+extension AuthViewController {
+    func showAlert(title: String?, message: String?, actionTitle: String?) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alertControllerAction = UIAlertAction(title: actionTitle, style: .default, handler: nil)
+        alertController.addAction(alertControllerAction)
+        present(alertController, animated: true)
+    }
+}

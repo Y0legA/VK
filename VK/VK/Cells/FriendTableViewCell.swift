@@ -5,15 +5,16 @@ import UIKit
 
 // Ячейка друга
 final class FriendTableViewCell: UITableViewCell {
-    // MARK: - Private IBOutlets
+    // MARK: - Private IBOutlet
 
-    @IBOutlet private var friendImageView: UIImageView!
     @IBOutlet private var friendNameLabel: UILabel!
+    @IBOutlet private var avatarView: UIImageView!
+    @IBOutlet private var avatarShadowView: AvatarView!
 
     // MARK: - Public Methods
 
     func configureCell(_ friend: User) {
-        friendImageView.image = UIImage(named: friend.avatarImageName)
+        avatarView.image = UIImage(named: friend.avatarImageName)
         friendNameLabel.text = friend.userName
     }
 }

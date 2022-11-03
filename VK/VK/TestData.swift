@@ -1,12 +1,11 @@
 // TestData.swift
 // Copyright © RoadMap. All rights reserved.
 
-import Foundation
-
+// тестовый массив
 let testFriends = [
-    User("1", "Doroty", nil, nil),
-    User("2", "Tony", nil, nil),
-    User("3", "Mak", nil, nil)
+    User("1", "Doroty", 23, true),
+    User("2", "Tony", 324, false),
+    User("3", "Mak", 54, true)
 ]
 
 let testGroups = [

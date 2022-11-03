@@ -5,6 +5,8 @@ import UIKit
 
 // Экран авторизации
 final class AuthViewController: UIViewController {
+    // MARK: - Private Constants
+
     private enum Constants {
         static let segueName = "enterSegue"
         static let alertTitleText = "Ошибка"

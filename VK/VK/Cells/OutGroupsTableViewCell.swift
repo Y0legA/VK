@@ -5,10 +5,10 @@ import UIKit
 
 // Ячейка группы на которую не подписан пользователь
 final class OutGroupsTableViewCell: UITableViewCell {
-    // MARK: - Private IBOutlets
+    // MARK: - Private IBOutlet
 
-    @IBOutlet var groupImageView: UIImageView!
-    @IBOutlet var groupNameLabel: UILabel!
+    @IBOutlet private var groupImageView: UIImageView!
+    @IBOutlet private var groupNameLabel: UILabel!
 
     // MARK: - Public Methods
 

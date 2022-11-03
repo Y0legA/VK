@@ -9,11 +9,14 @@ final class FriendPhotoCollectionViewController: UICollectionViewController {
 
     private enum Constants {
         static let photosCellIdentifier = "PhotoCell"
+        static let emptyString = ""
     }
 
     // MARK: - Private Properties
 
-    private var photoName = String()
+    private var photoName = Constants.emptyString
+    private var likes = 0
+    private var isLike = false
 
     // MARK: - Lifecycle
 
@@ -25,6 +28,8 @@ final class FriendPhotoCollectionViewController: UICollectionViewController {
 
     func configureData(_ friend: User) {
         photoName = friend.avatarImageName
+        likes = friend.likes
+        isLike = friend.islike
         title = friend.userName
     }
 
@@ -42,7 +47,7 @@ final class FriendPhotoCollectionViewController: UICollectionViewController {
             withReuseIdentifier: Constants.photosCellIdentifier,
             for: indexPath
         ) as? PhotoCollectionViewCell else { return PhotoCollectionViewCell() }
-        cell.configureCell(photoName)
+        cell.configureCell(photoName, likes, isLike)
         return cell
     }
 }

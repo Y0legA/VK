@@ -5,13 +5,15 @@ import UIKit
 
 // Ячейка фото друга
 final class PhotoCollectionViewCell: UICollectionViewCell {
-    // MARK: - Private IBOutlets
+    // MARK: - Private IBOutlet
 
-    @IBOutlet var friendImageView: UIImageView!
+    @IBOutlet private var friendImageView: UIImageView!
+    @IBOutlet private var likesControl: LikesControl!
 
     // MARK: - Public Methods
 
-    func configureCell(_ imageName: String) {
+    func configureCell(_ imageName: String, _ likes: Int, _ islike: Bool) {
         friendImageView.image = UIImage(named: imageName)
+        likesControl.configure(likes, islike)
     }
 }

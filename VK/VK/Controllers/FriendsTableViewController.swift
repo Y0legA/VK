@@ -4,7 +4,7 @@
 import UIKit
 
 // Экран друзей
-class FriendsTableViewController: UITableViewController {
+final class FriendsTableViewController: UITableViewController {
     // MARK: - Private Constants
 
     private enum Constants {
@@ -33,10 +33,6 @@ class FriendsTableViewController: UITableViewController {
     }
 
     // MARK: - TableViewDataSource
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        1
-    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         friends.count

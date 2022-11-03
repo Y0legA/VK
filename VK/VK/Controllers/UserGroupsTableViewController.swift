@@ -10,11 +10,12 @@ final class UserGroupsTableViewController: UITableViewController {
     private enum Constants {
         static let userGroupCellIdentifier = "UserGroupCell"
         static let outGroupsSegueIdentifier = "outGroups"
+        static let emptyString = ""
     }
 
     // MARK: - Private Properties
 
-    private var userGroups = [testGroups.first].compactMap { $0 } {
+    private var userGroups = [testGroups.first] {
         didSet {
             tableView.reloadData()
         }
@@ -31,7 +32,8 @@ final class UserGroupsTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == Constants.outGroupsSegueIdentifier,
               let outGroupsVC = segue.destination as? OutAllGroupsTableViewController else { return }
-        outGroupsVC.configureGroups(userGroups) { [weak self] selectedGroup in
+        guard let group = testGroups.first else { return }
+        outGroupsVC.configureGroups([group]) { [weak self] selectedGroup in
             guard let self = self else { return }
             self.userGroups.insert(selectedGroup, at: 0)
         }
@@ -48,7 +50,7 @@ final class UserGroupsTableViewController: UITableViewController {
             withIdentifier: Constants.userGroupCellIdentifier,
             for: indexPath
         ) as? GroupTableViewCell else { return GroupTableViewCell() }
-        let group = userGroups[indexPath.row]
+        let group = userGroups[indexPath.row] ?? Group(Constants.emptyString, Constants.emptyString)
         cell.configureCell(group)
         return cell
     }

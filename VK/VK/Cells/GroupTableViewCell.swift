@@ -5,12 +5,12 @@ import UIKit
 
 // Ячейка группы пользователя
 final class GroupTableViewCell: UITableViewCell {
-    // MARK: - Private IBOutlets
+    // MARK: - Private IBOutlet
 
-    @IBOutlet var groupImageView: UIImageView!
-    @IBOutlet var groupNameLabel: UILabel!
+    @IBOutlet private var groupImageView: UIImageView!
+    @IBOutlet private var groupNameLabel: UILabel!
 
-    // MARK: - Public methods
+    // MARK: - Public Methods
 
     func configureCell(_ group: Group) {
         groupImageView.image = UIImage(named: group.groupImageName)

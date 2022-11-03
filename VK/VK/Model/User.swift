@@ -7,13 +7,13 @@ import Foundation
 struct User {
     let avatarImageName: String
     let userName: String
-    let description: String?
-    let photoImageNames: [String]?
+    let likes: Int
+    let islike: Bool
 
-    init(_ avatarImageName: String, _ userName: String, _ description: String?, _ photoImageNames: [String]?) {
+    init(_ avatarImageName: String, _ userName: String, _ likes: Int, _ isLike: Bool) {
         self.avatarImageName = avatarImageName
         self.userName = userName
-        self.description = description
-        self.photoImageNames = photoImageNames
+        self.likes = likes
+        islike = isLike
     }
 }

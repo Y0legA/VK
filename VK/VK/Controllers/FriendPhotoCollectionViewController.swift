@@ -29,6 +29,10 @@ final class FriendPhotoCollectionViewController: UICollectionViewController {
 
     // MARK: UICollectionViewDataSource
 
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        1
+    }
+
     override func collectionView(
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath

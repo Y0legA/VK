@@ -26,7 +26,6 @@ final class UserGroupsTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == Constants.outGroupsSegueIdentifier,
               let outGroupsVC = segue.destination as? OutAllGroupsTableViewController else { return }
-        // groups = userGroups else { return }
         outGroupsVC.configureGroups(userGroups) { [weak self] selectedGroup in
             guard let self = self else { return }
             self.userGroups.insert(selectedGroup, at: 0)

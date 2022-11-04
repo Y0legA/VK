@@ -14,6 +14,7 @@ final class PhotoCollectionViewCell: UICollectionViewCell {
 
     func configureCell(_ imageName: String, _ likes: Int, _ islike: Bool) {
         friendImageView.image = UIImage(named: imageName)
+        print(imageName)
         likesControl.configure(likes, islike)
     }
 }

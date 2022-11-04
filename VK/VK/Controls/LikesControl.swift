@@ -4,7 +4,7 @@
 import UIKit
 
 // Контрол для отображения и подсчета лайков
-class LikesControl: UIControl {
+final class LikesControl: UIControl {
     // MARK: - Private Constants
 
     private enum Constant {

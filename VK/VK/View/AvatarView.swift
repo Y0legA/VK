@@ -5,23 +5,23 @@ import UIKit
 
 // Вью тени для аватара
 final class AvatarView: UIView {
-    // MARK: - IBInspectable
+    // MARK: - Private Properties
 
-    @IBInspectable var shadowWidth: CGFloat = 10 {
+    @IBInspectable private var shadowWidth: CGFloat = 10 {
         didSet {
             updateShadowRadius()
             setNeedsDisplay()
         }
     }
 
-    @IBInspectable var shadowColor: UIColor = .black {
+    @IBInspectable private var shadowColor: UIColor = .black {
         didSet {
             updateShadowColor()
             setNeedsDisplay()
         }
     }
 
-    @IBInspectable var shadowOpacity: Float = 0.9 {
+    @IBInspectable private var shadowOpacity: Float = 0.9 {
         didSet {
             updateShadowOpacity()
             setNeedsDisplay()

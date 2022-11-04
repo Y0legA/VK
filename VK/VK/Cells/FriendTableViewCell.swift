@@ -13,8 +13,8 @@ final class FriendTableViewCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configureCell(_ friend: User) {
-        avatarView.image = UIImage(named: friend.avatarImageName)
-        friendNameLabel.text = friend.userName
+    func configureCell(_ user: User) {
+        avatarView.image = UIImage(named: user.avatarImageName)
+        friendNameLabel.text = user.userName
     }
 }

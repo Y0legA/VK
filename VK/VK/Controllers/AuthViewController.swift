@@ -8,7 +8,7 @@ final class AuthViewController: UIViewController {
     // MARK: - Private Constants
 
     private enum Constants {
-        static let segueName = "enterSegue"
+        static let segueIdentifier = "enterSegue"
         static let alertTitleText = "Ошибка"
         static let alertMessageText = "Введены неверные данные пользователя"
         static let alertOkText = "OK"

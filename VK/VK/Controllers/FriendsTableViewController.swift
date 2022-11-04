@@ -14,13 +14,7 @@ final class FriendsTableViewController: UITableViewController {
 
     // MARK: - Private Properties
 
-    private let friends = testFriends
-
-    // MARK: - LifeCycle
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+    private let userFriends = friends
 
     // MARK: - Public Methods
 

@@ -18,26 +18,16 @@ final class FriendPhotoCollectionViewController: UICollectionViewController {
     private var likes = 0
     private var isLike = false
 
-    // MARK: - Lifecycle
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
     // MARK: - Public Methods
 
-    func configureData(_ friend: User) {
-        photoName = friend.avatarImageName
-        likes = friend.likes
-        isLike = friend.islike
-        title = friend.userName
+    func configureData(_ user: User) {
+        photoName = user.avatarImageName
+        likes = user.likes
+        isLike = user.islike
+        title = user.userName
     }
 
     // MARK: UICollectionViewDataSource
-
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        1
-    }
 
     override func collectionView(
         _ collectionView: UICollectionView,

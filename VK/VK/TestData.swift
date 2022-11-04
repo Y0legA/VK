@@ -2,13 +2,13 @@
 // Copyright © RoadMap. All rights reserved.
 
 // тестовый массив
-let testFriends = [
+let friends = [
     User("1", "Doroty", 23, true),
     User("2", "Tony", 324, false),
     User("3", "Mak", 54, true)
 ]
 
-let testGroups = [
+let groups = [
     Group("4", "Панки в городе!!!"),
     Group("5", "Гараж"),
     Group("6", "3D-печать"),

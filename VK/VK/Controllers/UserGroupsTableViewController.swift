@@ -15,16 +15,10 @@ final class UserGroupsTableViewController: UITableViewController {
 
     // MARK: - Private Properties
 
-    private var userGroups = [testGroups.first] {
+    private var userGroups = [groups.first ?? Group(Constants.emptyString, Constants.emptyString)] {
         didSet {
             tableView.reloadData()
         }
-    }
-
-    // MARK: - Lifecycle
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
     }
 
     // MARK: - Public methods
@@ -32,8 +26,8 @@ final class UserGroupsTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == Constants.outGroupsSegueIdentifier,
               let outGroupsVC = segue.destination as? OutAllGroupsTableViewController else { return }
-        guard let group = testGroups.first else { return }
-        outGroupsVC.configureGroups([group]) { [weak self] selectedGroup in
+        // groups = userGroups else { return }
+        outGroupsVC.configureGroups(userGroups) { [weak self] selectedGroup in
             guard let self = self else { return }
             self.userGroups.insert(selectedGroup, at: 0)
         }
@@ -50,7 +44,7 @@ final class UserGroupsTableViewController: UITableViewController {
             withIdentifier: Constants.userGroupCellIdentifier,
             for: indexPath
         ) as? GroupTableViewCell else { return GroupTableViewCell() }
-        let group = userGroups[indexPath.row] ?? Group(Constants.emptyString, Constants.emptyString)
+        let group = userGroups[indexPath.row]
         cell.configureCell(group)
         return cell
     }

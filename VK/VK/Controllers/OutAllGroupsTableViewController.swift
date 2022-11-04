@@ -17,16 +17,10 @@ final class OutAllGroupsTableViewController: UITableViewController {
 
     // MARK: - Private properties
 
-    private var outGroups = testGroups {
+    private var outGroups = groups {
         didSet {
             tableView.reloadData()
         }
-    }
-
-    // MARK: - Lifecycle
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
     }
 
     // MARK: - Public Methods

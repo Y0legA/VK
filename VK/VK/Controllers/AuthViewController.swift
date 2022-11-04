@@ -5,8 +5,10 @@ import UIKit
 
 // Экран авторизации
 final class AuthViewController: UIViewController {
+    // MARK: - Private Constants
+
     private enum Constants {
-        static let segueName = "enterSegue"
+        static let segueIdentifier = "enterSegue"
         static let alertTitleText = "Ошибка"
         static let alertMessageText = "Введены неверные данные пользователя"
         static let alertOkText = "OK"
@@ -49,14 +51,15 @@ final class AuthViewController: UIViewController {
             showAlert(
                 title: Constants.alertTitleText,
                 message: Constants.alertMessageText,
-                actionTitle: Constants.alertOkText
+                actionTitle: Constants.alertOkText,
+                handler: nil
             )
             return false
         }
     }
 
     // MARK: - Private Methods
-    
+
     @objc private func keyboardWillShownAction(_ notification: Notification) {
         let info = notification.userInfo as? NSDictionary
         let kbSize = (info?.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as? NSValue)?.cgRectValue.size
@@ -123,15 +126,5 @@ final class AuthViewController: UIViewController {
     private func removeObservers() {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-}
-
-// добавление вызова алертКонтроллера для AuthViewController
-extension AuthViewController {
-    func showAlert(title: String?, message: String?, actionTitle: String?) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let alertControllerAction = UIAlertAction(title: actionTitle, style: .default, handler: nil)
-        alertController.addAction(alertControllerAction)
-        present(alertController, animated: true)
     }
 }

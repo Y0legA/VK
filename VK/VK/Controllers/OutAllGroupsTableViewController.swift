@@ -3,6 +3,7 @@
 
 import UIKit
 
+typealias Handler = (Group) -> ()
 // Экран групп в которых не состоит пользователь
 final class OutAllGroupsTableViewController: UITableViewController {
     // MARK: - Private Сonstants
@@ -13,7 +14,7 @@ final class OutAllGroupsTableViewController: UITableViewController {
 
     // MARK: - Public Properties
 
-    var subscribeGroupClosure: ((Group) -> ())?
+    var subscribeGroupHandler: Handler?
 
     // MARK: - Private properties
 
@@ -25,13 +26,19 @@ final class OutAllGroupsTableViewController: UITableViewController {
 
     // MARK: - Public Methods
 
-    func configureGroups(_ userGroups: [Group], completion: @escaping (Group) -> ()) {
+    func configureGroups(_ userGroups: [Group], completion: @escaping Handler) {
         outGroups = outGroups.filter { outGroup in
             !userGroups.contains { userGroup in
                 userGroup == outGroup
             }
         }
-        subscribeGroupClosure = completion
+        subscribeGroupHandler = completion
+    }
+
+    private func goUserGroups(_ indexPath: IndexPath) {
+        let group = outGroups[indexPath.row]
+        subscribeGroupHandler?(group)
+        navigationController?.popViewController(animated: true)
     }
 
     // MARK: - UITableViewDataSource
@@ -53,8 +60,6 @@ final class OutAllGroupsTableViewController: UITableViewController {
     // MARK: - UITableViewDelegate
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let group = outGroups[indexPath.row]
-        subscribeGroupClosure?(group)
-        navigationController?.popViewController(animated: true)
+        goUserGroups(indexPath)
     }
 }

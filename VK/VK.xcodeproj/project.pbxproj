@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E10623722911860100779500 /* TextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10623712911860100779500 /* TextField+Extension.swift */; };
-		E10623802912E0E100779500 /* Alert+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E106237F2912E0E100779500 /* Alert+Extension.swift */; };
+		E10623802912E0E100779500 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E106237F2912E0E100779500 /* UIViewController+Alert.swift */; };
 		E10623842912E4F400779500 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10623832912E4F400779500 /* User.swift */; };
 		E10623862912E4FF00779500 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10623852912E4FF00779500 /* Group.swift */; };
 		E10623882912E69600779500 /* FriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10623872912E69600779500 /* FriendTableViewCell.swift */; };
@@ -32,7 +32,7 @@
 
 /* Begin PBXFileReference section */
 		E10623712911860100779500 /* TextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextField+Extension.swift"; sourceTree = "<group>"; };
-		E106237F2912E0E100779500 /* Alert+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alert+Extension.swift"; sourceTree = "<group>"; };
+		E106237F2912E0E100779500 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		E10623832912E4F400779500 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E10623852912E4FF00779500 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		E10623872912E69600779500 /* FriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableViewCell.swift; sourceTree = "<group>"; };
@@ -83,7 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				E10623712911860100779500 /* TextField+Extension.swift */,
-				E106237F2912E0E100779500 /* Alert+Extension.swift */,
+				E106237F2912E0E100779500 /* UIViewController+Alert.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -281,7 +281,7 @@
 				E10623982912EACA00779500 /* TestData.swift in Sources */,
 				E106238A2912E8C300779500 /* FriendsTableViewController.swift in Sources */,
 				E10623902912E9EF00779500 /* OutAllGroupsTableViewController.swift in Sources */,
-				E10623802912E0E100779500 /* Alert+Extension.swift in Sources */,
+				E10623802912E0E100779500 /* UIViewController+Alert.swift in Sources */,
 				E10623842912E4F400779500 /* User.swift in Sources */,
 				E10AF80E291012C80077251D /* AppDelegate.swift in Sources */,
 				E10623722911860100779500 /* TextField+Extension.swift in Sources */,

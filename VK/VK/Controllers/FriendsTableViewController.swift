@@ -8,8 +8,8 @@ final class FriendsTableViewController: UITableViewController {
     // MARK: - Private Constants
 
     private enum Constants {
-        static let identifierFriendCell = "friendCell"
-        static let identifierPhotoSegue = "photoSegue"
+        static let friendCellIdentifier = "friendCell"
+        static let photoSegueIdentifier = "photoSegue"
     }
 
     // MARK: - Private Properties
@@ -19,7 +19,7 @@ final class FriendsTableViewController: UITableViewController {
     // MARK: - Public Methods
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == Constants.identifierPhotoSegue,
+        guard segue.identifier == Constants.photoSegueIdentifier,
               let collectionVC = segue.destination as? FriendPhotoCollectionViewController else { return }
         guard let indexPath = tableView.indexPathForSelectedRow else { return }
         let friend = friends[indexPath.row]
@@ -34,7 +34,7 @@ final class FriendsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: Constants.identifierFriendCell,
+            withIdentifier: Constants.friendCellIdentifier,
             for: indexPath
         ) as? FriendTableViewCell else { fatalError() }
         cell.configureCell(friends[indexPath.row])

@@ -16,14 +16,14 @@ final class FriendPhotoCollectionViewController: UICollectionViewController {
 
     private var photoName = Constants.emptyString
     private var likes = 0
-    private var isLike = false
+    private var isLiked = false
 
     // MARK: - Public Methods
 
     func configureData(_ user: User) {
         photoName = user.avatarImageName
         likes = user.likes
-        isLike = user.islike
+        isLiked = user.isliked
         title = user.userName
     }
 
@@ -41,7 +41,7 @@ final class FriendPhotoCollectionViewController: UICollectionViewController {
             withReuseIdentifier: Constants.photosCellIdentifier,
             for: indexPath
         ) as? PhotoCollectionViewCell else { return PhotoCollectionViewCell() }
-        cell.configureCell(photoName, likes, isLike)
+        cell.configureCell(photoName, likes, isLiked)
         return cell
     }
 }

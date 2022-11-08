@@ -28,6 +28,14 @@ final class PostLikesControl: UIControl {
     var likesCount = 0 {
         didSet {
             likesCountLabel.text = String(likesCount)
+            UIView.transition(
+                with: likesCountLabel,
+                duration: 1.0,
+                options: [.transitionCurlUp],
+                animations: {
+                    self.likesCountLabel.text = String(self.likesCount)
+                }
+            )
         }
     }
 

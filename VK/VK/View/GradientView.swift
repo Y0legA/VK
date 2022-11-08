@@ -3,7 +3,8 @@
 
 import UIKit
 
-@IBDesignable class GradientView: UIView {
+// Вью для задания градиента
+@IBDesignable final class GradientView: UIView {
     override class var layerClass: AnyClass {
         CAGradientLayer.self
     }
@@ -63,12 +64,4 @@ import UIKit
     func updateLocations() {
         gradientLayer.locations = [startLocation as NSNumber, endLocation as NSNumber]
     }
-
-    /*
-     // Only override draw() if you perform custom drawing.
-     // An empty implementation adversely affects performance during animation.
-     override func draw(_ rect: CGRect) {
-         // Drawing code
-     }
-     */
 }

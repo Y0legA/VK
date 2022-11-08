@@ -14,39 +14,26 @@ final class NewsViewController: UIViewController {
 
     // MARK: - Private IBoutlet
 
-    @IBOutlet var tableView: UITableView!
-
-    // MARK: - Private Visual Components
-
-    let myPosts = posts
-
-    // MARK: - Public Properties
-
-    // MARK: - Private Properties
-
-    // MARK: - Initializers
+    @IBOutlet private var tableView: UITableView!
 
     // MARK: - LifeCycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        tableView.estimatedRowHeight = UITableView.automaticDimension
     }
 
-    // MARK: - Public Methods
-
-    // MARK: - Private IBAction
+    // MARK: - Private Methods
 
     private func configureUI() {
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.estimatedRowHeight = UITableView.automaticDimension
     }
-
-    // MARK: - Private Methods
 }
 
-// UITableViewDataSource
+// MARK: - UITableViewDataSource
+
 extension NewsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         posts.count
@@ -61,7 +48,8 @@ extension NewsViewController: UITableViewDataSource {
     }
 }
 
-// UITableViewDelegate
+// MARK: - UITableViewDelegate
+
 extension NewsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) ->
         CGFloat

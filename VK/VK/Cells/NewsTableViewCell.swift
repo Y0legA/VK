@@ -7,24 +7,12 @@ import UIKit
 final class NewsTableViewCell: UITableViewCell {
     // MARK: - Private IBoutlet
 
-    @IBOutlet var postImageView: UIImageView!
-
-    @IBOutlet var likesControl: PostLikesControl!
-    @IBOutlet var postAuthorImageView: UIImageView!
-
-    @IBOutlet var nameLabel: UILabel!
-
-    @IBOutlet var postDateLabel: UILabel!
-
-    @IBOutlet var descriptionLabel: UILabel!
-
-    // MARK: - Private Visual Components
-
-    // MARK: - Public Properties
-
-    // MARK: - Private Properties
-
-    // MARK: - Initializer
+    @IBOutlet private var postImageView: UIImageView!
+    @IBOutlet private var likesControl: PostLikesControl!
+    @IBOutlet private var postAuthorImageView: UIImageView!
+    @IBOutlet private var nameLabel: UILabel!
+    @IBOutlet private var postDateLabel: UILabel!
+    @IBOutlet private var descriptionLabel: UILabel!
 
     // MARK: - Public Methods
 
@@ -36,8 +24,4 @@ final class NewsTableViewCell: UITableViewCell {
         postDateLabel.text = post.date
         descriptionLabel.text = post.postDescription
     }
-
-    // MARK: - Private IBAction
-
-    // MARK: - Private Methods
 }

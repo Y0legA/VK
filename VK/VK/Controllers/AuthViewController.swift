@@ -12,9 +12,10 @@ final class AuthViewController: UIViewController {
         static let alertTitleText = "Ошибка"
         static let alertMessageText = "Введены неверные данные пользователя"
         static let alertOkText = "OK"
-        static let login = "admin"
-        static let password = "12345"
+        static let login = "a"
+        static let password = "1"
         static let emptyString = ""
+        static let opacity = "opacity"
     }
 
     // MARK: - Private IBOutlet
@@ -22,6 +23,11 @@ final class AuthViewController: UIViewController {
     @IBOutlet private var scrollView: UIScrollView!
     @IBOutlet private var loginTextField: UITextField!
     @IBOutlet private var passwordTextField: UITextField!
+
+    @IBOutlet var uploadIndicatorView: UIView!
+    @IBOutlet var firstCircleUploadView: UIView!
+    @IBOutlet var secondCircleUpload: UIView!
+    @IBOutlet var thirdCircleUpload: UIView!
 
     // MARK: - LifeCycle
 
@@ -40,12 +46,15 @@ final class AuthViewController: UIViewController {
         removeObservers()
     }
 
-    // MARK: - Public Methods
+    // MARK: - Private IBAction
 
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+    @IBAction private func goTabBarAction(_ sender: Any) {
         if checkLogin() {
+            startUploadIndicator()
             clearTextFields()
-            return true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
+                self.performSegue(withIdentifier: Constants.segueIdentifier, sender: self)
+            }
         } else {
             clearTextFields()
             showAlert(
@@ -54,7 +63,6 @@ final class AuthViewController: UIViewController {
                 actionTitle: Constants.alertOkText,
                 handler: nil
             )
-            return false
         }
     }
 
@@ -77,14 +85,35 @@ final class AuthViewController: UIViewController {
         scrollView.endEditing(true)
     }
 
+    private func startUploadIndicator() {
+        let group = CAAnimationGroup()
+        let firstAnimation = setAnimation(firstCircleUploadView, 1)
+        let secondAnimation = setAnimation(secondCircleUpload, 3)
+        let thirdAnimation = setAnimation(thirdCircleUpload, 5)
+        group.animations = [firstAnimation, secondAnimation, thirdAnimation]
+        firstCircleUploadView.layer.add(firstAnimation, forKey: nil)
+        secondCircleUpload.layer.add(secondAnimation, forKey: nil)
+        thirdCircleUpload.layer.add(thirdAnimation, forKey: nil)
+    }
+
+    private func setAnimation(_ view: UIView, _ delay: Double) -> CABasicAnimation {
+        let animation = CABasicAnimation(keyPath: Constants.opacity)
+        animation.fromValue = 0
+        animation.toValue = 1
+        animation.duration = 2
+        animation.beginTime = CACurrentMediaTime() + delay
+        animation.fillMode = .backwards
+        view.alpha = 1
+        return animation
+    }
+
     private func checkLogin() -> Bool {
         let loginText = loginTextField.text ?? Constants.emptyString
         let passwordText = passwordTextField.text ?? Constants.emptyString
         if loginText == Constants.login, passwordText == Constants.password {
             return true
         } else {
-            return true
-//            return false
+            return false
         }
     }
 

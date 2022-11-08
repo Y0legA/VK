@@ -18,6 +18,7 @@ final class FriendsTableViewController: UITableViewController {
 
     private let userFriends = friends
     private var sortedSectionsFriends = [Character: [User]]()
+    private var sortedFriends: [User] = []
     private var sectionTitles: [Character] = []
 
     // MARK: - LifeCycle
@@ -33,15 +34,13 @@ final class FriendsTableViewController: UITableViewController {
         guard segue.identifier == Constants.photoSegueIdentifier,
               let collectionVC = segue.destination as? FriendPhotoCollectionViewController else { return }
         guard let indexPath = tableView.indexPathForSelectedRow else { return }
-        let friend = friends[indexPath.row]
+        guard let friend = sortedSectionsFriends[sectionTitles[indexPath.section]]?[indexPath.row] else { abort() }
         collectionVC.configureData(friend)
     }
 
     // MARK: - Private Methods
 
     private func configureUI() {
-        //        tableView.dataSource = self
-        //        tableView.delegate = self
         configureListFriends()
         configureTableView()
     }
@@ -81,7 +80,6 @@ final class FriendsTableViewController: UITableViewController {
             for: indexPath
         ) as? FriendTableViewCell else { fatalError() }
         guard let friend = sortedSectionsFriends[sectionTitles[indexPath.section]]?[indexPath.row] else { abort() }
-
         cell.configureCell(friend)
         return cell
     }

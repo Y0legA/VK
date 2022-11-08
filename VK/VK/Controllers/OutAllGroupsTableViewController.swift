@@ -4,8 +4,8 @@
 import UIKit
 
 typealias Handler = (Group) -> ()
-// Экран групп в которых не состоит пользователь
 
+// Экран групп в которых не состоит пользователь
 final class OutAllGroupsTableViewController: UITableViewController {
     // MARK: - Private Сonstants
 
@@ -15,9 +15,9 @@ final class OutAllGroupsTableViewController: UITableViewController {
         static let lightPlaceholderMintColorName = "lightPlaceholderMintColor"
     }
 
-    // MARK: - Visual Properties
+    // MARK: - Private Visual Properties
 
-    let searchBar = UISearchBar()
+    private let searchBar = UISearchBar()
 
     // MARK: - Public Properties
 

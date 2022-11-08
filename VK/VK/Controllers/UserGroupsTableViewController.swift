@@ -19,9 +19,9 @@ final class UserGroupsTableViewController: UITableViewController {
         static let lightPlaceholderMintColorName = "lightPlaceholderMintColor"
     }
 
-    // MARK: - Visual Properties
+    // MARK: - Private Visual Properties
 
-    let searchBar = UISearchBar()
+    private let searchBar = UISearchBar()
 
     // MARK: - Private Properties
 
@@ -51,7 +51,7 @@ final class UserGroupsTableViewController: UITableViewController {
         configureUI()
     }
 
-    // MARK: - Public methods
+    // MARK: - Public Methods
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == Constants.outGroupsSegueIdentifier,
@@ -84,7 +84,6 @@ final class UserGroupsTableViewController: UITableViewController {
 
     private func configureTableView() {
         tableView.tableHeaderView = searchBar
-//        tableView.tableHeaderView?.backgroundColor = .green
         tableView.register(
             UINib(nibName: Constants.headerNibName, bundle: nil),
             forHeaderFooterViewReuseIdentifier: Constants.headerIdentifier
@@ -119,6 +118,8 @@ final class UserGroupsTableViewController: UITableViewController {
         }
     }
 }
+
+// MARK: - UISearchBarDelegate
 
 extension UserGroupsTableViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

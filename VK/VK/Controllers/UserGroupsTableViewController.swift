@@ -11,7 +11,17 @@ final class UserGroupsTableViewController: UITableViewController {
         static let userGroupCellIdentifier = "UserGroupCell"
         static let outGroupsSegueIdentifier = "outGroups"
         static let emptyString = ""
+        static let photoSegueIdentifier = "photoSegue"
+        static let headerNibName = "GroupTableViewHeader"
+        static let headerIdentifier = "header"
+        static let enterGroup = "Введите название группы.."
+        static let lightMintColorName = "lightMintColor"
+        static let lightPlaceholderMintColorName = "lightPlaceholderMintColor"
     }
+
+    // MARK: - Visual Properties
+
+    let searchBar = UISearchBar()
 
     // MARK: - Private Properties
 
@@ -19,6 +29,26 @@ final class UserGroupsTableViewController: UITableViewController {
         didSet {
             tableView.reloadData()
         }
+    }
+
+    private var searchResults: [Group] = []
+
+    private var searchResultIsEmpty: Bool {
+        guard let text = searchBar.text else { return false }
+        return text.isEmpty
+    }
+
+    private var isFiltering: Bool {
+        isSearching && !searchResultIsEmpty
+    }
+
+    private var isSearching = false
+
+    // MARK: - LifeCycle
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureUI()
     }
 
     // MARK: - Public methods
@@ -32,10 +62,39 @@ final class UserGroupsTableViewController: UITableViewController {
         }
     }
 
+    // MARK: - Private Methods
+
+    private func configureUI() {
+        configureSearchBar()
+        configureTableView()
+    }
+
+    private func configureSearchBar() {
+        searchBar.frame = CGRect(x: 0, y: 0, width: view.bounds.width - 40, height: 70)
+        searchBar.center.x = view.center.x
+        searchBar.delegate = self
+        searchBar.showsSearchResultsButton = true
+        searchBar.searchBarStyle = UISearchBar.Style.default
+        searchBar.placeholder = Constants.enterGroup
+        searchBar.searchTextField.backgroundColor = UIColor(named: Constants.lightPlaceholderMintColorName)
+        searchBar.barTintColor = UIColor(named: Constants.lightMintColorName)
+        searchBar.sizeToFit()
+        tableView.tableHeaderView = searchBar
+    }
+
+    private func configureTableView() {
+        tableView.tableHeaderView = searchBar
+//        tableView.tableHeaderView?.backgroundColor = .green
+        tableView.register(
+            UINib(nibName: Constants.headerNibName, bundle: nil),
+            forHeaderFooterViewReuseIdentifier: Constants.headerIdentifier
+        )
+    }
+
     // MARK: - UITableViewDataSource
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        userGroups.count
+        isFiltering ? searchResults.count : userGroups.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -43,7 +102,7 @@ final class UserGroupsTableViewController: UITableViewController {
             withIdentifier: Constants.userGroupCellIdentifier,
             for: indexPath
         ) as? GroupTableViewCell else { return GroupTableViewCell() }
-        let group = userGroups[indexPath.row]
+        let group = isFiltering ? searchResults[indexPath.row] : userGroups[indexPath.row]
         cell.configureCell(group)
         return cell
     }
@@ -58,5 +117,13 @@ final class UserGroupsTableViewController: UITableViewController {
         if editingStyle == .delete {
             userGroups.remove(at: indexPath.row)
         }
+    }
+}
+
+extension UserGroupsTableViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchResults = userGroups.filter { $0.groupName.lowercased().contains(searchText.lowercased()) }
+        isSearching = true
+        tableView.reloadData()
     }
 }

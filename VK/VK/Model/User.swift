@@ -3,7 +3,7 @@
 
 import Foundation
 
-// Модель друга пользователя
+// Друг пользователя
 struct User {
     let avatarImageName: String
     let userName: String

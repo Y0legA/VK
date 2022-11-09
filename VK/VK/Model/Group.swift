@@ -3,7 +3,7 @@
 
 import Foundation
 
-// Модель группы пользователя
+// Группа пользователя
 struct Group: Equatable {
     let groupName: String
     let groupImageName: String

@@ -60,7 +60,7 @@ final class FriendsTableViewController: UITableViewController {
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: Constants.headerIdentifier)
             as? FriendsSectionTableViewHeader else { return UITableViewHeaderFooterView() }
         let title = String(sectionTitles[section])
-        header.sectionLabel.text = title
+        header.configure(title)
         return header
     }
 

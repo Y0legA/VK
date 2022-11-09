@@ -5,7 +5,13 @@ import UIKit
 
 // хедер секций друзей
 final class FriendsSectionTableViewHeader: UITableViewHeaderFooterView {
-    // MARK: - IBOutlet
+    // MARK: - Private IBOutlet
 
-    @IBOutlet var sectionLabel: UILabel!
+    @IBOutlet private var sectionLabel: UILabel!
+
+    // MARK: - Public Methods
+
+    func configure(_ nameLabel: String) {
+        sectionLabel.text = nameLabel
+    }
 }

@@ -7,9 +7,4 @@ import Foundation
 struct Group: Equatable {
     let groupName: String
     let groupImageName: String
-
-    init(_ groupImageName: String, _ groupName: String) {
-        self.groupImageName = groupImageName
-        self.groupName = groupName
-    }
 }

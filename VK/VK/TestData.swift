@@ -3,51 +3,51 @@
 
 // тестовый массив
 let friends = [
-    User("1", "Иванова Катерина", 23, true),
-    User("2", "Ермолаев Анатоль", 324, false),
-    User("3", "Иволгин Петруччо", 54, true),
-    User("20", "Абакумов Трофим", 324, false),
-    User("21", "Петрова Татьяна", 324, false),
-    User("22", "Караваев Стас", 324, false),
-    User("23", "Мавроди Антон", 324, false),
-    User("24", "Черкасов Юрий", 324, false),
-    User("25", "Мамаев Павел", 324, false),
-    User("26", "Измайлова Анастасия", 324, false),
-    User("27", "Кривоносов Игорь", 324, false)
+    User(avatarImageName: "1", userName: "Иванова Катерина", likes: 23, isliked: true),
+    User(avatarImageName: "2", userName: "Ермолаев Анатоль", likes: 324, isliked: false),
+    User(avatarImageName: "3", userName: "Абакумов Трофим", likes: 321, isliked: false),
+    User(avatarImageName: "20", userName: "Абакумов Трофим", likes: 23, isliked: true),
+    User(avatarImageName: "21", userName: "Петрова Татьяна", likes: 543, isliked: false),
+    User(avatarImageName: "22", userName: "Караваев Стас", likes: 1233, isliked: false),
+    User(avatarImageName: "24", userName: "Черкасов Юрий", likes: 345, isliked: true),
+    User(avatarImageName: "25", userName: "Мамаев Павел", likes: 5664, isliked: false),
+    User(avatarImageName: "26", userName: "Измайлова Анастасия", likes: 44, isliked: true),
+    User(avatarImageName: "27", userName: "Кривоносов Игорь", likes: 12, isliked: false)
 ]
 
 let groups = [
-    Group("4", "Панки в городе!!!"),
-    Group("5", "Гараж"),
-    Group("6", "3D-печать"),
-    Group("7", "Ездим на батарейках"),
-    Group("8", "IOS Developers"),
-    Group("9", "Последние новости"),
-    Group("10", "Кинопоиск"),
-    Group("11", "Гороскопы"),
-    Group("12", "Мобильная разработка"),
-    Group("13", "Общество анонимных алкоголиков"),
-    Group("14", "Dune, группа последователей"),
-    Group("15", "Резьба по дереву"),
-    Group("16", "Общество любителей тишины"),
-    Group("17", "Секреты автономок"),
-    Group("18", "Relax")
+    Group(groupName: "4", groupImageName: "Панки в городе!!!"),
+    Group(groupName: "5", groupImageName: "Гараж"),
+    Group(groupName: "6", groupImageName: "3D-печать"),
+    Group(groupName: "7", groupImageName: "Ездим на батарейках"),
+    Group(groupName: "8", groupImageName: "IOS Developers"),
+    Group(groupName: "9", groupImageName: "Последние новости"),
+    Group(groupName: "10", groupImageName: "Кинопоиск"),
+    Group(groupName: "11", groupImageName: "Гороскопы"),
+    Group(groupName: "12", groupImageName: "Мобильная разработка"),
+    Group(groupName: "13", groupImageName: "Общество анонимных алкоголиков"),
+    Group(groupName: "14", groupImageName: "Dune, группа последователей"),
+    Group(groupName: "15", groupImageName: "Резьба по дереву"),
+    Group(groupName: "16", groupImageName: "Общество любителей тишины"),
+    Group(groupName: "17", groupImageName: "Секреты автономок"),
+    Group(groupName: "18", groupImageName: "Relax")
 ]
 
 let posts = [
     Post(
-        "post",
-        "3",
-        "Mak",
-        "21.12.21",
-        123,
-        false,
+        postImageName: "post",
+        avatarImageName: "3",
+        userName: "Mak",
+        date: "21.12.21",
+        likes: 123,
+        isliked: false,
+        postDescription:
         """
-        Пять миллионов людей, забывших укрыться от палящего ядерного \
-        зарева, превратились в радиоактивных бескожих гулей. Многие \
-        из них, с которыми вам доведётся встретиться, работают и \
-        действуют почти как настоящие человеческие существа. У некоторых \
-        длительное воздействие радиации выжгло мозги и они бродят по \
+        Пять миллионов людей, забывших укрыться от палящего ядерного
+        зарева, превратились в радиоактивных бескожих гулей. Многие
+        из них, с которыми вам доведётся встретиться, работают и
+        действуют почти как настоящие человеческие существа. У некоторых
+        длительное воздействие радиации выжгло мозги и они бродят по
         равнинам подобно зомби.
         """
     )

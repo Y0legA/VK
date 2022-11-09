@@ -25,7 +25,9 @@ final class UserGroupsTableViewController: UITableViewController {
 
     // MARK: - Private Properties
 
-    private var userGroups = [groups.first ?? Group(Constants.emptyString, Constants.emptyString)] {
+    private var userGroups =
+        [groups.first ?? Group(groupName: Constants.emptyString, groupImageName: Constants.emptyString)]
+    {
         didSet {
             tableView.reloadData()
         }

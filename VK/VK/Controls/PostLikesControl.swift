@@ -1,10 +1,10 @@
-// LikesControl.swift
+// PostLikesControl.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
-// Контрол для отображения и подсчета лайков на фото друга
-final class LikesControl: UIControl {
+// Контрол для отображения и подсчета лайков поста
+final class PostLikesControl: UIControl {
     // MARK: - Private Constants
 
     private enum Constant {
@@ -19,14 +19,15 @@ final class LikesControl: UIControl {
 
     // MARK: - Public Properties
 
-    var isLiked: Bool = false {
+    private var isLiked: Bool = false {
         didSet {
             updateLikeStatus()
         }
     }
 
-    var likesCount = 0 {
+    private var likesCount = 0 {
         didSet {
+            likesCountLabel.text = String(likesCount)
             UIView.transition(
                 with: likesCountLabel,
                 duration: 1.0,
@@ -83,7 +84,7 @@ final class LikesControl: UIControl {
     private func setConstraintLikesCountButton() {
         likesCountLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            likesCountLabel.rightAnchor.constraint(equalTo: likeButton.leftAnchor, constant: -5),
+            likesCountLabel.rightAnchor.constraint(equalTo: likeButton.leftAnchor),
             likesCountLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
@@ -91,7 +92,7 @@ final class LikesControl: UIControl {
     private func setConstraintLikeButton() {
         likeButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            likeButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -5),
+            likeButton.rightAnchor.constraint(equalTo: rightAnchor),
             likeButton.centerYAnchor.constraint(equalTo: centerYAnchor),
             likeButton.widthAnchor.constraint(equalTo: widthAnchor),
             likeButton.heightAnchor.constraint(equalTo: heightAnchor)

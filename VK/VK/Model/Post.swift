@@ -1,12 +1,15 @@
-// User.swift
+// Post.swift
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
 
-// Друг пользователя
-struct User {
+// Пост
+struct Post {
+    let postImageName: String
     let avatarImageName: String
     let userName: String
+    let date: String
     let likes: Int
     let isliked: Bool
+    let postDescription: String
 }

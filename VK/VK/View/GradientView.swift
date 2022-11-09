@@ -5,49 +5,55 @@ import UIKit
 
 // Вью для задания градиента
 @IBDesignable final class GradientView: UIView {
+    // MARK: - Public Properties
+
     override class var layerClass: AnyClass {
         CAGradientLayer.self
     }
 
-    var gradientLayer: CAGradientLayer {
+    // MARK: - Pruvate Properties
+
+    private var gradientLayer: CAGradientLayer {
         layer as? CAGradientLayer ?? CAGradientLayer()
     }
 
-    @IBInspectable var startColor: UIColor = .white {
+    @IBInspectable private var startColor: UIColor = .white {
         didSet {
             updateColors()
         }
     }
 
-    @IBInspectable var endColor: UIColor = .black {
+    @IBInspectable private var endColor: UIColor = .black {
         didSet {
             updateColors()
         }
     }
 
-    @IBInspectable var startLocation: CGFloat = 0 {
+    @IBInspectable private var startLocation: CGFloat = 0 {
         didSet {
             updateLocations()
         }
     }
 
-    @IBInspectable var endLocation: CGFloat = 1 {
+    @IBInspectable private var endLocation: CGFloat = 1 {
         didSet {
             updateLocations()
         }
     }
 
-    @IBInspectable var startPoint: CGPoint = .zero {
+    @IBInspectable private var startPoint: CGPoint = .zero {
         didSet {
             updateStartPoint()
         }
     }
 
-    @IBInspectable var endPoint: CGPoint = .init(x: 1, y: 1) {
+    @IBInspectable private var endPoint: CGPoint = .init(x: 1, y: 1) {
         didSet {
             updateEndPoint()
         }
     }
+
+    // MARK: - Private Methods
 
     private func updateColors() {
         gradientLayer.colors = [startColor.cgColor, endColor.cgColor]
@@ -61,7 +67,7 @@ import UIKit
         gradientLayer.endPoint = endPoint
     }
 
-    func updateLocations() {
+    private func updateLocations() {
         gradientLayer.locations = [startLocation as NSNumber, endLocation as NSNumber]
     }
 }

@@ -5,5 +5,7 @@ import UIKit
 
 // хедер секций друзей
 final class FriendsSectionTableViewHeader: UITableViewHeaderFooterView {
+    // MARK: - IBOutlet
+
     @IBOutlet var sectionLabel: UILabel!
 }

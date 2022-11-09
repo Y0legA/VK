@@ -31,8 +31,6 @@ final class OutAllGroupsTableViewController: UITableViewController {
         }
     }
 
-    private var searchResults: [Group] = []
-
     private var searchResultIsEmpty: Bool {
         guard let text = searchBar.text else { return false }
         return text.isEmpty
@@ -43,6 +41,7 @@ final class OutAllGroupsTableViewController: UITableViewController {
     }
 
     private var isSearching = false
+    private var searchResults: [Group] = []
 
     // MARK: - LifeCycle
 

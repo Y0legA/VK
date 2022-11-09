@@ -31,17 +31,16 @@ final class UserGroupsTableViewController: UITableViewController {
         }
     }
 
-    private var searchResults: [Group] = []
+    private var isFiltering: Bool {
+        isSearching && !searchResultIsEmpty
+    }
 
     private var searchResultIsEmpty: Bool {
         guard let text = searchBar.text else { return false }
         return text.isEmpty
     }
 
-    private var isFiltering: Bool {
-        isSearching && !searchResultIsEmpty
-    }
-
+    private var searchResults: [Group] = []
     private var isSearching = false
 
     // MARK: - LifeCycle

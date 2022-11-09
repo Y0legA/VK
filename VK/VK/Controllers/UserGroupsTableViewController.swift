@@ -78,7 +78,6 @@ final class UserGroupsTableViewController: UITableViewController {
         searchBar.searchTextField.backgroundColor = UIColor(named: Constants.lightPlaceholderMintColorName)
         searchBar.barTintColor = UIColor(named: Constants.lightMintColorName)
         searchBar.sizeToFit()
-        tableView.tableHeaderView = searchBar
     }
 
     private func configureTableView() {

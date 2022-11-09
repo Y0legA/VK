@@ -38,6 +38,32 @@ final class FriendsTableViewController: UITableViewController {
         collectionVC.configureData(friend)
     }
 
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        sortedSectionsFriends.count
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        sortedSectionsFriends[sectionTitles[section]]?.count ?? 0
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: Constants.friendCellIdentifier,
+            for: indexPath
+        ) as? FriendTableViewCell else { fatalError() }
+        guard let friend = sortedSectionsFriends[sectionTitles[indexPath.section]]?[indexPath.row] else { abort() }
+        cell.configureCell(friend)
+        return cell
+    }
+
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: Constants.headerIdentifier)
+            as? FriendsSectionTableViewHeader else { return UITableViewHeaderFooterView() }
+        let title = String(sectionTitles[section])
+        header.sectionLabel.text = title
+        return header
+    }
+
     // MARK: - Private Methods
 
     private func configureUI() {
@@ -62,33 +88,5 @@ final class FriendsTableViewController: UITableViewController {
             }
         }
         sectionTitles = Array(sortedSectionsFriends.keys).sorted()
-    }
-
-    // MARK: - TableViewDataSource
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        sortedSectionsFriends.count
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        sortedSectionsFriends[sectionTitles[section]]?.count ?? 0
-    }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: Constants.friendCellIdentifier,
-            for: indexPath
-        ) as? FriendTableViewCell else { fatalError() }
-        guard let friend = sortedSectionsFriends[sectionTitles[indexPath.section]]?[indexPath.row] else { abort() }
-        cell.configureCell(friend)
-        return cell
-    }
-
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let title = String(sectionTitles[section])
-        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: Constants.headerIdentifier)
-            as? FriendsSectionTableViewHeader else { return UITableViewHeaderFooterView() }
-        header.sectionLabel.text = title
-        return header
     }
 }

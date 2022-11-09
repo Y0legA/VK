@@ -597,8 +597,8 @@
                         <outlet property="loginTextField" destination="8Ju-A8-GSc" id="bMM-y3-YeJ"/>
                         <outlet property="passwordTextField" destination="8xQ-fO-9bS" id="3g6-6I-Xz0"/>
                         <outlet property="scrollView" destination="rMX-cC-pYG" id="2Zx-Ch-VCF"/>
-                        <outlet property="secondCircleUpload" destination="tC1-qt-for" id="1B6-U1-bkv"/>
-                        <outlet property="thirdCircleUpload" destination="zqA-TE-WIr" id="U0J-00-PT8"/>
+                        <outlet property="secondCircleUploadView" destination="tC1-qt-for" id="1B6-U1-bkv"/>
+                        <outlet property="thirdCircleUploadView" destination="zqA-TE-WIr" id="U0J-00-PT8"/>
                         <outlet property="uploadIndicatorView" destination="itF-aT-xnY" id="B6P-kX-Dtm"/>
                         <segue destination="bMd-vl-T0X" kind="show" identifier="enterSegue" id="Old-D2-MOP"/>
                     </connections>

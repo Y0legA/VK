@@ -19,13 +19,13 @@ final class PostLikesControl: UIControl {
 
     // MARK: - Public Properties
 
-    var isLiked: Bool = false {
+    private var isLiked: Bool = false {
         didSet {
             updateLikeStatus()
         }
     }
 
-    var likesCount = 0 {
+    private var likesCount = 0 {
         didSet {
             likesCountLabel.text = String(likesCount)
             UIView.transition(

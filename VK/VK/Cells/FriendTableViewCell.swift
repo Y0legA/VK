@@ -34,9 +34,9 @@ final class FriendTableViewCell: UITableViewCell {
                 self.avatarImageView.frame.size.width += 10
                 self.avatarImageView.frame.size.height += 10
             },
-            completion: { [weak self] _ in
-                self?.avatarImageView.frame.size.width -= 10
-                self?.avatarImageView.frame.size.height -= 10
+            completion: { _ in
+                self.avatarImageView.frame.size.width -= 10
+                self.avatarImageView.frame.size.height -= 10
             }
         )
     }

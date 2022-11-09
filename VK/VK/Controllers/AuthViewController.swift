@@ -24,10 +24,10 @@ final class AuthViewController: UIViewController {
     @IBOutlet private var loginTextField: UITextField!
     @IBOutlet private var passwordTextField: UITextField!
 
-    @IBOutlet var uploadIndicatorView: UIView!
-    @IBOutlet var firstCircleUploadView: UIView!
-    @IBOutlet var secondCircleUpload: UIView!
-    @IBOutlet var thirdCircleUpload: UIView!
+    @IBOutlet private var uploadIndicatorView: UIView!
+    @IBOutlet private var firstCircleUploadView: UIView!
+    @IBOutlet private var secondCircleUploadView: UIView!
+    @IBOutlet private var thirdCircleUploadView: UIView!
 
     // MARK: - LifeCycle
 
@@ -88,12 +88,12 @@ final class AuthViewController: UIViewController {
     private func startUploadIndicator() {
         let group = CAAnimationGroup()
         let firstAnimation = setAnimation(firstCircleUploadView, 1)
-        let secondAnimation = setAnimation(secondCircleUpload, 3)
-        let thirdAnimation = setAnimation(thirdCircleUpload, 5)
+        let secondAnimation = setAnimation(secondCircleUploadView, 3)
+        let thirdAnimation = setAnimation(thirdCircleUploadView, 5)
         group.animations = [firstAnimation, secondAnimation, thirdAnimation]
         firstCircleUploadView.layer.add(firstAnimation, forKey: nil)
-        secondCircleUpload.layer.add(secondAnimation, forKey: nil)
-        thirdCircleUpload.layer.add(thirdAnimation, forKey: nil)
+        secondCircleUploadView.layer.add(secondAnimation, forKey: nil)
+        thirdCircleUploadView.layer.add(thirdAnimation, forKey: nil)
     }
 
     private func setAnimation(_ view: UIView, _ delay: Double) -> CABasicAnimation {

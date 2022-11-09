@@ -61,6 +61,24 @@ final class OutAllGroupsTableViewController: UITableViewController {
         subscribeGroupHandler = completion
     }
 
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        isFiltering ? searchResults.count : outGroups.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: Constants.outGroupCellIdentifier,
+            for: indexPath
+        ) as? OutGroupsTableViewCell else { fatalError() }
+        let group = isFiltering ? searchResults[indexPath.row] : outGroups[indexPath.row]
+        cell.configureCell(group)
+        return cell
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        goUserGroups(indexPath)
+    }
+
     // MARK: - Private Methods
 
     private func goUserGroups(_ indexPath: IndexPath) {
@@ -83,33 +101,10 @@ final class OutAllGroupsTableViewController: UITableViewController {
         searchBar.showsSearchResultsButton = true
         searchBar.searchBarStyle = UISearchBar.Style.default
         searchBar.sizeToFit()
-        tableView.tableHeaderView = searchBar
     }
 
     private func configureTableView() {
         tableView.tableHeaderView = searchBar
-    }
-
-    // MARK: - UITableViewDataSource
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        isFiltering ? searchResults.count : outGroups.count
-    }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: Constants.outGroupCellIdentifier,
-            for: indexPath
-        ) as? OutGroupsTableViewCell else { fatalError() }
-        let group = isFiltering ? searchResults[indexPath.row] : outGroups[indexPath.row]
-        cell.configureCell(group)
-        return cell
-    }
-
-    // MARK: - UITableViewDelegate
-
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        goUserGroups(indexPath)
     }
 }
 

@@ -20,6 +20,7 @@ final class FriendPhotoCollectionViewController: UICollectionViewController {
     private var likes = 0
     private var isLiked = false
     private var photoNames: [String] = []
+//    private let interactiveTransition = InteractiveTransition()
 
     // MARK: - Public Methods
 
@@ -36,6 +37,8 @@ final class FriendPhotoCollectionViewController: UICollectionViewController {
         guard segue.identifier == Constants.segueIdentifier,
               let vc = segue.destination as? FriendPhotosViewController else { return }
         vc.configure(photoNames)
+//        navigationController?.delegate = self
+        // navigationController?.pushViewController(vc, animated: true)
     }
 
     // MARK: UICollectionViewDataSource
@@ -55,4 +58,42 @@ final class FriendPhotoCollectionViewController: UICollectionViewController {
         cell.configureCell(photoName, photoNames, likes, isLiked)
         return cell
     }
+
+//    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        guard let vc = storyboard?
+//            .instantiateViewController(withIdentifier: Constants.storyboardIdentifier) as? FriendPhotosViewController
+//        else { return }
+//        vc.configure(photoNames)
+//        navigationController?.delegate = self
+//        navigationController?.pushViewController(vc, animated: true)
+//    }
 }
+
+// MARK: - UINavigationControllerDelegate
+
+// extension FriendPhotoCollectionViewController: UINavigationControllerDelegate {
+//    func navigationController(
+//        _ navigationController: UINavigationController,
+//        animationControllerFor operation: UINavigationController.Operation,
+//        from fromVC: UIViewController,
+//        to toVC: UIViewController
+//    ) -> UIViewControllerAnimatedTransitioning? {
+//        if operation == .pop {
+//            if navigationController.viewControllers.first != toVC {
+//                interactiveTransition.viewController = toVC
+//            }
+//            return PopAnimator()
+//        } else if operation == .push {
+//            interactiveTransition.viewController = toVC
+//            return PushAnimator()
+//        }
+//        return nil
+//    }
+//
+//    func navigationController(
+//        _ navigationController: UINavigationController,
+//        interactionControllerFor animationController: UIViewControllerAnimatedTransitioning
+//    ) -> UIViewControllerInteractiveTransitioning? {
+//        interactiveTransition.hasStarted ? interactiveTransition : nil
+//    }
+// }

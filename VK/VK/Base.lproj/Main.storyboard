@@ -387,7 +387,7 @@
                                 <connections>
                                     <outlet property="friendImageView" destination="Q2h-Zg-Smo" id="CEB-ip-TzD"/>
                                     <outlet property="likesControl" destination="k1e-RI-bW1" id="0u0-rx-sKA"/>
-                                    <segue destination="tig-rL-IjM" kind="show" identifier="photosSegue" id="a3Y-mM-d5j"/>
+                                    <segue destination="tig-rL-IjM" kind="show" identifier="photosSegue" id="TGu-fb-z7V"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -405,7 +405,7 @@
         <!--Friend Photos View Controller-->
         <scene sceneID="qOj-0T-g0D">
             <objects>
-                <viewController id="tig-rL-IjM" customClass="FriendPhotosViewController" customModule="VK" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="photos" id="tig-rL-IjM" customClass="FriendPhotosViewController" customModule="VK" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dFn-Jy-CjR">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="787"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -644,7 +644,7 @@
         <!--Friends-->
         <scene sceneID="CDf-0i-53U">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="75m-sr-oOP" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="75m-sr-oOP" customClass="CustomNavigationController" customModule="VK" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Friends" image="person.fill" catalog="system" selectedImage="person.fill" id="vAe-2E-xfA"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Jlh-sj-ve6">
@@ -822,7 +822,7 @@
         <image name="logo" width="4096" height="4096"/>
         <image name="newspaper" catalog="system" width="128" height="111"/>
         <image name="person.3.sequence.fill" catalog="system" width="128" height="59"/>
-        <image name="person.fill" catalog="system" width="32" height="32"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

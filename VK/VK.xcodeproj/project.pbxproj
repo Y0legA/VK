@@ -26,6 +26,8 @@
 		E10AF815291012C80077251D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E10AF813291012C80077251D /* Main.storyboard */; };
 		E10AF817291012CC0077251D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E10AF816291012CC0077251D /* Assets.xcassets */; };
 		E10AF81A291012CC0077251D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E10AF818291012CC0077251D /* LaunchScreen.storyboard */; };
+		E111E1C2291D10900083597B /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E111E1C1291D10900083597B /* Animator.swift */; };
+		E111E1C6291D666D0083597B /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E111E1C5291D666D0083597B /* CustomNavigationController.swift */; };
 		E13C66C429197DF800F67059 /* FriendsSectionTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C66C329197DF800F67059 /* FriendsSectionTableViewHeader.swift */; };
 		E13C66C629197E2C00F67059 /* FriendsSectionTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = E13C66C529197E2C00F67059 /* FriendsSectionTableViewHeader.xib */; };
 		E17B83492919A1C2000918AB /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B83482919A1C2000918AB /* GradientView.swift */; };
@@ -61,6 +63,8 @@
 		E10AF816291012CC0077251D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E10AF819291012CC0077251D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E10AF81B291012CC0077251D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E111E1C1291D10900083597B /* Animator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
+		E111E1C5291D666D0083597B /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		E13C66C329197DF800F67059 /* FriendsSectionTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsSectionTableViewHeader.swift; sourceTree = "<group>"; };
 		E13C66C529197E2C00F67059 /* FriendsSectionTableViewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendsSectionTableViewHeader.xib; sourceTree = "<group>"; };
 		E17B83482919A1C2000918AB /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
@@ -89,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				E10AF811291012C80077251D /* AuthViewController.swift */,
+				E111E1C5291D666D0083597B /* CustomNavigationController.swift */,
 				E10623892912E8C300779500 /* FriendsTableViewController.swift */,
 				E106238B2912E94600779500 /* FriendPhotoCollectionViewController.swift */,
 				E106238D2912E9A100779500 /* UserGroupsTableViewController.swift */,
@@ -151,6 +156,7 @@
 			children = (
 				E10AF80D291012C80077251D /* AppDelegate.swift */,
 				E10AF80F291012C80077251D /* SceneDelegate.swift */,
+				E111E1C1291D10900083597B /* Animator.swift */,
 				E13C66C229197DAE00F67059 /* Headers */,
 				E1EAB3FA2914373000AC732E /* Controls */,
 				E1062373291246EE00779500 /* Controllers */,
@@ -332,6 +338,7 @@
 				E10623842912E4F400779500 /* User.swift in Sources */,
 				E10AF80E291012C80077251D /* AppDelegate.swift in Sources */,
 				E10623722911860100779500 /* TextField+Extension.swift in Sources */,
+				E111E1C6291D666D0083597B /* CustomNavigationController.swift in Sources */,
 				E17B834F2919D1B5000918AB /* Post.swift in Sources */,
 				E17B834D2919C342000918AB /* NewsTableViewCell.swift in Sources */,
 				E13C66C429197DF800F67059 /* FriendsSectionTableViewHeader.swift in Sources */,
@@ -339,6 +346,7 @@
 				E10AF810291012C80077251D /* SceneDelegate.swift in Sources */,
 				E1B7E0B5291C4B32002BFC1F /* FriendPhotosViewController.swift in Sources */,
 				E10623882912E69600779500 /* FriendTableViewCell.swift in Sources */,
+				E111E1C2291D10900083597B /* Animator.swift in Sources */,
 				E10623942912EA4000779500 /* PhotoCollectionViewCell.swift in Sources */,
 				E10623922912EA2800779500 /* GroupTableViewCell.swift in Sources */,
 				E17B834B2919BD0F000918AB /* NewsViewController.swift in Sources */,

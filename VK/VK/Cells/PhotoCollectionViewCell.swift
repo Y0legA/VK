@@ -12,7 +12,7 @@ final class PhotoCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Public Methods
 
-    func configureCell(_ imageName: String, _ likes: Int, _ islike: Bool) {
+    func configure(_ imageName: String, _ photoNames: [String], _ likes: Int, _ islike: Bool) {
         friendImageView.image = UIImage(named: imageName)
         likesControl.configure(likes, islike)
     }

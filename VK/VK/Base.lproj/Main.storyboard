@@ -353,21 +353,21 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="wTf-Ww-p74" customClass="PhotoCollectionViewCell" customModule="VK" customModuleProvider="target">
-                                <rect key="frame" x="45" y="0.0" width="300" height="340"/>
+                                <rect key="frame" x="20" y="0.0" width="350" height="370"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="bbf-za-Pvu">
-                                    <rect key="frame" x="0.0" y="0.0" width="300" height="340"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="350" height="370"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Q2h-Zg-Smo">
-                                            <rect key="frame" x="0.0" y="0.0" width="300" height="320"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="350" height="350"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="320" id="5cm-NA-vGT"/>
-                                                <constraint firstAttribute="width" constant="300" id="oC8-Wg-JVz"/>
+                                                <constraint firstAttribute="width" secondItem="Q2h-Zg-Smo" secondAttribute="height" multiplier="1:1" id="VhK-eP-3f6"/>
+                                                <constraint firstAttribute="width" constant="350" id="vmZ-5s-mSk"/>
                                             </constraints>
                                         </imageView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k1e-RI-bW1" customClass="LikesControl" customModule="VK" customModuleProvider="target">
-                                            <rect key="frame" x="280" y="320" width="20" height="20"/>
+                                            <rect key="frame" x="330" y="350" width="20" height="20"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="20" id="YmH-yH-Qep"/>
@@ -387,6 +387,7 @@
                                 <connections>
                                     <outlet property="friendImageView" destination="Q2h-Zg-Smo" id="CEB-ip-TzD"/>
                                     <outlet property="likesControl" destination="k1e-RI-bW1" id="0u0-rx-sKA"/>
+                                    <segue destination="tig-rL-IjM" kind="show" identifier="photosSegue" id="TGu-fb-z7V"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -400,6 +401,39 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hPX-iV-EGe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1416.9230769230769" y="-226.06635071090045"/>
+        </scene>
+        <!--Friend Photos View Controller-->
+        <scene sceneID="qOj-0T-g0D">
+            <objects>
+                <viewController storyboardIdentifier="photos" id="tig-rL-IjM" customClass="FriendPhotosViewController" customModule="VK" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dFn-Jy-CjR">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="787"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Efa-nr-a89">
+                                <rect key="frame" x="0.0" y="213.66666666666663" width="390" height="390"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Efa-nr-a89" secondAttribute="height" multiplier="1:1" id="Myi-TN-VyH"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="eSC-Tv-BIW"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="eSC-Tv-BIW" firstAttribute="trailing" secondItem="Efa-nr-a89" secondAttribute="trailing" id="28m-cU-w2C"/>
+                            <constraint firstItem="Efa-nr-a89" firstAttribute="leading" secondItem="eSC-Tv-BIW" secondAttribute="leading" id="3yw-7Q-oOQ"/>
+                            <constraint firstItem="Efa-nr-a89" firstAttribute="centerX" secondItem="eSC-Tv-BIW" secondAttribute="centerX" id="Xfg-fd-442"/>
+                            <constraint firstItem="Efa-nr-a89" firstAttribute="centerY" secondItem="eSC-Tv-BIW" secondAttribute="centerY" id="lRP-w1-uzz"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="dPu-23-Zml"/>
+                    <connections>
+                        <outlet property="imageView" destination="Efa-nr-a89" id="Hmh-Jz-0nx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eN2-8x-YNW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2273.8461538461538" y="-226.06635071090045"/>
         </scene>
         <!--Auth View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -610,7 +644,7 @@
         <!--Friends-->
         <scene sceneID="CDf-0i-53U">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="75m-sr-oOP" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="75m-sr-oOP" customClass="CustomNavigationController" customModule="VK" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Friends" image="person.fill" catalog="system" selectedImage="person.fill" id="vAe-2E-xfA"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Jlh-sj-ve6">

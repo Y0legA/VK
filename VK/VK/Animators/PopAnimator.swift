@@ -3,7 +3,7 @@
 
 import UIKit
 
-// класс для анимирования перехода на другой экран назад
+// Анимирование перехода на другой экран назад
 final class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     // MARK: - Private Constants
 

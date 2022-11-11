@@ -1,20 +1,20 @@
 // TestData.swift
 // Copyright © RoadMap. All rights reserved.
 
-// тестовый массив
-let photos = ["30", "31", "32", "33", "34", "35"]
+// тестовые данные
+let photoNames = ["30", "31", "32", "33", "34", "35"]
 
 let friends = [
-    User(avatarImageName: "1", photoNames: photos, userName: "Иванова Катерина", likes: 23, isliked: true),
-    User(avatarImageName: "2", photoNames: photos, userName: "Ермолаев Анатоль", likes: 324, isliked: false),
-    User(avatarImageName: "3", photoNames: photos, userName: "Абакумов Трофим", likes: 321, isliked: false),
-    User(avatarImageName: "20", photoNames: photos, userName: "Абакумов Трофим", likes: 23, isliked: true),
-    User(avatarImageName: "21", photoNames: photos, userName: "Петрова Татьяна", likes: 543, isliked: false),
-    User(avatarImageName: "22", photoNames: photos, userName: "Караваев Стас", likes: 1233, isliked: false),
-    User(avatarImageName: "24", photoNames: photos, userName: "Черкасов Юрий", likes: 345, isliked: true),
-    User(avatarImageName: "25", photoNames: photos, userName: "Мамаев Павел", likes: 5664, isliked: false),
-    User(avatarImageName: "26", photoNames: photos, userName: "Измайлова Анастасия", likes: 44, isliked: true),
-    User(avatarImageName: "27", photoNames: photos, userName: "Кривоносов Игорь", likes: 12, isliked: false)
+    User(avatarImageName: "1", photoNames: photoNames, userName: "Иванова Катерина", likeCount: 23, isliked: true),
+    User(avatarImageName: "2", photoNames: photoNames, userName: "Ермолаев Анатоль", likeCount: 324, isliked: false),
+    User(avatarImageName: "3", photoNames: photoNames, userName: "Абакумов Трофим", likeCount: 321, isliked: false),
+    User(avatarImageName: "20", photoNames: photoNames, userName: "Абакумов Трофим", likeCount: 23, isliked: true),
+    User(avatarImageName: "21", photoNames: photoNames, userName: "Петрова Татьяна", likeCount: 543, isliked: false),
+    User(avatarImageName: "22", photoNames: photoNames, userName: "Караваев Стас", likeCount: 1233, isliked: false),
+    User(avatarImageName: "24", photoNames: photoNames, userName: "Черкасов Юрий", likeCount: 345, isliked: true),
+    User(avatarImageName: "25", photoNames: photoNames, userName: "Мамаев Павел", likeCount: 5664, isliked: false),
+    User(avatarImageName: "26", photoNames: photoNames, userName: "Измайлова Анастасия", likeCount: 44, isliked: true),
+    User(avatarImageName: "27", photoNames: photoNames, userName: "Кривоносов Игорь", likeCount: 12, isliked: false)
 ]
 
 let groups = [

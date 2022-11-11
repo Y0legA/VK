@@ -8,6 +8,6 @@ struct User {
     let avatarImageName: String
     let photoNames: [String]
     let userName: String
-    let likes: Int
+    let likeCount: Int
     let isliked: Bool
 }

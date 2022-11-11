@@ -34,8 +34,8 @@ final class FriendPhotosViewController: UIViewController {
 
     // MARK: - Public Methods
 
-    func configure(_ photos: [String]) {
-        friendPhotoNames = photos
+    func configure(_ photosName: [String]) {
+        friendPhotoNames = photosName
     }
 
     // MARK: - Private Methods
@@ -52,7 +52,7 @@ final class FriendPhotosViewController: UIViewController {
             currentPhotoIndex -= 1
             animatePhotoImageView(-view.bounds.width)
         case .down:
-            swipeDown()
+            swipeDownAnimate()
         default:
             return
         }
@@ -87,20 +87,20 @@ final class FriendPhotosViewController: UIViewController {
         imageView.layer.add(fadeAnimation, forKey: nil)
     }
 
-    private func swipeDown() {
+    private func swipeDownAnimate() {
         UIView.animate(
             withDuration: 0.7,
             animations: {
                 let translation = CGAffineTransform(translationX: 0, y: self.view.bounds.height)
                 self.imageView.transform = translation.concatenating(CGAffineTransform(scaleX: 0.3, y: 0.3))
             },
-            completion: { _ in
-                self.navigationController?.popViewController(animated: true)
+            completion: { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
             }
         )
     }
 
-    private func configureGesture(_ direction: UISwipeGestureRecognizer.Direction) {
+    private func configureSwipeGestureRecognizer(_ direction: UISwipeGestureRecognizer.Direction) {
         let gesture = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction))
         gesture.direction = direction
         imageView.addGestureRecognizer(gesture)
@@ -108,9 +108,9 @@ final class FriendPhotosViewController: UIViewController {
 
     private func configureUI() {
         configureImageView()
-        configureGesture(.left)
-        configureGesture(.right)
-        configureGesture(.down)
+        configureSwipeGestureRecognizer(.left)
+        configureSwipeGestureRecognizer(.right)
+        configureSwipeGestureRecognizer(.down)
     }
 
     private func configureImageView() {

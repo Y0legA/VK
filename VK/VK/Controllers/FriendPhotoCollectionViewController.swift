@@ -27,7 +27,7 @@ final class FriendPhotoCollectionViewController: UICollectionViewController {
         photoName = user.avatarImageName
         photoNames = user.photoNames
         photoNames.insert(user.avatarImageName, at: 0)
-        likes = user.likes
+        likes = user.likeCount
         isLiked = user.isliked
         title = user.userName
     }
@@ -52,7 +52,7 @@ final class FriendPhotoCollectionViewController: UICollectionViewController {
             withReuseIdentifier: Constants.photosCellIdentifier,
             for: indexPath
         ) as? PhotoCollectionViewCell else { return PhotoCollectionViewCell() }
-        cell.configureCell(photoName, photoNames, likes, isLiked)
+        cell.configure(photoName, photoNames, likes, isLiked)
         return cell
     }
 }

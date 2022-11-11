@@ -52,7 +52,7 @@ final class AuthViewController: UIViewController {
         if checkLogin() {
             startUploadIndicator()
             clearTextFields()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
                 self.performSegue(withIdentifier: Constants.segueIdentifier, sender: self)
             }
         } else {
@@ -113,8 +113,7 @@ final class AuthViewController: UIViewController {
         if loginText == Constants.login, passwordText == Constants.password {
             return true
         } else {
-            return true
-            // return false
+            return false
         }
     }
 

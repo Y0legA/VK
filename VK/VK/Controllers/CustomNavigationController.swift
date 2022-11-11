@@ -6,18 +6,18 @@ import UIKit
 // Экран кастомного навигейшн контроллера
 final class CustomNavigationController: UINavigationController, UINavigationControllerDelegate {
     // MARK: - Private Visual Components
-    
+
     private let interactiveTransition = InteractiveTransition()
 
     // MARK: - LifeCycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        delegate = self
+        configureUI()
     }
 
     // MARK: - Public Methods
-    
+
     func navigationController(
         _ navigationController: UINavigationController,
         interactionControllerFor animationController: UIViewControllerAnimatedTransitioning
@@ -41,5 +41,11 @@ final class CustomNavigationController: UINavigationController, UINavigationCont
             return PopAnimator()
         }
         return nil
+    }
+
+    // MARK: - Private Methods
+
+    private func configureUI() {
+        delegate = self
     }
 }

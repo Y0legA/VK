@@ -4,7 +4,7 @@
 import UIKit
 
 // Фото друга
-class FriendPhotosViewController: UIViewController {
+final class FriendPhotosViewController: UIViewController {
     // Private Constants
     enum Constants {
         static let emptyString = ""
@@ -17,12 +17,12 @@ class FriendPhotosViewController: UIViewController {
 
     // MARK: - Private Properties
 
-    private lazy var firstPhoto = friendPhotoNames.first
-    private lazy var lastPhoto = friendPhotoNames.last
+    private lazy var firstPhotoName = friendPhotoNames.first
+    private lazy var lastPhotoName = friendPhotoNames.last
 
     private var friendPhotoNames: [String] = []
     private var currentPhoto = Constants.emptyString
-    private var prevoiceIndex = 0
+    private var prevousIndex = 0
     private var currentPhotoIndex = 0
 
     // MARK: - LifeCycle
@@ -41,14 +41,14 @@ class FriendPhotosViewController: UIViewController {
     // MARK: - Private Methods
 
     @objc private func swipeAction(_ gesture: UISwipeGestureRecognizer) {
-        prevoiceIndex = currentPhotoIndex
+        prevousIndex = currentPhotoIndex
         switch gesture.direction {
         case .left:
-            guard currentPhoto != lastPhoto else { fallthrough }
+            guard currentPhoto != lastPhotoName else { fallthrough }
             currentPhotoIndex += 1
             animatePhotoImageView(view.bounds.width)
         case .right:
-            guard currentPhoto != firstPhoto else { fallthrough }
+            guard currentPhoto != firstPhotoName else { fallthrough }
             currentPhotoIndex -= 1
             animatePhotoImageView(-view.bounds.width)
         case .down:
@@ -63,7 +63,7 @@ class FriendPhotosViewController: UIViewController {
         UIView.animate(
             withDuration: 0.5,
             animations: {
-                self.imageView.image = UIImage(named: self.friendPhotoNames[self.prevoiceIndex])
+                self.imageView.image = UIImage(named: self.friendPhotoNames[self.prevousIndex])
                 self.imageView.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
                 self.animateDisapearPhoto()
             },
@@ -114,7 +114,7 @@ class FriendPhotosViewController: UIViewController {
     }
 
     private func configureImageView() {
-        imageView.image = UIImage(named: firstPhoto ?? Constants.emptyString)
+        imageView.image = UIImage(named: firstPhotoName ?? Constants.emptyString)
         imageView.isUserInteractionEnabled = true
     }
 }

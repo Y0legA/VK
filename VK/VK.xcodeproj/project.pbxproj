@@ -30,6 +30,7 @@
 		E111E1C6291D666D0083597B /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E111E1C5291D666D0083597B /* CustomNavigationController.swift */; };
 		E13C66C429197DF800F67059 /* FriendsSectionTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C66C329197DF800F67059 /* FriendsSectionTableViewHeader.swift */; };
 		E13C66C629197E2C00F67059 /* FriendsSectionTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = E13C66C529197E2C00F67059 /* FriendsSectionTableViewHeader.xib */; };
+		E1493151292BDCFD0043F052 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1493150292BDCFD0043F052 /* Session.swift */; };
 		E17B83492919A1C2000918AB /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B83482919A1C2000918AB /* GradientView.swift */; };
 		E17B834B2919BD0F000918AB /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B834A2919BD0F000918AB /* NewsViewController.swift */; };
 		E17B834D2919C342000918AB /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B834C2919C342000918AB /* NewsTableViewCell.swift */; };
@@ -69,6 +70,7 @@
 		E111E1C5291D666D0083597B /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		E13C66C329197DF800F67059 /* FriendsSectionTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsSectionTableViewHeader.swift; sourceTree = "<group>"; };
 		E13C66C529197E2C00F67059 /* FriendsSectionTableViewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendsSectionTableViewHeader.xib; sourceTree = "<group>"; };
+		E1493150292BDCFD0043F052 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		E17B83482919A1C2000918AB /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		E17B834A2919BD0F000918AB /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		E17B834C2919C342000918AB /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 			children = (
 				E10AF80D291012C80077251D /* AppDelegate.swift */,
 				E10AF80F291012C80077251D /* SceneDelegate.swift */,
+				E1493150292BDCFD0043F052 /* Session.swift */,
 				E1876398291E1F1E00DC171D /* Transitions */,
 				E1876393291E1E1100DC171D /* Animators */,
 				E13C66C229197DAE00F67059 /* Headers */,
@@ -367,6 +370,7 @@
 				E13C66C429197DF800F67059 /* FriendsSectionTableViewHeader.swift in Sources */,
 				E10623962912EA7200779500 /* OutGroupsTableViewCell.swift in Sources */,
 				E10AF810291012C80077251D /* SceneDelegate.swift in Sources */,
+				E1493151292BDCFD0043F052 /* Session.swift in Sources */,
 				E1B7E0B5291C4B32002BFC1F /* FriendPhotosViewController.swift in Sources */,
 				E10623882912E69600779500 /* FriendTableViewCell.swift in Sources */,
 				E111E1C2291D10900083597B /* InteractiveTransition.swift in Sources */,

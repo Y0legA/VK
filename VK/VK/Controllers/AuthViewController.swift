@@ -29,6 +29,9 @@ final class AuthViewController: UIViewController {
     @IBOutlet private var secondCircleUploadView: UIView!
     @IBOutlet private var thirdCircleUploadView: UIView!
 
+    // MARK: - Private Properties
+    let session = Session.shared
+    
     // MARK: - LifeCycle
 
     override func viewDidLoad() {

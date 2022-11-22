@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="a7M-Ip-J8C">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
@@ -634,12 +634,46 @@
                         <outlet property="secondCircleUploadView" destination="tC1-qt-for" id="1B6-U1-bkv"/>
                         <outlet property="thirdCircleUploadView" destination="zqA-TE-WIr" id="U0J-00-PT8"/>
                         <outlet property="uploadIndicatorView" destination="itF-aT-xnY" id="B6P-kX-Dtm"/>
-                        <segue destination="bMd-vl-T0X" kind="show" identifier="enterSegue" id="Old-D2-MOP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1949" y="112"/>
+            <point key="canvasLocation" x="-2803" y="112"/>
+        </scene>
+        <!--Autorize View Controller-->
+        <scene sceneID="Oan-ce-lfG">
+            <objects>
+                <viewController id="a7M-Ip-J8C" customClass="AutorizeViewController" customModule="VK" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HsH-uw-el7">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FsV-pO-FN5">
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="H93-5x-3Na"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="FsV-pO-FN5" firstAttribute="top" secondItem="HsH-uw-el7" secondAttribute="top" id="KyK-MR-FRA"/>
+                            <constraint firstItem="FsV-pO-FN5" firstAttribute="trailing" secondItem="H93-5x-3Na" secondAttribute="trailing" id="Lpy-l9-osf"/>
+                            <constraint firstAttribute="bottom" secondItem="FsV-pO-FN5" secondAttribute="bottom" id="Tca-JF-f3s"/>
+                            <constraint firstItem="FsV-pO-FN5" firstAttribute="leading" secondItem="H93-5x-3Na" secondAttribute="leading" id="ceT-yU-Wxj"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webview" destination="FsV-pO-FN5" id="1k3-RT-5cV"/>
+                        <segue destination="bMd-vl-T0X" kind="show" identifier="tabBarSegue" id="dIb-xc-oYT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qLp-yi-L17" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1935" y="112"/>
         </scene>
         <!--Friends-->
         <scene sceneID="CDf-0i-53U">
@@ -822,7 +856,7 @@
         <image name="logo" width="4096" height="4096"/>
         <image name="newspaper" catalog="system" width="128" height="111"/>
         <image name="person.3.sequence.fill" catalog="system" width="128" height="59"/>
-        <image name="person.fill" catalog="system" width="128" height="120"/>
+        <image name="person.fill" catalog="system" width="32" height="32"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -39,6 +39,9 @@
 		E17B8353291A39E4000918AB /* ColorAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E17B8352291A39E4000918AB /* ColorAssets.xcassets */; };
 		E1876395291E1E2B00DC171D /* PushAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1876394291E1E2B00DC171D /* PushAnimator.swift */; };
 		E1876397291E1EAD00DC171D /* PopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1876396291E1EAD00DC171D /* PopAnimator.swift */; };
+		E199B7AE292D217600582E2E /* AutorizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E199B7AD292D217600582E2E /* AutorizeViewController.swift */; };
+		E1B447CA292D46BC00310613 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B447C9292D46BC00310613 /* NetworkManager.swift */; };
+		E1B447CC292D46CD00310613 /* Url.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B447CB292D46CD00310613 /* Url.swift */; };
 		E1B7E0B5291C4B32002BFC1F /* FriendPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B7E0B4291C4B32002BFC1F /* FriendPhotosViewController.swift */; };
 		E1EAB3F92913FDF600AC732E /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EAB3F82913FDF600AC732E /* AvatarView.swift */; };
 		E1EAB3FC2914378D00AC732E /* LikesControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EAB3FB2914378D00AC732E /* LikesControl.swift */; };
@@ -79,6 +82,9 @@
 		E17B8352291A39E4000918AB /* ColorAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ColorAssets.xcassets; sourceTree = "<group>"; };
 		E1876394291E1E2B00DC171D /* PushAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushAnimator.swift; sourceTree = "<group>"; };
 		E1876396291E1EAD00DC171D /* PopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopAnimator.swift; sourceTree = "<group>"; };
+		E199B7AD292D217600582E2E /* AutorizeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutorizeViewController.swift; sourceTree = "<group>"; };
+		E1B447C9292D46BC00310613 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		E1B447CB292D46CD00310613 /* Url.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Url.swift; sourceTree = "<group>"; };
 		E1B7E0B4291C4B32002BFC1F /* FriendPhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendPhotosViewController.swift; sourceTree = "<group>"; };
 		E1EAB3F82913FDF600AC732E /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 		E1EAB3FB2914378D00AC732E /* LikesControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesControl.swift; sourceTree = "<group>"; };
@@ -98,6 +104,7 @@
 		E1062373291246EE00779500 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E199B7AD292D217600582E2E /* AutorizeViewController.swift */,
 				E10AF811291012C80077251D /* AuthViewController.swift */,
 				E111E1C5291D666D0083597B /* CustomNavigationController.swift */,
 				E10623892912E8C300779500 /* FriendsTableViewController.swift */,
@@ -162,7 +169,7 @@
 			children = (
 				E10AF80D291012C80077251D /* AppDelegate.swift */,
 				E10AF80F291012C80077251D /* SceneDelegate.swift */,
-				E1493150292BDCFD0043F052 /* Session.swift */,
+				E1B447C8292D3F8D00310613 /* Network */,
 				E1876398291E1F1E00DC171D /* Transitions */,
 				E1876393291E1E1100DC171D /* Animators */,
 				E13C66C229197DAE00F67059 /* Headers */,
@@ -214,6 +221,16 @@
 				E111E1C1291D10900083597B /* InteractiveTransition.swift */,
 			);
 			path = Transitions;
+			sourceTree = "<group>";
+		};
+		E1B447C8292D3F8D00310613 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				E1493150292BDCFD0043F052 /* Session.swift */,
+				E1B447C9292D46BC00310613 /* NetworkManager.swift */,
+				E1B447CB292D46CD00310613 /* Url.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		E1EAB3F72913FDB700AC732E /* View */ = {
@@ -364,11 +381,14 @@
 				E10623842912E4F400779500 /* User.swift in Sources */,
 				E10AF80E291012C80077251D /* AppDelegate.swift in Sources */,
 				E10623722911860100779500 /* TextField+Extension.swift in Sources */,
+				E199B7AE292D217600582E2E /* AutorizeViewController.swift in Sources */,
 				E111E1C6291D666D0083597B /* CustomNavigationController.swift in Sources */,
 				E17B834F2919D1B5000918AB /* Post.swift in Sources */,
 				E17B834D2919C342000918AB /* NewsTableViewCell.swift in Sources */,
 				E13C66C429197DF800F67059 /* FriendsSectionTableViewHeader.swift in Sources */,
+				E1B447CC292D46CD00310613 /* Url.swift in Sources */,
 				E10623962912EA7200779500 /* OutGroupsTableViewCell.swift in Sources */,
+				E1B447CA292D46BC00310613 /* NetworkManager.swift in Sources */,
 				E10AF810291012C80077251D /* SceneDelegate.swift in Sources */,
 				E1493151292BDCFD0043F052 /* Session.swift in Sources */,
 				E1B7E0B5291C4B32002BFC1F /* FriendPhotosViewController.swift in Sources */,

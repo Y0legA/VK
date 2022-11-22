@@ -44,6 +44,7 @@ final class UserGroupsTableViewController: UITableViewController {
 
     private var searchResults: [Group] = []
     private var isSearching = false
+    private let networkManager = NetworkManager()
 
     // MARK: - LifeCycle
 
@@ -68,6 +69,7 @@ final class UserGroupsTableViewController: UITableViewController {
     private func configureUI() {
         configureSearchBar()
         configureTableView()
+        networkManager.getGroups()
     }
 
     private func configureSearchBar() {

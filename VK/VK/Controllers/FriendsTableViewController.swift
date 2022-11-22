@@ -20,6 +20,7 @@ final class FriendsTableViewController: UITableViewController {
     private var sortedSectionsFriends = [Character: [User]]()
     private var sortedFriends: [User] = []
     private var sectionTitles: [Character] = []
+    private let networkManager = NetworkManager()
 
     // MARK: - LifeCycle
 
@@ -69,6 +70,7 @@ final class FriendsTableViewController: UITableViewController {
     private func configureUI() {
         configureListFriends()
         configureTableView()
+        networkManager.getFriends()
     }
 
     private func configureTableView() {

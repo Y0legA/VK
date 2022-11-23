@@ -25,7 +25,7 @@ final class FriendPhotosViewController: UIViewController {
     private var currentPhoto = Constants.emptyString
     private var prevousIndex = 0
     private var currentPhotoIndex = 0
-    private let networkManager = NetworkManager()
+    private let networkService = NetworkService()
 
     // MARK: - LifeCycle
 
@@ -113,7 +113,7 @@ final class FriendPhotosViewController: UIViewController {
         configureSwipeGestureRecognizer(.left)
         configureSwipeGestureRecognizer(.right)
         configureSwipeGestureRecognizer(.down)
-        networkManager.getPhotos(Constants.friendId)
+        networkService.fetchPhotos(Constants.friendId)
     }
 
     private func configureImageView() {

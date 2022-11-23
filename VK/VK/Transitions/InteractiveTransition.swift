@@ -35,7 +35,11 @@ final class InteractiveTransition: UIPercentDrivenInteractiveTransition {
             update(progress)
         case .ended:
             hasStarted = false
-            shouldFinish ? finish() : cancel()
+            guard shouldFinish else {
+                cancel()
+                return
+            }
+            finish()
         case .cancelled:
             hasStarted = false
             cancel()

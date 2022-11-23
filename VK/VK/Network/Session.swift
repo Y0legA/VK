@@ -3,19 +3,19 @@
 
 import Foundation
 
-// Хранение данных пользователя
+// Инфо о сессии пользователя
 final class Session: CustomStringConvertible {
     // MARK: - Public Properties
 
     static let shared = Session()
     var description: String {
-        "userId \(userId), token: \(token)"
+        "userId \(userID), token: \(token)"
     }
 
     // MARK: - Private Properties
 
     var token = ""
-    var userId = 0
+    var userID = 0
 
     // MARK: - Private Initializers
 

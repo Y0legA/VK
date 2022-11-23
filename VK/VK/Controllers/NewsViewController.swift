@@ -52,8 +52,5 @@ extension NewsViewController: UITableViewDataSource {
 
 extension NewsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) ->
-        CGFloat
-    {
-        UITableView.automaticDimension
-    }
+        CGFloat { UITableView.automaticDimension }
 }

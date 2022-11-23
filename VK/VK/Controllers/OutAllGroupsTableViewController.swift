@@ -43,7 +43,7 @@ final class OutAllGroupsTableViewController: UITableViewController {
 
     private var isSearching = false
     private var searchResults: [Group] = []
-    private let networkManager = NetworkManager()
+    private let networkService = NetworkService()
 
     // MARK: - LifeCycle
 
@@ -92,7 +92,7 @@ final class OutAllGroupsTableViewController: UITableViewController {
     private func configureUI() {
         configureSearchBar()
         configureTableView()
-        networkManager.getSearchGroups(Constants.adme)
+        networkService.fetchSearchGroups(Constants.adme)
     }
 
     private func configureSearchBar() {

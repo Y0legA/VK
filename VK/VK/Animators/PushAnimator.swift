@@ -29,11 +29,10 @@ final class PushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         UIView.animateKeyframes(
             withDuration: transitionDuration(using: transitionContext),
             delay: 0,
-            options: .calculationModePaced,
-            animations: {
-                destination.view.transform = .identity
-            }
-        ) { result in
+            options: .calculationModePaced
+        ) {
+            destination.view.transform = .identity
+        } completion: { result in
             if result, !transitionContext.transitionWasCancelled {
                 sourceVC.view.transform = .identity
                 transitionContext.completeTransition(true)

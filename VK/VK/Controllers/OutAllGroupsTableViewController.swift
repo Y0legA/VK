@@ -13,6 +13,7 @@ final class OutAllGroupsTableViewController: UITableViewController {
         static let outGroupCellIdentifier = "outGroupCell"
         static let lightMintColorName = "lightMintColor"
         static let lightPlaceholderMintColorName = "lightPlaceholderMintColor"
+        static let adme = "ADME"
     }
 
     // MARK: - Private Visual Properties
@@ -42,6 +43,7 @@ final class OutAllGroupsTableViewController: UITableViewController {
 
     private var isSearching = false
     private var searchResults: [Group] = []
+    private let networkService = NetworkService()
 
     // MARK: - LifeCycle
 
@@ -90,6 +92,7 @@ final class OutAllGroupsTableViewController: UITableViewController {
     private func configureUI() {
         configureSearchBar()
         configureTableView()
+        networkService.fetchSearchGroups(Constants.adme)
     }
 
     private func configureSearchBar() {

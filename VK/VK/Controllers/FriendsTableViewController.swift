@@ -17,9 +17,10 @@ final class FriendsTableViewController: UITableViewController {
     // MARK: - Private Properties
 
     private let userFriends = friends
-    private var sortedSectionsFriends = [Character: [User]]()
+    private var sortedSectionsFriendMap = [Character: [User]]()
     private var sortedFriends: [User] = []
     private var sectionTitles: [Character] = []
+    private let networkService = NetworkService()
 
     // MARK: - LifeCycle
 
@@ -34,16 +35,16 @@ final class FriendsTableViewController: UITableViewController {
         guard segue.identifier == Constants.photoSegueIdentifier,
               let collectionVC = segue.destination as? FriendPhotoCollectionViewController else { return }
         guard let indexPath = tableView.indexPathForSelectedRow else { return }
-        guard let friend = sortedSectionsFriends[sectionTitles[indexPath.section]]?[indexPath.row] else { abort() }
+        guard let friend = sortedSectionsFriendMap[sectionTitles[indexPath.section]]?[indexPath.row] else { abort() }
         collectionVC.configureData(friend)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        sortedSectionsFriends.count
+        sortedSectionsFriendMap.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        sortedSectionsFriends[sectionTitles[section]]?.count ?? 0
+        sortedSectionsFriendMap[sectionTitles[section]]?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -51,7 +52,7 @@ final class FriendsTableViewController: UITableViewController {
             withIdentifier: Constants.friendCellIdentifier,
             for: indexPath
         ) as? FriendTableViewCell else { fatalError() }
-        guard let friend = sortedSectionsFriends[sectionTitles[indexPath.section]]?[indexPath.row] else { abort() }
+        guard let friend = sortedSectionsFriendMap[sectionTitles[indexPath.section]]?[indexPath.row] else { abort() }
         cell.configureCell(friend)
         return cell
     }
@@ -69,6 +70,7 @@ final class FriendsTableViewController: UITableViewController {
     private func configureUI() {
         configureListFriends()
         configureTableView()
+        networkService.fetchFriends()
     }
 
     private func configureTableView() {
@@ -81,12 +83,12 @@ final class FriendsTableViewController: UITableViewController {
     private func configureListFriends() {
         for friend in userFriends {
             guard let firstLetter = friend.userName.first else { return }
-            if sortedSectionsFriends[firstLetter] != nil {
-                sortedSectionsFriends[firstLetter]?.append(friend)
+            if sortedSectionsFriendMap[firstLetter] != nil {
+                sortedSectionsFriendMap[firstLetter]?.append(friend)
             } else {
-                sortedSectionsFriends[firstLetter] = [friend]
+                sortedSectionsFriendMap[firstLetter] = [friend]
             }
         }
-        sectionTitles = Array(sortedSectionsFriends.keys).sorted()
+        sectionTitles = Array(sortedSectionsFriendMap.keys).sorted()
     }
 }

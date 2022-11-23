@@ -1,4 +1,5 @@
 # Отключаем следующие правила:
+--exclude Pods
 --disable void, trailingCommas, unusedArguments, enumNamespaces
 --maxwidth 120
 --wraparguments before-first

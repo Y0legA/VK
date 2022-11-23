@@ -9,6 +9,7 @@ final class FriendPhotosViewController: UIViewController {
     enum Constants {
         static let emptyString = ""
         static let opacity = "opacity"
+        static let friendId = 690_833_835
     }
 
     // MARK: - Private IBoutlet
@@ -24,6 +25,7 @@ final class FriendPhotosViewController: UIViewController {
     private var currentPhoto = Constants.emptyString
     private var prevousIndex = 0
     private var currentPhotoIndex = 0
+    private let networkService = NetworkService()
 
     // MARK: - LifeCycle
 
@@ -111,6 +113,7 @@ final class FriendPhotosViewController: UIViewController {
         configureSwipeGestureRecognizer(.left)
         configureSwipeGestureRecognizer(.right)
         configureSwipeGestureRecognizer(.down)
+        networkService.fetchPhotos(Constants.friendId)
     }
 
     private func configureImageView() {

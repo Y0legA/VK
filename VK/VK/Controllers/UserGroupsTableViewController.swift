@@ -25,9 +25,12 @@ final class UserGroupsTableViewController: UITableViewController {
 
     // MARK: - Private Properties
 
-    private var userGroups =
-        [groups.first ?? Group(groupName: Constants.emptyString, groupImageName: Constants.emptyString)]
-    {
+    private var userGroups = [
+        groups.first ?? Group(
+            groupName: Constants.emptyString,
+            groupImageName: Constants.emptyString
+        )
+    ] {
         didSet {
             tableView.reloadData()
         }
@@ -44,6 +47,7 @@ final class UserGroupsTableViewController: UITableViewController {
 
     private var searchResults: [Group] = []
     private var isSearching = false
+    private let networkService = NetworkService()
 
     // MARK: - LifeCycle
 
@@ -68,6 +72,7 @@ final class UserGroupsTableViewController: UITableViewController {
     private func configureUI() {
         configureSearchBar()
         configureTableView()
+        networkService.fetchGroups()
     }
 
     private func configureSearchBar() {

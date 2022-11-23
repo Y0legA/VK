@@ -1,14 +1,17 @@
-// AuthViewController.swift
+// AuthorizationViewController.swift
 // Copyright © RoadMap. All rights reserved.
 
+import Alamofire
 import UIKit
+import WebKit
 
-// Временный экран авторизации
-final class AuthViewController: UIViewController {
+// Экран авторизации
+final class AuthorizationViewController: UIViewController {
     // MARK: - Private Constants
 
     private enum Constants {
-        static let segueIdentifier = "enterSegue"
+        static let tabBarIdentifier = "tabBarSegue"
+        static let friendParameterValue = "51483253"
         static let alertTitleText = "Ошибка"
         static let alertMessageText = "Введены неверные данные пользователя"
         static let alertOkText = "OK"
@@ -23,11 +26,19 @@ final class AuthViewController: UIViewController {
     @IBOutlet private var scrollView: UIScrollView!
     @IBOutlet private var loginTextField: UITextField!
     @IBOutlet private var passwordTextField: UITextField!
-
     @IBOutlet private var uploadIndicatorView: UIView!
     @IBOutlet private var firstCircleUploadView: UIView!
     @IBOutlet private var secondCircleUploadView: UIView!
     @IBOutlet private var thirdCircleUploadView: UIView!
+    @IBOutlet private var webView: WKWebView! {
+        didSet {
+            webView.navigationDelegate = self
+        }
+    }
+
+    // MARK: - Private Properties
+
+    private let networkService = NetworkService()
 
     // MARK: - LifeCycle
 
@@ -44,26 +55,6 @@ final class AuthViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         removeObservers()
-    }
-
-    // MARK: - Private IBAction
-
-    @IBAction private func goTabBarAction(_ sender: Any) {
-        if checkLogin() {
-            startUploadIndicator()
-            clearTextFields()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
-                self.performSegue(withIdentifier: Constants.segueIdentifier, sender: self)
-            }
-        } else {
-            clearTextFields()
-            showAlert(
-                title: Constants.alertTitleText,
-                message: Constants.alertMessageText,
-                actionTitle: Constants.alertOkText,
-                handler: nil
-            )
-        }
     }
 
     // MARK: - Private Methods
@@ -120,6 +111,7 @@ final class AuthViewController: UIViewController {
     private func configureUI() {
         configureScrollView()
         setPaddingTextfields()
+        showAuthorizationWebView()
     }
 
     private func setPaddingTextfields() {
@@ -156,5 +148,43 @@ final class AuthViewController: UIViewController {
     private func removeObservers() {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    private func showAuthorizationWebView() {
+        guard let url = networkService.setupURLComponents() else { return }
+        let request = URLRequest(url: url)
+        webView.load(request)
+    }
+}
+
+// WKNavigationDelegate
+extension AuthorizationViewController: WKNavigationDelegate {
+    func webView(
+        _ webView: WKWebView,
+        decidePolicyFor navigationResponse:
+        WKNavigationResponse,
+        decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void
+    ) {
+        guard let url = navigationResponse.response.url,
+              url.path == RequestComponents.blankParameter,
+              let fragment = url.fragment
+        else {
+            decisionHandler(.allow)
+            return
+        }
+
+        let params = fragment
+            .components(separatedBy: RequestComponents.ampersand)
+            .map { $0.components(separatedBy: RequestComponents.equal) }.reduce([String: String]()) { result, param in
+                var dict = result
+                let key = param[0]
+                let value = param[1]
+                dict[key] = value
+                return dict
+            }
+        guard let token = params[RequestComponents.tokenParameter] else { return }
+        Session.shared.token = token
+        performSegue(withIdentifier: Constants.tabBarIdentifier, sender: self)
+        decisionHandler(.cancel)
     }
 }

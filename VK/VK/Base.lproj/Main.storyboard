@@ -435,10 +435,10 @@
             </objects>
             <point key="canvasLocation" x="2273.8461538461538" y="-226.06635071090045"/>
         </scene>
-        <!--Auth View Controller-->
+        <!--Authorization View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="AuthViewController" customModule="VK" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="AuthorizationViewController" customModule="VK" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -496,9 +496,6 @@
                                                 <integer key="value" value="20"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="goTabBarAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ac4-IQ-8nJ"/>
-                                        </connections>
                                     </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="8Re-Fy-DOq">
                                         <rect key="frame" x="145" y="98" width="100" height="100"/>
@@ -615,14 +612,26 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="LcO-qc-Aqb"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="rxg-Z6-5RX"/>
                             </scrollView>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FsV-pO-FN5">
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                                <color key="backgroundColor" red="0.14901960784313725" green="0.53333333333333333" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.14901960784313725" green="0.53333333333333333" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="rMX-cC-pYG" secondAttribute="bottom" id="0d0-H3-wFA"/>
                             <constraint firstItem="rMX-cC-pYG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="46L-Vs-rhH"/>
+                            <constraint firstAttribute="bottom" secondItem="FsV-pO-FN5" secondAttribute="bottom" id="HHK-GF-CpI"/>
+                            <constraint firstItem="FsV-pO-FN5" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="LJd-eR-seC"/>
+                            <constraint firstItem="FsV-pO-FN5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="bKw-nm-rJM"/>
                             <constraint firstItem="rMX-cC-pYG" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="ge6-43-Qok"/>
                             <constraint firstItem="rMX-cC-pYG" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="hmj-aY-XEd"/>
+                            <constraint firstItem="FsV-pO-FN5" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="iep-BH-J3w"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="oKQ-TR-Bkc"/>
@@ -634,12 +643,13 @@
                         <outlet property="secondCircleUploadView" destination="tC1-qt-for" id="1B6-U1-bkv"/>
                         <outlet property="thirdCircleUploadView" destination="zqA-TE-WIr" id="U0J-00-PT8"/>
                         <outlet property="uploadIndicatorView" destination="itF-aT-xnY" id="B6P-kX-Dtm"/>
-                        <segue destination="bMd-vl-T0X" kind="show" identifier="enterSegue" id="Old-D2-MOP"/>
+                        <outlet property="webView" destination="FsV-pO-FN5" id="lom-ww-oeE"/>
+                        <segue destination="bMd-vl-T0X" kind="show" identifier="tabBarSegue" id="fAM-Na-86o"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1949" y="112"/>
+            <point key="canvasLocation" x="-1969" y="112"/>
         </scene>
         <!--Friends-->
         <scene sceneID="CDf-0i-53U">
@@ -822,7 +832,7 @@
         <image name="logo" width="4096" height="4096"/>
         <image name="newspaper" catalog="system" width="128" height="111"/>
         <image name="person.3.sequence.fill" catalog="system" width="128" height="59"/>
-        <image name="person.fill" catalog="system" width="128" height="120"/>
+        <image name="person.fill" catalog="system" width="32" height="32"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

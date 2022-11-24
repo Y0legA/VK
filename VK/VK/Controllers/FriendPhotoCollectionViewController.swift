@@ -20,16 +20,22 @@ final class FriendPhotoCollectionViewController: UICollectionViewController {
     private var likes = 0
     private var isLiked = false
     private var photoNames: [String] = []
+    private let networkService = NetworkService()
+    private var friendID = 0 {
+        didSet {
+            networkService.fetchPhotos(friendID) { photos, likes in
+                self.photoNames = photos
+                self.likes = likes
+                self.collectionView.reloadData()
+            }
+        }
+    }
 
     // MARK: - Public Methods
 
-    func configureData(_ user: User) {
-        photoName = user.avatarImageName
-        photoNames = user.photoNames
-        photoNames.insert(user.avatarImageName, at: 0)
-        likes = user.likeCount
-        isLiked = user.isliked
-        title = user.userName
+    func configureData(_ photoUrlName: String, _ id: Int) {
+        photoName = photoUrlName
+        friendID = id
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -52,7 +58,7 @@ final class FriendPhotoCollectionViewController: UICollectionViewController {
             withReuseIdentifier: Constants.photosCellIdentifier,
             for: indexPath
         ) as? PhotoCollectionViewCell else { return PhotoCollectionViewCell() }
-        cell.configure(photoName, photoNames, likes, isLiked)
+        cell.configure(photoNames, likes, false)
         return cell
     }
 }

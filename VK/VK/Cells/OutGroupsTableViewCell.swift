@@ -12,8 +12,8 @@ final class OutGroupsTableViewCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configureCell(_ group: Group) {
-        groupImageView.image = UIImage(named: group.groupImageName)
-        groupNameLabel.text = group.groupName
+    func configureCell(_ group: MyGroup) {
+        groupImageView.loadImage(urlImage: group.photo200)
+        groupNameLabel.text = group.name
     }
 }

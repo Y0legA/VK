@@ -25,12 +25,7 @@ final class UserGroupsTableViewController: UITableViewController {
 
     // MARK: - Private Properties
 
-    private var userGroups = [
-        groups.first ?? Group(
-            groupName: Constants.emptyString,
-            groupImageName: Constants.emptyString
-        )
-    ] {
+    private var userGroups: [MyGroup] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -45,7 +40,7 @@ final class UserGroupsTableViewController: UITableViewController {
         return text.isEmpty
     }
 
-    private var searchResults: [Group] = []
+    private var searchResults: [MyGroup] = []
     private var isSearching = false
     private let networkService = NetworkService()
 
@@ -56,23 +51,14 @@ final class UserGroupsTableViewController: UITableViewController {
         configureUI()
     }
 
-    // MARK: - Public Methods
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == Constants.outGroupsSegueIdentifier,
-              let outGroupsVC = segue.destination as? OutAllGroupsTableViewController else { return }
-        outGroupsVC.configureGroups(userGroups) { [weak self] selectedGroup in
-            guard let self = self else { return }
-            self.userGroups.insert(selectedGroup, at: 0)
-        }
-    }
-
     // MARK: - Private Methods
 
     private func configureUI() {
         configureSearchBar()
         configureTableView()
-        networkService.fetchGroups()
+        networkService.fetchGroups { [weak self] items in
+            self?.userGroups = items
+        }
     }
 
     private func configureSearchBar() {
@@ -128,7 +114,7 @@ final class UserGroupsTableViewController: UITableViewController {
 
 extension UserGroupsTableViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchResults = userGroups.filter { $0.groupName.lowercased().contains(searchText.lowercased()) }
+        searchResults = userGroups.filter { $0.name.lowercased().contains(searchText.lowercased()) }
         isSearching = true
         tableView.reloadData()
     }

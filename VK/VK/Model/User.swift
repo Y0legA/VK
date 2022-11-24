@@ -2,12 +2,33 @@
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
+import RealmSwift
 
-// Друг пользователя
-struct User {
-    let avatarImageName: String
-    let photoNames: [String]
-    let userName: String
-    let likeCount: Int
-    let isliked: Bool
+// User
+struct User: Decodable {
+    let response: Response
+}
+
+// Response
+struct Response: Decodable {
+    let friends: [Friend]
+
+    enum CodingKeys: String, CodingKey {
+        case friends = "items"
+    }
+}
+
+// Friend
+class Friend: Object, Decodable {
+    @objc dynamic var id: Int
+    @objc dynamic var photo100: String
+    @objc dynamic var firstName: String
+    @objc dynamic var lastName: String
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case photo100 = "photo_100"
+        case firstName = "first_name"
+        case lastName = "last_name"
+    }
 }

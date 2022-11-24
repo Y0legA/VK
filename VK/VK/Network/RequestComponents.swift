@@ -8,7 +8,7 @@ enum RequestComponents {
     static let versionParameter = "v"
     static let versionParameterValue = "5.131"
     static let fieldsParameter = "fields"
-    static let friendFieldsValue = "nickname"
+    static let friendFieldsValue = "photo_100"
     static let extendedParameter = "extended"
     static let extendedValue = "1"
     static let ownerIDParameter = "owner_id"

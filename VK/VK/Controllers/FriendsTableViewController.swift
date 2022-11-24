@@ -16,9 +16,15 @@ final class FriendsTableViewController: UITableViewController {
 
     // MARK: - Private Properties
 
-    private let userFriends = friends
-    private var sortedSectionsFriendMap = [Character: [User]]()
-    private var sortedFriends: [User] = []
+    private var userFriends: [Friend] = [] {
+        didSet {
+            configureListFriends()
+            tableView.reloadData()
+        }
+    }
+
+    private var sortedSectionsFriendMap = [Character: [Friend]]()
+    private var sortedFriends: [Friend] = []
     private var sectionTitles: [Character] = []
     private let networkService = NetworkService()
 
@@ -36,7 +42,7 @@ final class FriendsTableViewController: UITableViewController {
               let collectionVC = segue.destination as? FriendPhotoCollectionViewController else { return }
         guard let indexPath = tableView.indexPathForSelectedRow else { return }
         guard let friend = sortedSectionsFriendMap[sectionTitles[indexPath.section]]?[indexPath.row] else { abort() }
-        collectionVC.configureData(friend)
+        collectionVC.configureData(friend.photo100, friend.id)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -70,7 +76,9 @@ final class FriendsTableViewController: UITableViewController {
     private func configureUI() {
         configureListFriends()
         configureTableView()
-        networkService.fetchFriends()
+        networkService.fetchFriends { [weak self] items in
+            self?.userFriends = items
+        }
     }
 
     private func configureTableView() {
@@ -82,7 +90,7 @@ final class FriendsTableViewController: UITableViewController {
 
     private func configureListFriends() {
         for friend in userFriends {
-            guard let firstLetter = friend.userName.first else { return }
+            guard let firstLetter = friend.firstName.first else { return }
             if sortedSectionsFriendMap[firstLetter] != nil {
                 sortedSectionsFriendMap[firstLetter]?.append(friend)
             } else {

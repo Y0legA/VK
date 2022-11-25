@@ -3,7 +3,7 @@
 
 import UIKit
 
-typealias Handler = (MyGroup) -> ()
+// typealias Handler = (MyGroup) -> ()
 
 // Экран групп в которых не состоит пользователь
 final class OutAllGroupsTableViewController: UITableViewController {
@@ -21,7 +21,7 @@ final class OutAllGroupsTableViewController: UITableViewController {
 
     // MARK: - Private Properties
 
-    private var outGroups: [MyGroup] = [] {
+    private var outGroups: [GroupDetail] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -37,7 +37,7 @@ final class OutAllGroupsTableViewController: UITableViewController {
     }
 
     private var isSearching = false
-    private var searchResults: [MyGroup] = []
+    private var searchResults: [GroupDetail] = []
     private let networkService = NetworkService()
 
     // MARK: - LifeCycle
@@ -90,6 +90,13 @@ final class OutAllGroupsTableViewController: UITableViewController {
     private func configureTableView() {
         tableView.tableHeaderView = searchBar
     }
+
+    private func fetchSearchGroups(_ searchText: String) {
+        networkService.fetchSearchGroups(searchText) { [weak self] groups in
+            self?.outGroups = groups
+            self?.tableView.reloadData()
+        }
+    }
 }
 
 // MARK: - UISearchBarDelegate
@@ -97,9 +104,6 @@ final class OutAllGroupsTableViewController: UITableViewController {
 extension OutAllGroupsTableViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         isSearching = true
-        networkService.fetchSearchGroups(searchText) { groups in
-            self.outGroups = groups
-            self.tableView.reloadData()
-        }
+        fetchSearchGroups(searchText)
     }
 }

@@ -17,17 +17,13 @@ final class FriendPhotoCollectionViewController: UICollectionViewController {
 
     private var currentIndex = 0
     private var photoName = Constants.emptyString
-    private var likes = 0
+    private var likeCount = 0
     private var isLiked = false
     private var photoNames: [String] = []
     private let networkService = NetworkService()
     private var friendID = 0 {
         didSet {
-            networkService.fetchPhotos(friendID) { photos, likes in
-                self.photoNames = photos
-                self.likes = likes
-                self.collectionView.reloadData()
-            }
+            fetchFriends()
         }
     }
 
@@ -58,7 +54,18 @@ final class FriendPhotoCollectionViewController: UICollectionViewController {
             withReuseIdentifier: Constants.photosCellIdentifier,
             for: indexPath
         ) as? PhotoCollectionViewCell else { return PhotoCollectionViewCell() }
-        cell.configure(photoNames, likes, false)
+        cell.configure(photoNames, likeCount, false)
         return cell
+    }
+
+    // MARK: - Private Methods
+
+    private func fetchFriends() {
+        networkService.fetchPhotos(friendID) { [weak self] photos, likes in
+            guard let self = self else { return }
+            self.photoNames = photos
+            self.likeCount = likes
+            self.collectionView.reloadData()
+        }
     }
 }

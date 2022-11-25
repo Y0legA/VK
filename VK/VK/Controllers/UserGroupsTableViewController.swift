@@ -25,7 +25,7 @@ final class UserGroupsTableViewController: UITableViewController {
 
     // MARK: - Private Properties
 
-    private var userGroups: [MyGroup] = [] {
+    private var userGroups: [GroupDetail] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -40,7 +40,7 @@ final class UserGroupsTableViewController: UITableViewController {
         return text.isEmpty
     }
 
-    private var searchResults: [MyGroup] = []
+    private var searchResults: [GroupDetail] = []
     private var isSearching = false
     private let networkService = NetworkService()
 

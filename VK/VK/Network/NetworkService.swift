@@ -35,7 +35,7 @@ final class NetworkService {
             guard let data = response.value else { return }
             do {
                 let users = try JSONDecoder().decode(User.self, from: data)
-                let value = users.response.friends
+                let value = users.friendInfo.friends
                 completion(value)
             } catch {
                 print(error)
@@ -55,9 +55,9 @@ final class NetworkService {
             guard let data = response.value else { return }
             do {
                 let friendsDetail = try JSONDecoder().decode(Photo.self, from: data)
-                let friendsDetailArray = friendsDetail.friendDetail.friendsDetail.map(\.photos.last)
+                let friendsDetailArray = friendsDetail.friendDetail.friendPhotos.map(\.photos.last)
                 let photosUrl = friendsDetailArray.map { $0?.url ?? "" }
-                let likes = friendsDetail.friendDetail.friendsDetail.map(\.likes.count)
+                let likes = friendsDetail.friendDetail.friendPhotos.map(\.likeCount.count)
                 completion(photosUrl, likes.first ?? 0)
             } catch {
                 print(error)
@@ -65,7 +65,7 @@ final class NetworkService {
         }
     }
 
-    func fetchGroups(completion: @escaping ([MyGroup]) -> ()) {
+    func fetchGroups(completion: @escaping ([GroupDetail]) -> ()) {
         let parameters: Parameters = [
             RequestComponents.acessTokenParameter: Session.shared.token,
             RequestComponents.versionParameter: RequestComponents.versionParameterValue,
@@ -84,7 +84,7 @@ final class NetworkService {
         }
     }
 
-    func fetchSearchGroups(_ name: String, completion: @escaping ([MyGroup]) -> ()) {
+    func fetchSearchGroups(_ name: String, completion: @escaping ([GroupDetail]) -> ()) {
         let parameters: Parameters = [
             RequestComponents.acessTokenParameter: Session.shared.token,
             RequestComponents.versionParameter: RequestComponents.versionParameterValue,

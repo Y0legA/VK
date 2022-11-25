@@ -30,7 +30,7 @@ final class NetworkService {
             RequestComponents.fieldsParameter: RequestComponents.friendFieldsValue,
             RequestComponents.versionParameter: RequestComponents.versionParameterValue
         ]
-        let path = RequestComponents.baseURL + RequestComponents.friends
+        let path = Path.friends.rawValue
         AF.request(path, parameters: parameters).responseData { response in
             guard let data = response.value else { return }
             do {
@@ -50,7 +50,7 @@ final class NetworkService {
             RequestComponents.extendedParameter: RequestComponents.extendedValue,
             RequestComponents.ownerIDParameter: friendID
         ]
-        let path = RequestComponents.baseURL + RequestComponents.allPhotos
+        let path = Path.photos.rawValue
         AF.request(path, parameters: parameters).responseData { response in
             guard let data = response.value else { return }
             do {
@@ -71,7 +71,7 @@ final class NetworkService {
             RequestComponents.versionParameter: RequestComponents.versionParameterValue,
             RequestComponents.extendedParameter: RequestComponents.extendedValue
         ]
-        let path = RequestComponents.baseURL + RequestComponents.groups
+        let path = Path.groups.rawValue
         AF.request(path, parameters: parameters).responseData { response in
             guard let data = response.value else { return }
             do {
@@ -90,7 +90,7 @@ final class NetworkService {
             RequestComponents.versionParameter: RequestComponents.versionParameterValue,
             RequestComponents.queryParameter: name
         ]
-        let path = RequestComponents.baseURL + RequestComponents.searchGroups
+        let path = Path.searchGroups.rawValue
         AF.request(path, parameters: parameters).responseData { response in
             guard let data = response.value else { return }
             do {

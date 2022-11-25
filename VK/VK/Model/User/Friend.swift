@@ -1,21 +1,7 @@
-// User.swift
+// Friend.swift
 // Copyright © RoadMap. All rights reserved.
 
 import RealmSwift
-
-// User
-struct User: Decodable {
-    let response: Response
-}
-
-// Response
-struct Response: Decodable {
-    let friends: [Friend]
-
-    enum CodingKeys: String, CodingKey {
-        case friends = "items"
-    }
-}
 
 // Friend
 final class Friend: Object, Decodable {

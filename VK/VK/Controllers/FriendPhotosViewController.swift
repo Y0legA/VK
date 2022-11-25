@@ -6,10 +6,10 @@ import UIKit
 // Фото друга
 final class FriendPhotosViewController: UIViewController {
     // Private Constants
+
     enum Constants {
         static let emptyString = ""
         static let opacity = "opacity"
-        static let friendId = 690_833_835
     }
 
     // MARK: - Private IBoutlet
@@ -36,8 +36,8 @@ final class FriendPhotosViewController: UIViewController {
 
     // MARK: - Public Methods
 
-    func configure(_ photosName: [String]) {
-        friendPhotoNames = photosName
+    func configure(_ friendNames: [String]) {
+        friendPhotoNames = friendNames
     }
 
     // MARK: - Private Methods
@@ -65,18 +65,19 @@ final class FriendPhotosViewController: UIViewController {
         UIView.animate(
             withDuration: 0.5,
             animations: {
-                self.imageView.image = UIImage(named: self.friendPhotoNames[self.prevousIndex])
+                self.imageView.loadImage(urlImage: self.friendPhotoNames[self.prevousIndex])
                 self.imageView.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
                 self.animateDisapearPhoto()
             },
             completion: { _ in
                 self.imageView.transform = CGAffineTransform(translationX: offSet, y: 0)
-                UIView.animate(withDuration: 1.0) {
-                    self.imageView.image = UIImage(
-                        named: self.friendPhotoNames[self.currentPhotoIndex]
-                    )
-                    self.imageView.transform = .identity
-                }
+                UIView
+                    .animate(withDuration: 1.0) {
+                        self.imageView.loadImage(
+                            urlImage: self.friendPhotoNames[self.currentPhotoIndex]
+                        )
+                        self.imageView.transform = .identity
+                    }
             }
         )
     }
@@ -113,11 +114,10 @@ final class FriendPhotosViewController: UIViewController {
         configureSwipeGestureRecognizer(.left)
         configureSwipeGestureRecognizer(.right)
         configureSwipeGestureRecognizer(.down)
-        networkService.fetchPhotos(Constants.friendId)
     }
 
     private func configureImageView() {
-        imageView.image = UIImage(named: firstPhotoName ?? Constants.emptyString)
+        imageView.loadImage(urlImage: firstPhotoName ?? Constants.emptyString)
         imageView.isUserInteractionEnabled = true
     }
 }

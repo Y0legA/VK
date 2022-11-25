@@ -12,9 +12,9 @@ final class GroupTableViewCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configureCell(_ group: Group) {
-        groupImageView.image = UIImage(named: group.groupImageName)
-        groupNameLabel.text = group.groupName
+    func configureCell(_ group: GroupDetail) {
+        groupImageView.loadImage(urlImage: group.photo200)
+        groupNameLabel.text = group.name
     }
 
     // MARK: - Private IBAction

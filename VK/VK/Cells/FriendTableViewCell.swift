@@ -5,6 +5,12 @@ import UIKit
 
 // Ячейка друга
 final class FriendTableViewCell: UITableViewCell {
+    // MARK: - Private Constants
+
+    private enum Constants {
+        static let emptyString = " "
+    }
+
     // MARK: - Private IBOutlet
 
     @IBOutlet private var friendNameLabel: UILabel!
@@ -17,9 +23,9 @@ final class FriendTableViewCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configureCell(_ user: User) {
-        avatarImageView.image = UIImage(named: user.avatarImageName)
-        friendNameLabel.text = user.userName
+    func configureCell(_ friend: Friend) {
+        avatarImageView.loadImage(urlImage: friend.photo100)
+        friendNameLabel.text = friend.firstName + Constants.emptyString + friend.lastName
     }
 
     // MARK: - Private Methods

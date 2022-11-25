@@ -5,6 +5,12 @@ import UIKit
 
 // Ячейка фото друга
 final class PhotoCollectionViewCell: UICollectionViewCell {
+    // MARK: - Private Constants
+
+    private enum Constants {
+        static let emptyString = ""
+    }
+
     // MARK: - Private IBOutlet
 
     @IBOutlet private var friendImageView: UIImageView!
@@ -12,8 +18,8 @@ final class PhotoCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Public Methods
 
-    func configure(_ imageName: String, _ photoNames: [String], _ likes: Int, _ islike: Bool) {
-        friendImageView.image = UIImage(named: imageName)
+    func configure(_ photoNames: [String], _ likes: Int, _ islike: Bool) {
+        friendImageView.loadImage(urlImage: photoNames.first ?? Constants.emptyString)
         likesControl.configure(likes, islike)
     }
 }

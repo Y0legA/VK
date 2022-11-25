@@ -3,7 +3,7 @@
 
 import UIKit
 
-typealias Handler = (Group) -> ()
+// typealias Handler = (MyGroup) -> ()
 
 // Экран групп в которых не состоит пользователь
 final class OutAllGroupsTableViewController: UITableViewController {
@@ -13,20 +13,15 @@ final class OutAllGroupsTableViewController: UITableViewController {
         static let outGroupCellIdentifier = "outGroupCell"
         static let lightMintColorName = "lightMintColor"
         static let lightPlaceholderMintColorName = "lightPlaceholderMintColor"
-        static let adme = "ADME"
     }
 
     // MARK: - Private Visual Properties
 
     private let searchBar = UISearchBar()
 
-    // MARK: - Public Properties
-
-    var subscribeGroupHandler: Handler?
-
     // MARK: - Private Properties
 
-    private var outGroups = groups {
+    private var outGroups: [GroupDetail] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -42,7 +37,7 @@ final class OutAllGroupsTableViewController: UITableViewController {
     }
 
     private var isSearching = false
-    private var searchResults: [Group] = []
+    private var searchResults: [GroupDetail] = []
     private let networkService = NetworkService()
 
     // MARK: - LifeCycle
@@ -52,19 +47,8 @@ final class OutAllGroupsTableViewController: UITableViewController {
         configureUI()
     }
 
-    // MARK: - Public Methods
-
-    func configureGroups(_ userGroups: [Group], completion: @escaping Handler) {
-        outGroups = outGroups.filter { outGroup in
-            !userGroups.contains { userGroup in
-                userGroup == outGroup
-            }
-        }
-        subscribeGroupHandler = completion
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        isFiltering ? searchResults.count : outGroups.count
+        outGroups.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -72,7 +56,7 @@ final class OutAllGroupsTableViewController: UITableViewController {
             withIdentifier: Constants.outGroupCellIdentifier,
             for: indexPath
         ) as? OutGroupsTableViewCell else { fatalError() }
-        let group = isFiltering ? searchResults[indexPath.row] : outGroups[indexPath.row]
+        let group = outGroups[indexPath.row]
         cell.configureCell(group)
         return cell
     }
@@ -84,15 +68,12 @@ final class OutAllGroupsTableViewController: UITableViewController {
     // MARK: - Private Methods
 
     private func goUserGroups(_ indexPath: IndexPath) {
-        let group = outGroups[indexPath.row]
-        subscribeGroupHandler?(group)
         navigationController?.popViewController(animated: true)
     }
 
     private func configureUI() {
         configureSearchBar()
         configureTableView()
-        networkService.fetchSearchGroups(Constants.adme)
     }
 
     private func configureSearchBar() {
@@ -109,14 +90,20 @@ final class OutAllGroupsTableViewController: UITableViewController {
     private func configureTableView() {
         tableView.tableHeaderView = searchBar
     }
+
+    private func fetchSearchGroups(_ searchText: String) {
+        networkService.fetchSearchGroups(searchText) { [weak self] groups in
+            self?.outGroups = groups
+            self?.tableView.reloadData()
+        }
+    }
 }
 
 // MARK: - UISearchBarDelegate
 
 extension OutAllGroupsTableViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchResults = outGroups.filter { $0.groupName.lowercased().contains(searchText.lowercased()) }
         isSearching = true
-        tableView.reloadData()
+        fetchSearchGroups(searchText)
     }
 }

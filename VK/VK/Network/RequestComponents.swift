@@ -3,21 +3,15 @@
 
 // Составляющие запроса
 enum RequestComponents {
-    static let baseURL = "https://api.vk.com/method/"
     static let acessTokenParameter = "access_token"
     static let versionParameter = "v"
     static let versionParameterValue = "5.131"
     static let fieldsParameter = "fields"
-    static let friendFieldsValue = "nickname"
+    static let friendFieldsValue = "photo_100"
     static let extendedParameter = "extended"
     static let extendedValue = "1"
     static let ownerIDParameter = "owner_id"
     static let queryParameter = "q"
-    static let friends = "friends.get"
-    static let groups = "groups.get"
-    static let allPhotos = "photos.getAll"
-    static let searchGroups = "groups.search"
-
     static let scheme = "https"
     static let host = "oauth.vk.com"
     static let path = "/authorize"
@@ -35,4 +29,12 @@ enum RequestComponents {
     static let blankParameter = "/blank.html"
     static let ampersand = "&"
     static let equal = "="
+}
+
+///
+enum Path: String {
+    case friends = "https://api.vk.com/method/friends.get"
+    case photos = "https://api.vk.com/method/photos.getAll"
+    case groups = "https://api.vk.com/method/groups.get"
+    case searchGroups = "https://api.vk.com/method/groups.search"
 }

@@ -36,14 +36,13 @@ final class NewsViewController: UIViewController {
 
 extension NewsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        posts.count
+        1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView
             .dequeueReusableCell(withIdentifier: Constants.newsCellIdentifier) as? NewsTableViewCell
         else { return UITableViewCell() }
-        cell.configureData(posts[indexPath.row])
         return cell
     }
 }

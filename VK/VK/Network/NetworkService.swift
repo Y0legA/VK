@@ -2,7 +2,6 @@
 // Copyright © RoadMap. All rights reserved.
 
 import Alamofire
-import Foundation
 import RealmSwift
 
 // VK API Сервис

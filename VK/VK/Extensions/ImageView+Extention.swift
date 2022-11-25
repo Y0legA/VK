@@ -1,10 +1,9 @@
 // ImageView+Extention.swift
 // Copyright © RoadMap. All rights reserved.
 
-import Foundation
-
 import UIKit
 
+/// Расширение для преобразования URL в UIImage
 extension UIImageView {
     func loadImage(urlImage: String) {
         image = nil

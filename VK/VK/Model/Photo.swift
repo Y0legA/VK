@@ -1,7 +1,6 @@
 // Photo.swift
 // Copyright © RoadMap. All rights reserved.
 
-import Foundation
 import RealmSwift
 
 // Photo
@@ -34,12 +33,12 @@ struct FriendPhoto: Decodable {
 }
 
 // Photos
-class Photos: Object, Decodable {
+final class Photos: Object, Decodable {
     @objc dynamic var url: String
 }
 
 // Likes
-class Likes: Decodable {
+final class Likes: Decodable {
     @objc dynamic var userLikes, count: Int
 
     enum CodingKeys: String, CodingKey {

@@ -1,7 +1,6 @@
 // Group.swift
 // Copyright © RoadMap. All rights reserved.
 
-import Foundation
 import RealmSwift
 
 // Group
@@ -20,7 +19,7 @@ struct GroupInfo: Decodable {
 }
 
 // MyGroup
-class MyGroup: Decodable {
+final class MyGroup: Decodable {
     @objc dynamic var id: Int
     @objc dynamic var name: String
     @objc dynamic var photo200: String

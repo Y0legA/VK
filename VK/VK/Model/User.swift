@@ -1,7 +1,6 @@
 // User.swift
 // Copyright © RoadMap. All rights reserved.
 
-import Foundation
 import RealmSwift
 
 // User
@@ -19,7 +18,7 @@ struct Response: Decodable {
 }
 
 // Friend
-class Friend: Object, Decodable {
+final class Friend: Object, Decodable {
     @objc dynamic var id: Int
     @objc dynamic var photo100: String
     @objc dynamic var firstName: String

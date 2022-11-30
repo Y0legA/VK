@@ -13,6 +13,7 @@ final class FriendsTableViewController: UITableViewController {
         static let photoSegueIdentifier = "photoSegue"
         static let headerNibName = "FriendsSectionTableViewHeader"
         static let headerIdentifier = "header"
+        static let emptyString = ""
     }
 
     // MARK: - Private Properties
@@ -73,7 +74,7 @@ final class FriendsTableViewController: UITableViewController {
 
     private func configureUI() {
         configureTableView()
-        fetchRealmFriends()
+        loadData()
     }
 
     private func configureTableView() {
@@ -105,34 +106,32 @@ final class FriendsTableViewController: UITableViewController {
                 self.configureListFriends()
                 self.tableView.reloadData()
             case let .failure(error):
-                print(error)
+                self.showAlert(title: nil, message: error.localizedDescription, actionTitle: nil, handler: nil)
             }
         }
     }
 
-    private func fetchRealmFriends() {
-        do {
-            print(realm?.configuration.fileURL ?? "")
-            guard let friends = realm?.objects(Friend.self) else { return }
-            addToken(friends)
-            userFriends = friends
-            fetchFriends()
-        } catch {
-            print(error.localizedDescription)
+    private func loadData() {
+        realmService.loadData { [weak self] friends in
+            guard let self = self else { return }
+            // guard friends: Results<Friend> else { return }
+            self.userFriends = friends
+            self.addNotificationToken(friends)
+            self.fetchFriends()
         }
     }
 
-    private func addToken(_ result: Results<Friend>) {
+    private func addNotificationToken(_ result: Results<Friend>) {
         guard let userFriends = userFriends else { return }
-        notificationToken = userFriends.observe { [weak self] changes in
+        notificationToken = userFriends.observe { changes in
             switch changes {
             case .initial:
                 break
             case .update:
-                self?.userFriends = result
-                self?.tableView.reloadData()
+                self.userFriends = result
+                self.tableView.reloadData()
             case let .error(error):
-                print(error)
+                self.showAlert(title: nil, message: error.localizedDescription, actionTitle: nil, handler: nil)
             }
         }
     }

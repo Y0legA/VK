@@ -7,7 +7,7 @@ import UIKit
 // Экран групп пользователя
 final class UserGroupsTableViewController: UITableViewController {
     // MARK: - Private Constants
-    
+
     private enum Constants {
         static let userGroupCellIdentifier = "UserGroupCell"
         static let outGroupsSegueIdentifier = "outGroups"
@@ -19,66 +19,67 @@ final class UserGroupsTableViewController: UITableViewController {
         static let lightMintColorName = "lightMintColor"
         static let lightPlaceholderMintColorName = "lightPlaceholderMintColor"
     }
-    
+
     // MARK: - Private Visual Properties
-    
+
     private let searchBar = UISearchBar()
-    
+
     // MARK: - Private Properties
-    
+
+    private let networkService = NetworkService()
+    private let realmService = RealmService()
+    private let realm = try? Realm()
+
     private var userGroups: Results<GroupDetail>? {
         didSet {
             tableView.reloadData()
         }
     }
-    
+
     private var isFiltering: Bool {
         isSearching && !searchResultIsEmpty
     }
-    
+
     private var searchResultIsEmpty: Bool {
         guard let text = searchBar.text else { return false }
         return text.isEmpty
     }
-    
+
     private var searchResults: [GroupDetail] = []
     private var isSearching = false
-    private let networkService = NetworkService()
-    private let realmService = RealmService()
     private var notificationToken: NotificationToken?
-    private let realm = try? Realm()
-    
+
     // MARK: - LifeCycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
     }
-    
+
     // MARK: - Public Methods
-    
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let count = userGroups?.count else { return 0 }
         return count
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: Constants.userGroupCellIdentifier,
             for: indexPath
-        ) as? GroupTableViewCell,let userGroups = userGroups  else { return GroupTableViewCell() }
+        ) as? GroupTableViewCell, let userGroups = userGroups else { return GroupTableViewCell() }
         cell.configureCell(userGroups[indexPath.row])
         return cell
     }
-    
+
     // MARK: - Private Methods
-    
+
     private func configureUI() {
         configureSearchBar()
         configureTableView()
-        fetchRealmGroups()
+        loadData()
     }
-    
+
     private func configureSearchBar() {
         searchBar.frame = CGRect(x: 0, y: 0, width: view.bounds.width - 40, height: 70)
         searchBar.center.x = view.center.x
@@ -90,7 +91,7 @@ final class UserGroupsTableViewController: UITableViewController {
         searchBar.barTintColor = UIColor(named: Constants.lightMintColorName)
         searchBar.sizeToFit()
     }
-    
+
     private func configureTableView() {
         tableView.tableHeaderView = searchBar
         tableView.register(
@@ -98,7 +99,7 @@ final class UserGroupsTableViewController: UITableViewController {
             forHeaderFooterViewReuseIdentifier: Constants.headerIdentifier
         )
     }
-    
+
     private func fetchGroups() {
         networkService.fetchGroups { [weak self] group in
             guard let self = self else { return }
@@ -107,22 +108,20 @@ final class UserGroupsTableViewController: UITableViewController {
                 self.realmService.saveData(data)
                 self.tableView.reloadData()
             case let .failure(error):
-                print(error.localizedDescription)
+                self.showAlert(title: nil, message: error.localizedDescription, actionTitle: nil, handler: nil)
             }
         }
     }
-    
-    private func fetchRealmGroups() {
-        do {
-            guard let groups = realm?.objects(GroupDetail.self) else { return }
-            addNotificationToken(groups)
-            userGroups = groups
-            fetchGroups()
-        } catch {
-            print(error.localizedDescription)
+
+    private func loadData() {
+        realmService.loadData { [weak self] groups in
+            guard let self = self else { return }
+            self.userGroups = groups
+            self.addNotificationToken(groups)
+            self.fetchGroups()
         }
     }
-    
+
     private func addNotificationToken(_ result: Results<GroupDetail>) {
         guard let userGroups = userGroups else { return }
         notificationToken = userGroups.observe { [weak self] changes in
@@ -133,7 +132,7 @@ final class UserGroupsTableViewController: UITableViewController {
                 self?.userGroups = result
                 self?.tableView.reloadData()
             case let .error(error):
-                print(error.localizedDescription)
+                self?.showAlert(title: nil, message: error.localizedDescription, actionTitle: nil, handler: nil)
             }
         }
     }

@@ -3,13 +3,23 @@
 
 import RealmSwift
 
-// Cервис базы данных Realm
+//  Realm Cервис
 final class RealmService {
     // MARK: - Public Properties
 
     let configuration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
 
     // MARK: - Public Methods
+
+    func loadData<T: RealmFetchable>(completion: (Results<T>) -> ()) {
+        do {
+            let realm = try Realm()
+            let data = realm.objects(T.self)
+            completion(data)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 
     func saveData<T: Object>(_ items: [T]) {
         do {
@@ -18,7 +28,7 @@ final class RealmService {
             realm.add(items, update: .modified)
             try realm.commitWrite()
         } catch {
-            print(error)
+            print(error.localizedDescription)
         }
     }
 }

@@ -25,11 +25,11 @@ final class FriendPhotoCollectionViewController: UICollectionViewController {
     private let realmService = RealmService()
     private var friendID = 0 {
         didSet {
-            fetchRealmPhotos()
+            loadPhotos()
         }
     }
 
-    private var realmPhotos: [FriendPhoto] = []
+    private var friendPhotos: [FriendPhoto] = []
 
     // MARK: - Public Methods
 
@@ -74,25 +74,25 @@ final class FriendPhotoCollectionViewController: UICollectionViewController {
                 self.realmService.saveData(data.friendDetail.friendPhotos)
                 self.collectionView.reloadData()
             case let .failure(error):
-                print(error)
+                self.showAlert(title: nil, message: error.localizedDescription, actionTitle: nil, handler: nil)
             }
         }
     }
 
-    private func fetchRealmPhotos() {
+    private func loadPhotos() {
         do {
             let realm = try Realm()
-            let friendPhotos = Array(realm.objects(FriendPhoto.self))
+            let photos = Array(realm.objects(FriendPhoto.self))
             photoName = photoNames.first ?? Constants.emptyString
-            let photoNamesID = friendPhotos.map(\.ownerID)
-            realmPhotos = friendPhotos
+            let photoNamesID = photos.map(\.ownerID)
+            friendPhotos = photos
             if photoNamesID.contains(where: { tempId in
                 friendID == tempId
             }) {
-                realmPhotos = friendPhotos.filter {
+                friendPhotos = photos.filter {
                     $0.ownerID == friendID
                 }
-                let friendsDetailArray = realmPhotos.map(\.photos.last)
+                let friendsDetailArray = photos.map(\.photos.last)
                 photoNames = friendsDetailArray.map { $0?.url ?? Constants.emptyString }
             } else {
                 fetchFriends()

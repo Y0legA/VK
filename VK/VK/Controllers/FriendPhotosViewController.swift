@@ -1,6 +1,7 @@
 // FriendPhotosViewController.swift
 // Copyright © RoadMap. All rights reserved.
 
+import RealmSwift
 import UIKit
 
 // Фото друга
@@ -20,7 +21,6 @@ final class FriendPhotosViewController: UIViewController {
 
     private lazy var firstPhotoName = friendPhotoNames.first
     private lazy var lastPhotoName = friendPhotoNames.last
-
     private var friendPhotoNames: [String] = []
     private var currentPhoto = Constants.emptyString
     private var prevousIndex = 0
@@ -49,6 +49,7 @@ final class FriendPhotosViewController: UIViewController {
             guard currentPhoto != lastPhotoName else { fallthrough }
             currentPhotoIndex += 1
             animatePhotoImageView(view.bounds.width)
+
         case .right:
             guard currentPhoto != firstPhotoName else { fallthrough }
             currentPhotoIndex -= 1
@@ -65,7 +66,6 @@ final class FriendPhotosViewController: UIViewController {
         UIView.animate(
             withDuration: 0.5,
             animations: {
-                self.imageView.loadImage(urlImage: self.friendPhotoNames[self.prevousIndex])
                 self.imageView.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
                 self.animateDisapearPhoto()
             },
@@ -73,6 +73,7 @@ final class FriendPhotosViewController: UIViewController {
                 self.imageView.transform = CGAffineTransform(translationX: offSet, y: 0)
                 UIView
                     .animate(withDuration: 1.0) {
+                        self.imageView.image = nil
                         self.imageView.loadImage(
                             urlImage: self.friendPhotoNames[self.currentPhotoIndex]
                         )

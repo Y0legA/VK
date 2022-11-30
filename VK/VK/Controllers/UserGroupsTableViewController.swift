@@ -1,6 +1,7 @@
 // UserGroupsTableViewController.swift
 // Copyright © RoadMap. All rights reserved.
 
+import RealmSwift
 import UIKit
 
 // Экран групп пользователя
@@ -25,7 +26,10 @@ final class UserGroupsTableViewController: UITableViewController {
 
     // MARK: - Private Properties
 
-    private var userGroups: [GroupDetail] = [] {
+    private let networkService = NetworkService()
+    private let realmService = RealmService()
+
+    private var userGroups: Results<GroupDetail>? {
         didSet {
             tableView.reloadData()
         }
@@ -42,7 +46,7 @@ final class UserGroupsTableViewController: UITableViewController {
 
     private var searchResults: [GroupDetail] = []
     private var isSearching = false
-    private let networkService = NetworkService()
+    private var notificationToken: NotificationToken?
 
     // MARK: - LifeCycle
 
@@ -51,14 +55,28 @@ final class UserGroupsTableViewController: UITableViewController {
         configureUI()
     }
 
+    // MARK: - Public Methods
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let count = userGroups?.count else { return 0 }
+        return count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: Constants.userGroupCellIdentifier,
+            for: indexPath
+        ) as? GroupTableViewCell, let userGroups = userGroups else { return GroupTableViewCell() }
+        cell.configureCell(userGroups[indexPath.row])
+        return cell
+    }
+
     // MARK: - Private Methods
 
     private func configureUI() {
         configureSearchBar()
         configureTableView()
-        networkService.fetchGroups { [weak self] items in
-            self?.userGroups = items
-        }
+        loadData()
     }
 
     private func configureSearchBar() {
@@ -81,31 +99,40 @@ final class UserGroupsTableViewController: UITableViewController {
         )
     }
 
-    // MARK: - UITableViewDataSource
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        isFiltering ? searchResults.count : userGroups.count
+    private func fetchGroups() {
+        networkService.fetchGroups { [weak self] group in
+            guard let self = self else { return }
+            switch group {
+            case let .success(data):
+                self.realmService.saveData(data)
+                self.tableView.reloadData()
+            case let .failure(error):
+                self.showAlert(title: nil, message: error.localizedDescription, actionTitle: nil, handler: nil)
+            }
+        }
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: Constants.userGroupCellIdentifier,
-            for: indexPath
-        ) as? GroupTableViewCell else { return GroupTableViewCell() }
-        let group = isFiltering ? searchResults[indexPath.row] : userGroups[indexPath.row]
-        cell.configureCell(group)
-        return cell
+    private func loadData() {
+        realmService.loadData { [weak self] groups in
+            guard let self = self else { return }
+            self.userGroups = groups
+            self.addNotificationToken(groups)
+            self.fetchGroups()
+        }
     }
 
-    // MARK: - UITableViewDelegate
-
-    override func tableView(
-        _ tableView: UITableView,
-        commit editingStyle: UITableViewCell.EditingStyle,
-        forRowAt indexPath: IndexPath
-    ) {
-        if editingStyle == .delete {
-            userGroups.remove(at: indexPath.row)
+    private func addNotificationToken(_ result: Results<GroupDetail>) {
+        guard let userGroups = userGroups else { return }
+        notificationToken = userGroups.observe { [weak self] changes in
+            switch changes {
+            case .initial:
+                break
+            case .update:
+                self?.userGroups = result
+                self?.tableView.reloadData()
+            case let .error(error):
+                self?.showAlert(title: nil, message: error.localizedDescription, actionTitle: nil, handler: nil)
+            }
         }
     }
 }
@@ -114,7 +141,8 @@ final class UserGroupsTableViewController: UITableViewController {
 
 extension UserGroupsTableViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchResults = userGroups.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+        guard let groups = userGroups else { return }
+        searchResults = groups.filter { $0.name.lowercased().contains(searchText.lowercased()) }
         isSearching = true
         tableView.reloadData()
     }

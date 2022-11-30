@@ -1,9 +1,8 @@
 // OutAllGroupsTableViewController.swift
 // Copyright © RoadMap. All rights reserved.
 
+import RealmSwift
 import UIKit
-
-// typealias Handler = (MyGroup) -> ()
 
 // Экран групп в которых не состоит пользователь
 final class OutAllGroupsTableViewController: UITableViewController {
@@ -13,6 +12,7 @@ final class OutAllGroupsTableViewController: UITableViewController {
         static let outGroupCellIdentifier = "outGroupCell"
         static let lightMintColorName = "lightMintColor"
         static let lightPlaceholderMintColorName = "lightPlaceholderMintColor"
+        static let emptyString = ""
     }
 
     // MARK: - Private Visual Properties
@@ -21,7 +21,10 @@ final class OutAllGroupsTableViewController: UITableViewController {
 
     // MARK: - Private Properties
 
-    private var outGroups: [GroupDetail] = [] {
+    private let networkService = NetworkService()
+    private let realmService = RealmService()
+
+    private var outGroups: Results<GroupDetail>? {
         didSet {
             tableView.reloadData()
         }
@@ -38,7 +41,7 @@ final class OutAllGroupsTableViewController: UITableViewController {
 
     private var isSearching = false
     private var searchResults: [GroupDetail] = []
-    private let networkService = NetworkService()
+    private var notificationToken: NotificationToken?
 
     // MARK: - LifeCycle
 
@@ -48,15 +51,15 @@ final class OutAllGroupsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        outGroups.count
+        outGroups?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: Constants.outGroupCellIdentifier,
             for: indexPath
-        ) as? OutGroupsTableViewCell else { fatalError() }
-        let group = outGroups[indexPath.row]
+        ) as? OutGroupsTableViewCell, let groups = outGroups else { return OutGroupsTableViewCell() }
+        let group = groups[indexPath.row]
         cell.configureCell(group)
         return cell
     }
@@ -74,6 +77,7 @@ final class OutAllGroupsTableViewController: UITableViewController {
     private func configureUI() {
         configureSearchBar()
         configureTableView()
+        loadData()
     }
 
     private func configureSearchBar() {
@@ -91,10 +95,41 @@ final class OutAllGroupsTableViewController: UITableViewController {
         tableView.tableHeaderView = searchBar
     }
 
-    private func fetchSearchGroups(_ searchText: String) {
-        networkService.fetchSearchGroups(searchText) { [weak self] groups in
-            self?.outGroups = groups
-            self?.tableView.reloadData()
+    private func fetchSearchOutGroups() {
+        networkService.fetchGroups { [weak self] groups in
+            guard let self = self else { return }
+            switch groups {
+            case let .success(data):
+                self.realmService.saveData(data)
+                self.tableView.reloadData()
+            case let .failure(error):
+                self.showAlert(title: nil, message: error.localizedDescription, actionTitle: nil, handler: nil)
+            }
+        }
+    }
+
+    private func loadData() {
+        realmService.loadData { [weak self] groups in
+            guard let self = self else { return }
+            self.outGroups = groups
+            self.addNotificationToken(groups)
+            self.fetchSearchOutGroups()
+        }
+    }
+
+    private func addNotificationToken(_ result: Results<GroupDetail>) {
+        guard let userGroups = outGroups else { return }
+        notificationToken = userGroups.observe { [weak self] changes in
+            guard let self = self else { return }
+            switch changes {
+            case .initial:
+                break
+            case .update:
+                self.outGroups = result
+                self.tableView.reloadData()
+            case let .error(error):
+                self.showAlert(title: nil, message: error.localizedDescription, actionTitle: nil, handler: nil)
+            }
         }
     }
 }
@@ -103,7 +138,9 @@ final class OutAllGroupsTableViewController: UITableViewController {
 
 extension OutAllGroupsTableViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard let groups = outGroups else { return }
+        searchResults = groups.filter { $0.name.lowercased().contains(searchText.lowercased()) }
         isSearching = true
-        fetchSearchGroups(searchText)
+        tableView.reloadData()
     }
 }

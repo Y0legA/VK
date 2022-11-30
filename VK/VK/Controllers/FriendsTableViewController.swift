@@ -1,6 +1,7 @@
 // FriendsTableViewController.swift
 // Copyright © RoadMap. All rights reserved.
 
+import RealmSwift
 import UIKit
 
 // Экран друзей
@@ -12,21 +13,19 @@ final class FriendsTableViewController: UITableViewController {
         static let photoSegueIdentifier = "photoSegue"
         static let headerNibName = "FriendsSectionTableViewHeader"
         static let headerIdentifier = "header"
+        static let emptyString = ""
     }
 
     // MARK: - Private Properties
 
-    private var userFriends: [Friend] = [] {
-        didSet {
-            configureListFriends()
-            tableView.reloadData()
-        }
-    }
-
+    private var userFriends: Results<Friend>?
+    private var notificationToken: NotificationToken?
+    private let realm = try? Realm()
     private var sortedSectionsFriendMap = [Character: [Friend]]()
     private var sortedFriends: [Friend] = []
     private var sectionTitles: [Character] = []
     private let networkService = NetworkService()
+    private let realmService = RealmService()
 
     // MARK: - LifeCycle
 
@@ -74,11 +73,8 @@ final class FriendsTableViewController: UITableViewController {
     // MARK: - Private Methods
 
     private func configureUI() {
-        configureListFriends()
         configureTableView()
-        networkService.fetchFriends { [weak self] items in
-            self?.userFriends = items
-        }
+        loadData()
     }
 
     private func configureTableView() {
@@ -89,7 +85,8 @@ final class FriendsTableViewController: UITableViewController {
     }
 
     private func configureListFriends() {
-        for friend in userFriends {
+        guard let objects = userFriends else { return }
+        for friend in objects {
             guard let firstLetter = friend.firstName.first else { return }
             if sortedSectionsFriendMap[firstLetter] != nil {
                 sortedSectionsFriendMap[firstLetter]?.append(friend)
@@ -98,5 +95,44 @@ final class FriendsTableViewController: UITableViewController {
             }
         }
         sectionTitles = Array(sortedSectionsFriendMap.keys).sorted()
+    }
+
+    private func fetchFriends() {
+        networkService.fetchFriends { [weak self] friend in
+            guard let self = self else { return }
+            switch friend {
+            case let .success(data):
+                self.realmService.saveData(data)
+                self.configureListFriends()
+                self.tableView.reloadData()
+            case let .failure(error):
+                self.showAlert(title: nil, message: error.localizedDescription, actionTitle: nil, handler: nil)
+            }
+        }
+    }
+
+    private func loadData() {
+        realmService.loadData { [weak self] friends in
+            guard let self = self else { return }
+            self.userFriends = friends
+            self.addNotificationToken(friends)
+            self.fetchFriends()
+        }
+    }
+
+    private func addNotificationToken(_ result: Results<Friend>) {
+        guard let userFriends = userFriends else { return }
+        notificationToken = userFriends.observe { [weak self] changes in
+            guard let self = self else { return }
+            switch changes {
+            case .initial:
+                break
+            case .update:
+                self.userFriends = result
+                self.tableView.reloadData()
+            case let .error(error):
+                self.showAlert(title: nil, message: error.localizedDescription, actionTitle: nil, handler: nil)
+            }
+        }
     }
 }

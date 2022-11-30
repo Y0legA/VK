@@ -4,6 +4,6 @@
 import RealmSwift
 
 // Photos
-final class Photos: Object, Decodable {
-    @objc dynamic var url: String
+final class Photos: Object, Codable {
+    @Persisted var url: String
 }

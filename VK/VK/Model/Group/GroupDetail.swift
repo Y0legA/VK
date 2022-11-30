@@ -4,13 +4,14 @@
 import RealmSwift
 
 // GroupDetail
-final class GroupDetail: Decodable {
-    @objc dynamic var id: Int
-    @objc dynamic var name: String
-    @objc dynamic var photo200: String
+final class GroupDetail: Object, Codable {
+    @Persisted(primaryKey: true) var id = 0
+    @Persisted var name: String
+    @Persisted var photo200: String
 
     enum CodingKeys: String, CodingKey {
-        case id, name
+        case id
+        case name
         case photo200 = "photo_200"
     }
 }

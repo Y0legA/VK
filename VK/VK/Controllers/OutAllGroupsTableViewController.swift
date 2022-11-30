@@ -120,14 +120,15 @@ final class OutAllGroupsTableViewController: UITableViewController {
     private func addNotificationToken(_ result: Results<GroupDetail>) {
         guard let userGroups = outGroups else { return }
         notificationToken = userGroups.observe { [weak self] changes in
+            guard let self = self else { return }
             switch changes {
             case .initial:
                 break
             case .update:
-                self?.outGroups = result
-                self?.tableView.reloadData()
+                self.outGroups = result
+                self.tableView.reloadData()
             case let .error(error):
-                self?.showAlert(title: nil, message: error.localizedDescription, actionTitle: nil, handler: nil)
+                self.showAlert(title: nil, message: error.localizedDescription, actionTitle: nil, handler: nil)
             }
         }
     }

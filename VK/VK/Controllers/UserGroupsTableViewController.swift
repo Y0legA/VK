@@ -28,7 +28,6 @@ final class UserGroupsTableViewController: UITableViewController {
 
     private let networkService = NetworkService()
     private let realmService = RealmService()
-    private let realm = try? Realm()
 
     private var userGroups: Results<GroupDetail>? {
         didSet {

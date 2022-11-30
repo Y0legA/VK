@@ -114,7 +114,6 @@ final class FriendsTableViewController: UITableViewController {
     private func loadData() {
         realmService.loadData { [weak self] friends in
             guard let self = self else { return }
-            // guard friends: Results<Friend> else { return }
             self.userFriends = friends
             self.addNotificationToken(friends)
             self.fetchFriends()
@@ -123,7 +122,8 @@ final class FriendsTableViewController: UITableViewController {
 
     private func addNotificationToken(_ result: Results<Friend>) {
         guard let userFriends = userFriends else { return }
-        notificationToken = userFriends.observe { changes in
+        notificationToken = userFriends.observe { [weak self] changes in
+            guard let self = self else { return }
             switch changes {
             case .initial:
                 break

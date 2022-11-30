@@ -4,7 +4,6 @@
 import RealmSwift
 
 // FriendsPhoto
-
 final class FriendPhoto: Object, Codable {
     @Persisted(primaryKey: true) var id: Int
     @Persisted var ownerID: Int

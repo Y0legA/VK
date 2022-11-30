@@ -66,8 +66,7 @@ final class UserGroupsTableViewController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: Constants.userGroupCellIdentifier,
             for: indexPath
-        ) as? GroupTableViewCell else { return GroupTableViewCell() }
-        guard let userGroups = userGroups else { return GroupTableViewCell() }
+        ) as? GroupTableViewCell,let userGroups = userGroups  else { return GroupTableViewCell() }
         cell.configureCell(userGroups[indexPath.row])
         return cell
     }
@@ -108,7 +107,7 @@ final class UserGroupsTableViewController: UITableViewController {
                 self.realmService.saveData(data)
                 self.tableView.reloadData()
             case let .failure(error):
-                print(error)
+                print(error.localizedDescription)
             }
         }
     }
@@ -116,14 +115,15 @@ final class UserGroupsTableViewController: UITableViewController {
     private func fetchRealmGroups() {
         do {
             guard let groups = realm?.objects(GroupDetail.self) else { return }
+            addNotificationToken(groups)
             userGroups = groups
             fetchGroups()
         } catch {
-            print(error)
+            print(error.localizedDescription)
         }
     }
     
-    private func addToken(_ result: Results<GroupDetail>) {
+    private func addNotificationToken(_ result: Results<GroupDetail>) {
         guard let userGroups = userGroups else { return }
         notificationToken = userGroups.observe { [weak self] changes in
             switch changes {
@@ -133,7 +133,7 @@ final class UserGroupsTableViewController: UITableViewController {
                 self?.userGroups = result
                 self?.tableView.reloadData()
             case let .error(error):
-                print(error)
+                print(error.localizedDescription)
             }
         }
     }

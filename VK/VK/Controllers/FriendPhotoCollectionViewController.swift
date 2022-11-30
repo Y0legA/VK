@@ -7,15 +7,15 @@ import UIKit
 // Экран фото друга
 final class FriendPhotoCollectionViewController: UICollectionViewController {
     // MARK: - Private Constants
-    
+
     private enum Constants {
         static let segueIdentifier = "photosSegue"
         static let photosCellIdentifier = "PhotoCell"
         static let emptyString = ""
     }
-    
+
     // MARK: - Private Properties
-    
+
     private var currentIndex = 0
     private var photoName = Constants.emptyString
     private var likeCount = 0
@@ -28,28 +28,28 @@ final class FriendPhotoCollectionViewController: UICollectionViewController {
             fetchRealmPhotos()
         }
     }
-    
+
     private var realmPhotos: [FriendPhoto] = []
-    
+
     // MARK: - Public Methods
-    
+
     func configureData(_ photoUrlName: String, _ id: Int) {
         photoName = photoUrlName
         friendID = id
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == Constants.segueIdentifier,
               let vc = segue.destination as? FriendPhotosViewController else { return }
         vc.configure(photoNames)
     }
-    
+
     // MARK: UICollectionViewDataSource
-    
+
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         1
     }
-    
+
     override func collectionView(
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
@@ -61,16 +61,16 @@ final class FriendPhotoCollectionViewController: UICollectionViewController {
         cell.configure(photoNames)
         return cell
     }
-    
+
     // MARK: - Private Methods
-    
+
     private func fetchFriends() {
         networkService.fetchPhotos(friendID) { [weak self] photo in
             guard let self = self else { return }
             switch photo {
             case let .success(data):
-                let friendsDetailArray = data.friendDetail.friendPhotos.map(\.photos.last)
-                self.photoNames = friendsDetailArray.map { $0?.url ?? Constants.emptyString }
+                let friendsDetail = data.friendDetail.friendPhotos.map(\.photos.last)
+                self.photoNames = friendsDetail.map { $0?.url ?? Constants.emptyString }
                 self.realmService.saveData(data.friendDetail.friendPhotos)
                 self.collectionView.reloadData()
             case let .failure(error):
@@ -78,15 +78,15 @@ final class FriendPhotoCollectionViewController: UICollectionViewController {
             }
         }
     }
-    
+
     private func fetchRealmPhotos() {
         do {
             let realm = try Realm()
             let friendPhotos = Array(realm.objects(FriendPhoto.self))
             photoName = photoNames.first ?? Constants.emptyString
-            let currentIds = friendPhotos.map(\.ownerID)
+            let photoNamesID = friendPhotos.map(\.ownerID)
             realmPhotos = friendPhotos
-            if currentIds.contains(where: { tempId in
+            if photoNamesID.contains(where: { tempId in
                 friendID == tempId
             }) {
                 realmPhotos = friendPhotos.filter {
@@ -98,7 +98,7 @@ final class FriendPhotoCollectionViewController: UICollectionViewController {
                 fetchFriends()
             }
         } catch {
-            print(error)
+            print(error.localizedDescription)
         }
     }
 }

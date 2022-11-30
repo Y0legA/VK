@@ -3,9 +3,13 @@
 
 import RealmSwift
 
-// Realm сервис
+// Cервис базы данных Realm
 final class RealmService {
+    // MARK: - Public Properties
+
     let configuration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
+
+    // MARK: - Public Methods
 
     func saveData<T: Object>(_ items: [T]) {
         do {

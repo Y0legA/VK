@@ -18,8 +18,7 @@ final class PhotoCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Public Methods
 
-    func configure(_ photoNames: [String], _ likes: Int, _ islike: Bool) {
+    func configure(_ photoNames: [String]) {
         friendImageView.loadImage(urlImage: photoNames.first ?? Constants.emptyString)
-        likesControl.configure(likes, islike)
     }
 }

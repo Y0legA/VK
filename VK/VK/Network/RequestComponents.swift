@@ -16,7 +16,7 @@ enum RequestComponents {
     static let host = "oauth.vk.com"
     static let path = "/authorize"
     static let clientParameter = "client_id"
-    static let clientParameterValue = "51483253"
+    static let clientParameterValue = "51490473"
     static let displayParameter = "display"
     static let displayParameterValue = "mobile"
     static let redirectParameter = "redirect_uri"

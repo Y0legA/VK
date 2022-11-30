@@ -4,7 +4,7 @@
 import Foundation
 
 // FriendInfo
-struct FriendInfo: Decodable {
+struct FriendInfo: Codable {
     let friends: [Friend]
 
     enum CodingKeys: String, CodingKey {

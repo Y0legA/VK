@@ -1,12 +1,13 @@
 // UserGroupsTableViewController.swift
 // Copyright © RoadMap. All rights reserved.
 
+import RealmSwift
 import UIKit
 
 // Экран групп пользователя
 final class UserGroupsTableViewController: UITableViewController {
     // MARK: - Private Constants
-
+    
     private enum Constants {
         static let userGroupCellIdentifier = "UserGroupCell"
         static let outGroupsSegueIdentifier = "outGroups"
@@ -18,49 +19,67 @@ final class UserGroupsTableViewController: UITableViewController {
         static let lightMintColorName = "lightMintColor"
         static let lightPlaceholderMintColorName = "lightPlaceholderMintColor"
     }
-
+    
     // MARK: - Private Visual Properties
-
+    
     private let searchBar = UISearchBar()
-
+    
     // MARK: - Private Properties
-
-    private var userGroups: [GroupDetail] = [] {
+    
+    private var userGroups: Results<GroupDetail>? {
         didSet {
             tableView.reloadData()
         }
     }
-
+    
     private var isFiltering: Bool {
         isSearching && !searchResultIsEmpty
     }
-
+    
     private var searchResultIsEmpty: Bool {
         guard let text = searchBar.text else { return false }
         return text.isEmpty
     }
-
+    
     private var searchResults: [GroupDetail] = []
     private var isSearching = false
     private let networkService = NetworkService()
-
+    private let realmService = RealmService()
+    private var notificationToken: NotificationToken?
+    private let realm = try? Realm()
+    
     // MARK: - LifeCycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
     }
-
+    
+    // MARK: - Public Methods
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let count = userGroups?.count else { return 0 }
+        return count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: Constants.userGroupCellIdentifier,
+            for: indexPath
+        ) as? GroupTableViewCell else { return GroupTableViewCell() }
+        guard let userGroups = userGroups else { return GroupTableViewCell() }
+        cell.configureCell(userGroups[indexPath.row])
+        return cell
+    }
+    
     // MARK: - Private Methods
-
+    
     private func configureUI() {
         configureSearchBar()
         configureTableView()
-        networkService.fetchGroups { [weak self] items in
-            self?.userGroups = items
-        }
+        fetchRealmGroups()
     }
-
+    
     private func configureSearchBar() {
         searchBar.frame = CGRect(x: 0, y: 0, width: view.bounds.width - 40, height: 70)
         searchBar.center.x = view.center.x
@@ -72,7 +91,7 @@ final class UserGroupsTableViewController: UITableViewController {
         searchBar.barTintColor = UIColor(named: Constants.lightMintColorName)
         searchBar.sizeToFit()
     }
-
+    
     private func configureTableView() {
         tableView.tableHeaderView = searchBar
         tableView.register(
@@ -80,32 +99,42 @@ final class UserGroupsTableViewController: UITableViewController {
             forHeaderFooterViewReuseIdentifier: Constants.headerIdentifier
         )
     }
-
-    // MARK: - UITableViewDataSource
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        isFiltering ? searchResults.count : userGroups.count
+    
+    private func fetchGroups() {
+        networkService.fetchGroups { [weak self] group in
+            guard let self = self else { return }
+            switch group {
+            case let .success(data):
+                self.realmService.saveData(data)
+                self.tableView.reloadData()
+            case let .failure(error):
+                print(error)
+            }
+        }
     }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: Constants.userGroupCellIdentifier,
-            for: indexPath
-        ) as? GroupTableViewCell else { return GroupTableViewCell() }
-        let group = isFiltering ? searchResults[indexPath.row] : userGroups[indexPath.row]
-        cell.configureCell(group)
-        return cell
+    
+    private func fetchRealmGroups() {
+        do {
+            guard let groups = realm?.objects(GroupDetail.self) else { return }
+            userGroups = groups
+            fetchGroups()
+        } catch {
+            print(error)
+        }
     }
-
-    // MARK: - UITableViewDelegate
-
-    override func tableView(
-        _ tableView: UITableView,
-        commit editingStyle: UITableViewCell.EditingStyle,
-        forRowAt indexPath: IndexPath
-    ) {
-        if editingStyle == .delete {
-            userGroups.remove(at: indexPath.row)
+    
+    private func addToken(_ result: Results<GroupDetail>) {
+        guard let userGroups = userGroups else { return }
+        notificationToken = userGroups.observe { [weak self] changes in
+            switch changes {
+            case .initial:
+                break
+            case .update:
+                self?.userGroups = result
+                self?.tableView.reloadData()
+            case let .error(error):
+                print(error)
+            }
         }
     }
 }
@@ -114,7 +143,8 @@ final class UserGroupsTableViewController: UITableViewController {
 
 extension UserGroupsTableViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchResults = userGroups.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+        guard let groups = userGroups else { return }
+        searchResults = groups.filter { $0.name.lowercased().contains(searchText.lowercased()) }
         isSearching = true
         tableView.reloadData()
     }

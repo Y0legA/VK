@@ -24,7 +24,7 @@ final class NetworkService {
         return urlComponents.url
     }
 
-    func fetchFriends(completion: @escaping ([Friend]) -> ()) {
+    func fetchFriends(completion: @escaping (Result<[Friend], Error>) -> ()) {
         let parameters: Parameters = [
             RequestComponents.acessTokenParameter: Session.shared.token,
             RequestComponents.fieldsParameter: RequestComponents.friendFieldsValue,
@@ -35,15 +35,15 @@ final class NetworkService {
             guard let data = response.value else { return }
             do {
                 let users = try JSONDecoder().decode(User.self, from: data)
-                let value = users.friendInfo.friends
-                completion(value)
+                let friends = users.friendInfo.friends
+                completion(.success(friends))
             } catch {
-                print(error)
+                completion(.failure(error))
             }
         }
     }
 
-    func fetchPhotos(_ friendID: Int, completion: @escaping ([String], Int) -> ()) {
+    func fetchPhotos(_ friendID: Int, completion: @escaping (Result<Photo, Error>) -> ()) {
         let parameters: Parameters = [
             RequestComponents.acessTokenParameter: Session.shared.token,
             RequestComponents.versionParameter: RequestComponents.versionParameterValue,
@@ -54,18 +54,15 @@ final class NetworkService {
         AF.request(path, parameters: parameters).responseData { response in
             guard let data = response.value else { return }
             do {
-                let friendsDetail = try JSONDecoder().decode(Photo.self, from: data)
-                let friendsDetailArray = friendsDetail.friendDetail.friendPhotos.map(\.photos.last)
-                let photosUrl = friendsDetailArray.map { $0?.url ?? "" }
-                let likes = friendsDetail.friendDetail.friendPhotos.map(\.likeCount.count)
-                completion(photosUrl, likes.first ?? 0)
+                let photo = try JSONDecoder().decode(Photo.self, from: data)
+                completion(.success(photo))
             } catch {
-                print(error)
+                completion(.failure(error))
             }
         }
     }
 
-    func fetchGroups(completion: @escaping ([GroupDetail]) -> ()) {
+    func fetchGroups(completion: @escaping (Result<[GroupDetail], Error>) -> ()) {
         let parameters: Parameters = [
             RequestComponents.acessTokenParameter: Session.shared.token,
             RequestComponents.versionParameter: RequestComponents.versionParameterValue,
@@ -75,16 +72,16 @@ final class NetworkService {
         AF.request(path, parameters: parameters).responseData { response in
             guard let data = response.value else { return }
             do {
-                let groupsArray = try JSONDecoder().decode(Group.self, from: data)
-                let groups = groupsArray.groupInfo.items
-                completion(groups)
+                let groups = try JSONDecoder().decode(Group.self, from: data)
+                let items = groups.groupInfo.items
+                completion(.success(items))
             } catch {
-                print(error)
+                completion(.failure(error))
             }
         }
     }
 
-    func fetchSearchGroups(_ name: String, completion: @escaping ([GroupDetail]) -> ()) {
+    func fetchSearchGroups(_ name: String, completion: @escaping (Result<[GroupDetail], Error>) -> ()) {
         let parameters: Parameters = [
             RequestComponents.acessTokenParameter: Session.shared.token,
             RequestComponents.versionParameter: RequestComponents.versionParameterValue,
@@ -96,21 +93,10 @@ final class NetworkService {
             do {
                 let groupsSearch = try JSONDecoder().decode(Group.self, from: data)
                 let groups = groupsSearch.groupInfo.items
-                completion(groups)
+                completion(.success(groups))
             } catch {
-                print(error)
+                completion(.failure(error))
             }
-        }
-    }
-
-    func saveData<T: Object>(_ items: [T]) {
-        do {
-            let realm = try Realm()
-            realm.beginWrite()
-            realm.add(items)
-            try realm.commitWrite()
-        } catch {
-            print(error)
         }
     }
 }

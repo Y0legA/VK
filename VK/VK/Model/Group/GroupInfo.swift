@@ -4,7 +4,7 @@
 import Foundation
 
 // GroupInfo
-struct GroupInfo: Decodable {
+struct GroupInfo: Codable {
     let count: Int
     let items: [GroupDetail]
 }

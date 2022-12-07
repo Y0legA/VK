@@ -3,7 +3,7 @@
 
 import UIKit
 
-// Анимирование перехода спомощью UIScreenEdgePanGestureRacogniser
+// Анимирование перехода спомощью UIScreenEdgePanGestureRecogniser
 final class InteractiveTransition: UIPercentDrivenInteractiveTransition {
     // MARK: - Visual Components
 

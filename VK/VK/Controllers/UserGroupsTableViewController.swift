@@ -67,7 +67,7 @@ final class UserGroupsTableViewController: UITableViewController {
             withIdentifier: Constants.userGroupCellIdentifier,
             for: indexPath
         ) as? GroupTableViewCell, let userGroups = userGroups else { return GroupTableViewCell() }
-        cell.configureCell(userGroups[indexPath.row])
+        cell.configureCell(userGroups[indexPath.row], networkService)
         return cell
     }
 

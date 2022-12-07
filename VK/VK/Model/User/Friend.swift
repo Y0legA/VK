@@ -4,7 +4,7 @@
 import RealmSwift
 
 @objcMembers
-/// Friend
+// Информация о друге
 final class Friend: Object, Codable {
     enum CodingKeys: String, CodingKey {
         case id
@@ -12,15 +12,16 @@ final class Friend: Object, Codable {
         case firstName = "first_name"
         case lastName = "last_name"
     }
-    ///Идентификатор
+
+    // Идентификатор друга
     dynamic var id: Int
-    ///Размер фото
+    // Размер фото
     dynamic var photo100: String
-    ///Имя друга
+    // Имя друга
     dynamic var firstName: String
-    ///Фамилия друга
+    // Фамилия друга
     dynamic var lastName: String
-    
+
     override static func primaryKey() -> String {
         "id"
     }

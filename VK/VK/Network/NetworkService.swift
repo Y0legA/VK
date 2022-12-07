@@ -99,4 +99,32 @@ final class NetworkService {
             }
         }
     }
+
+    func fetchNews(completion: @escaping (Result<NewsResponse, Error>) -> ()) {
+        let parameters: Parameters = [
+            RequestComponents.acessTokenParameter: Session.shared.token,
+            RequestComponents.filter: RequestComponents.filterValue,
+            RequestComponents.versionParameter: RequestComponents.versionParameterValue
+        ]
+        let path = Path.news.rawValue
+        AF.request(path, parameters: parameters).responseData { response in
+            guard let data = response.value else { return }
+            do {
+                let news = try JSONDecoder().decode(NewsResponse.self, from: data)
+                completion(.success(news))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+    }
+
+    func fetchFotoData(_ url: URL, _ completion: @escaping (Data) -> ()) {
+        URLSession.shared.dataTask(with: url) { data, _, _ in
+            DispatchQueue.main.async {
+                guard let data
+                else { return }
+                completion(data)
+            }
+        }.resume()
+    }
 }

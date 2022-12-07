@@ -3,8 +3,9 @@
 
 import Foundation
 
-// FriendInfo
+// Инфо о друге
 struct FriendInfo: Codable {
+    // Информация о друзьях
     let friends: [Friend]
 
     enum CodingKeys: String, CodingKey {

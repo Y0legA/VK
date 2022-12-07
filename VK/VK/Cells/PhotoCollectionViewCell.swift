@@ -18,7 +18,7 @@ final class PhotoCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Public Methods
 
-    func configure(_ photoNames: [String]) {
-        friendImageView.loadImage(urlImage: photoNames.first ?? Constants.emptyString)
+    func configure(_ photoNames: [String], _ networkService: NetworkService) {
+        friendImageView.loadImage(photoNames.first ?? Constants.emptyString, networkService)
     }
 }

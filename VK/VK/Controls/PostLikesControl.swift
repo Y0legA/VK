@@ -14,8 +14,7 @@ final class PostLikesControl: UIControl {
 
     // MARK: - Private Visual Components
 
-    private let likesCountLabel = UILabel()
-    private let likeButton = UIButton()
+    private let likesButton = UIButton()
 
     // MARK: - Public Properties
 
@@ -27,13 +26,13 @@ final class PostLikesControl: UIControl {
 
     private var likesCount = 0 {
         didSet {
-            likesCountLabel.text = String(likesCount)
+            likesButton.setTitle(String(likesCount), for: .normal)
             UIView.transition(
-                with: likesCountLabel,
+                with: likesButton.imageView ?? UIImageView(),
                 duration: 1.0,
                 options: [.transitionCurlUp],
                 animations: {
-                    self.likesCountLabel.text = String(self.likesCount)
+                    self.likesButton.setTitle(String(self.likesCount), for: .normal)
                 }
             )
         }
@@ -53,9 +52,8 @@ final class PostLikesControl: UIControl {
 
     // MARK: - Public Methods
 
-    func configure(_ likes: Int, _ isLike: Bool) {
+    func configure(_ likes: Int) {
         likesCount = likes
-        isLiked = isLike
     }
 
     // MARK: - Private Methods
@@ -66,58 +64,38 @@ final class PostLikesControl: UIControl {
 
     private func confifureUI() {
         setupView()
-        setConstraintLikesCountButton()
         setConstraintLikeButton()
         configureLikeButton()
     }
 
     private func setupView() {
-        addSubview(likeButton)
-        addSubview(likesCountLabel)
+        addSubview(likesButton)
     }
 
     private func configureLikeButton() {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(likeButtonAction))
-        likeButton.addGestureRecognizer(tapGestureRecognizer)
-    }
-
-    private func setConstraintLikesCountButton() {
-        likesCountLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            likesCountLabel.rightAnchor.constraint(equalTo: likeButton.leftAnchor),
-            likesCountLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
-        ])
+        likesButton.setImage(UIImage(systemName: Constant.likeButtonImageName), for: .normal)
+        likesButton.tintColor = .systemGray
+        likesButton.setTitleColor(.systemGray, for: .normal)
+        likesButton.addTarget(self, action: #selector(likeButtonAction), for: .touchUpInside)
     }
 
     private func setConstraintLikeButton() {
-        likeButton.translatesAutoresizingMaskIntoConstraints = false
+        likesButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            likeButton.rightAnchor.constraint(equalTo: rightAnchor),
-            likeButton.centerYAnchor.constraint(equalTo: centerYAnchor),
-            likeButton.widthAnchor.constraint(equalTo: widthAnchor),
-            likeButton.heightAnchor.constraint(equalTo: heightAnchor)
+            likesButton.leadingAnchor.constraint(equalTo: leadingAnchor),
+            likesButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2),
+            likesButton.topAnchor.constraint(equalTo: topAnchor),
+            likesButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -3)
         ])
-    }
-
-    private func setLike() {
-        likeButton.setImage(UIImage(systemName: Constant.dislikeButtonImageName), for: .normal)
-        likeButton.tintColor = .systemRed
-        likesCountLabel.textColor = .systemRed
-    }
-
-    private func setdisLike() {
-        likeButton.setImage(UIImage(systemName: Constant.likeButtonImageName), for: .normal)
-        likeButton.tintColor = .systemGray
-        likesCountLabel.textColor = .systemGray
     }
 
     private func updateLikeStatus() {
         guard isLiked else {
             likesCount -= 1
-            setdisLike()
+            likesButton.setImage(UIImage(systemName: Constant.likeButtonImageName), for: .normal)
             return
         }
-        setLike()
+        likesButton.setImage(UIImage(systemName: Constant.dislikeButtonImageName), for: .normal)
         likesCount += 1
     }
 }

@@ -58,7 +58,7 @@ final class FriendsTableViewController: UITableViewController {
             for: indexPath
         ) as? FriendTableViewCell else { fatalError() }
         guard let friend = sortedSectionsFriendMap[sectionTitles[indexPath.section]]?[indexPath.row] else { abort() }
-        cell.configureCell(friend)
+        cell.configureCell(friend, networkService)
         return cell
     }
 

@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// Comments
+/// Количество комментариев
 struct Comments: Codable {
     let count: Int
 }

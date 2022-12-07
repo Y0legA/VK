@@ -4,12 +4,12 @@
 import UIKit
 
 /// NewsHeaderViewCell
-final class NewsHeaderViewCell: UITableViewCell, NewsConfigurable {
+final class NewsHeaderViewCell: NewsCell {
     // MARK: - Private Constants
 
     private enum Constants {
         static let emptyString = " "
-        static let dateFormat = "MM-dd-yyyy Hh:mm"
+        static let dateFormat = "MM-dd-yy hh:mm"
     }
 
     // MARK: - Private IBOutlet

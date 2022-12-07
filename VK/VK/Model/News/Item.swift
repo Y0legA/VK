@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// Item
+/// Детальная информаци по новости
 final class Item: Decodable {
     var sourceID: Int
     var name: String?

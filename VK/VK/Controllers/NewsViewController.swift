@@ -47,12 +47,16 @@ final class NewsViewController: UIViewController {
     // MARK: - Private Methods
 
     private func configureUI() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.estimatedRowHeight = UITableView.automaticDimension
+        configureTableView()
         fetchNews()
     }
 
+    private func configureTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.estimatedRowHeight = UITableView.automaticDimension
+    }
+    
     private func fetchNews() {
         networkService.fetchNews { [weak self] response in
             guard let self else { return }

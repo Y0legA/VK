@@ -4,7 +4,7 @@
 import UIKit
 
 /// NewsPostViewCell
-final class NewsPostViewCell: UITableViewCell, NewsConfigurable {
+final class NewsPostViewCell: NewsCell {
     // MARK: - Private IBOutlet
 
     @IBOutlet private var postTextView: UITextView!

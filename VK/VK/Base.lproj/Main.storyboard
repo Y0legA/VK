@@ -703,17 +703,17 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ol-dg-YCN">
-                                                    <rect key="frame" x="75" y="18.333333333333336" width="295" height="20.333333333333336"/>
+                                                    <rect key="frame" x="75" y="19.333333333333336" width="295" height="20.333333333333336"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tZK-Lf-F6S">
-                                                    <rect key="frame" x="75" y="46.666666666666664" width="120" height="20.333333333333336"/>
+                                                    <rect key="frame" x="75" y="47.666666666666664" width="120" height="14.333333333333336"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="Yb2-gT-M5a"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -722,7 +722,7 @@
                                                 <constraint firstItem="1uM-3L-3ba" firstAttribute="top" secondItem="R8S-rc-GG3" secondAttribute="topMargin" id="5kV-lA-4Z9"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="4Ol-dg-YCN" secondAttribute="trailing" id="5sY-wV-eko"/>
                                                 <constraint firstItem="tZK-Lf-F6S" firstAttribute="top" secondItem="4Ol-dg-YCN" secondAttribute="bottom" constant="8" symbolic="YES" id="B8q-9A-5jH"/>
-                                                <constraint firstAttribute="bottom" secondItem="tZK-Lf-F6S" secondAttribute="bottom" constant="5" id="doX-EA-bXW"/>
+                                                <constraint firstAttribute="bottom" secondItem="tZK-Lf-F6S" secondAttribute="bottom" constant="10" id="doX-EA-bXW"/>
                                                 <constraint firstItem="4Ol-dg-YCN" firstAttribute="leading" secondItem="1uM-3L-3ba" secondAttribute="trailing" constant="5" id="eqY-qF-meR"/>
                                                 <constraint firstItem="tZK-Lf-F6S" firstAttribute="leading" secondItem="1uM-3L-3ba" secondAttribute="trailing" constant="5" id="k9o-k9-gww"/>
                                                 <constraint firstItem="1uM-3L-3ba" firstAttribute="leading" secondItem="R8S-rc-GG3" secondAttribute="leadingMargin" id="n0b-0b-giI"/>
@@ -866,9 +866,9 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.70980392156862748" green="0.90588235294117647" blue="0.90980392156862744" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
-                                            <outlet property="commentCount" destination="eNO-dR-Fhj" id="D9W-yh-IBv"/>
+                                            <outlet property="commentCountButton" destination="eNO-dR-Fhj" id="D9W-yh-IBv"/>
                                             <outlet property="likesControl" destination="6aF-sy-npP" id="NbB-ys-TlG"/>
-                                            <outlet property="shareCount" destination="r4h-ej-dL3" id="CCe-U3-yhh"/>
+                                            <outlet property="shareCountButton" destination="r4h-ej-dL3" id="CCe-U3-yhh"/>
                                             <outlet property="viewsCountButton" destination="RFL-zd-qXV" id="z5C-kp-7mW"/>
                                         </connections>
                                     </tableViewCell>

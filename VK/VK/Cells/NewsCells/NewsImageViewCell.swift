@@ -4,7 +4,7 @@
 import UIKit
 
 /// NewsImageViewCell
-final class NewsImageViewCell: UITableViewCell, NewsConfigurable {
+final class NewsImageViewCell: NewsCell {
     // MARK: - Private Constants
 
     private enum Constants {

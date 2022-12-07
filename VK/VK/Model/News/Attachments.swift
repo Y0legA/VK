@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// ItemAttachment
+/// Фото
 struct ItemAttachment: Decodable {
     let friendPhoto: FriendPhoto?
 

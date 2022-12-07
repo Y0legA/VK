@@ -3,10 +3,10 @@
 
 import Foundation
 
-/// Инфо по группе
+// Инфо по группе
 struct GroupInfo: Codable {
-    /// Количество групп
+    // Количество групп
     let count: Int
-    /// Детальная информация по группе
+    // Детальная информация по группе
     let items: [GroupDetail]
 }

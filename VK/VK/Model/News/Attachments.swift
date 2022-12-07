@@ -3,9 +3,9 @@
 
 import Foundation
 
-/// Вложения новости
+// Вложения новости
 struct ItemAttachment: Decodable {
-    /// Все фото друга
+    // Все фото друга
     let friendPhoto: FriendPhoto?
 
     enum CodingKeys: String, CodingKey {

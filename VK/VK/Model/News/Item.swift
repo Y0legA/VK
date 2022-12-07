@@ -3,29 +3,29 @@
 
 import Foundation
 
-/// Детальная информаци по новости
+// Детальная информаци по новости
 final class Item: Decodable {
-    /// ID источника
+    // ID источника
     let sourceID: Int
-    /// Имя
+    // Имя
     var name: String?
-    /// Фото URL
+    // Фото URL
     var photoUrl: String?
-    /// Дата новости
+    // Дата новости
     let date: Int
-    /// ID Пользователя
+    // ID Пользователя
     let id: Int?
-    /// Заголовок новости
+    // Заголовок новости
     let text: String?
     /// Вложения новости
     let attachments: [ItemAttachment]?
-    /// Инфо по лайкам
+    // Инфо по лайкам
     let likes: Likes?
-    /// Инфо по просмотрам
+    // Инфо по просмотрам
     let views: Views?
-    /// Инфо по комментам
+    // Инфо по комментам
     let comments: Comments?
-    /// Инфо по репостам
+    // Инфо по репостам
     let reposts: Reposts?
 
     enum CodingKeys: String, CodingKey {

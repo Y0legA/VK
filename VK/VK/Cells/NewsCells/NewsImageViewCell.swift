@@ -3,7 +3,7 @@
 
 import UIKit
 
-/// Ячейка с фото поста новостей
+// Ячейка с фото поста новостей
 final class NewsImageViewCell: NewsCell {
     // MARK: - Private Constants
 

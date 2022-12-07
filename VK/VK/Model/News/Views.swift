@@ -3,8 +3,8 @@
 
 import Foundation
 
-/// Просмотры
+// Просмотры
 struct Views: Codable {
-    /// Количество просмотров
+    // Количество просмотров
     let count: Int?
 }

@@ -3,8 +3,9 @@
 
 import Foundation
 
-/// Доступные фото друга
+// Доступные фото друга
 struct Photo: Decodable {
+    // Детальное инфо о фото друга
     let friendDetail: FriendDetail
 
     enum CodingKeys: String, CodingKey {

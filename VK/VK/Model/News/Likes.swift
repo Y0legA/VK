@@ -3,11 +3,11 @@
 
 import Foundation
 
-/// Количество лайков
+// Количество лайков
 struct Likes: Codable {
-    /// Количество лайков всего
+    // Количество лайков всего
     let count: Int?
-    /// Количество лайков пользователя
+    // Количество лайков пользователя
     let userLikes: Int?
 
     enum CodingKeys: String, CodingKey {

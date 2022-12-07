@@ -3,13 +3,13 @@
 
 import RealmSwift
 
-/// Фото друга
+// Фото друга
 final class FriendPhoto: Object, Codable {
-    /// идентификатор пользователя
+    // идентификатор пользователя
     @Persisted(primaryKey: true) var id: Int
-    /// идентификатор владельца фотографий
+    // идентификатор владельца фотографий
     @Persisted var ownerID: Int
-    /// Список объектов
+    // Список объектов
     @Persisted var photos = List<Photos>()
 
     enum CodingKeys: String, CodingKey {

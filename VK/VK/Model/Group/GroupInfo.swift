@@ -3,7 +3,7 @@
 
 import Foundation
 
-// GroupInfo
+/// GroupInfo
 struct GroupInfo: Codable {
     let count: Int
     let items: [GroupDetail]

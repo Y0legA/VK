@@ -3,10 +3,13 @@
 
 import RealmSwift
 
-// GroupDetail
+/// GroupDetail
 final class GroupDetail: Object, Codable {
+    /// Идентификатор группы
     @Persisted(primaryKey: true) var id = 0
+    /// Название группы
     @Persisted var name: String
+    /// Фото группы
     @Persisted var photo200: String
 
     enum CodingKeys: String, CodingKey {

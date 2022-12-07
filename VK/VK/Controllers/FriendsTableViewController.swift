@@ -75,6 +75,7 @@ final class FriendsTableViewController: UITableViewController {
     private func configureUI() {
         configureTableView()
         loadData()
+        print(realm?.configuration.fileURL)
     }
 
     private func configureTableView() {

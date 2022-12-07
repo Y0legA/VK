@@ -3,7 +3,7 @@
 
 import Foundation
 
-// Photo
+/// Photo
 struct Photo: Decodable {
     let friendDetail: FriendDetail
 

@@ -3,7 +3,8 @@
 
 import RealmSwift
 
-// Photos
+/// Photos
 final class Photos: Object, Codable {
+    /// URL копии изображения
     @Persisted var url: String
 }

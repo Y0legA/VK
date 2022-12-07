@@ -1,13 +1,13 @@
-// User.swift
+// Reposts.swift
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
 
-/// User
-struct User: Decodable {
-    let friendInfo: FriendInfo
+/// Reposts
+struct Reposts: Codable {
+    let count: Int
 
     enum CodingKeys: String, CodingKey {
-        case friendInfo = "response"
+        case count
     }
 }

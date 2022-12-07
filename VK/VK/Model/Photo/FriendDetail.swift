@@ -3,7 +3,7 @@
 
 import Foundation
 
-// FriendDetail
+/// FriendDetail
 struct FriendDetail: Codable {
     let friendPhotos: [FriendPhoto]
 

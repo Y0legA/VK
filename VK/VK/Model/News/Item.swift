@@ -5,17 +5,28 @@ import Foundation
 
 /// Детальная информаци по новости
 final class Item: Decodable {
-    var sourceID: Int
+    /// ID источника
+    let sourceID: Int
+    /// Имя
     var name: String?
+    /// Фото URL
     var photoUrl: String?
-    var date: Int
-    var id: Int?
-    var text: String?
+    /// Дата новости
+    let date: Int
+    /// ID Пользователя
+    let id: Int?
+    /// Заголовок новости
+    let text: String?
+    /// Вложения новости
     let attachments: [ItemAttachment]?
-    var likes: Likes?
-    var views: Views?
-    var comments: Comments?
-    var reposts: Reposts?
+    /// Инфо по лайкам
+    let likes: Likes?
+    /// Инфо по просмотрам
+    let views: Views?
+    /// Инфо по комментам
+    let comments: Comments?
+    /// Инфо по репостам
+    let reposts: Reposts?
 
     enum CodingKeys: String, CodingKey {
         case sourceID = "source_id"
@@ -26,5 +37,6 @@ final class Item: Decodable {
         case likes
         case views
         case comments
+        case reposts
     }
 }

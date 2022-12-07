@@ -60,7 +60,7 @@ final class OutAllGroupsTableViewController: UITableViewController {
             for: indexPath
         ) as? OutGroupsTableViewCell, let groups = outGroups else { return OutGroupsTableViewCell() }
         let group = groups[indexPath.row]
-        cell.configureCell(group)
+        cell.configureCell(group, networkService)
         return cell
     }
 

@@ -3,7 +3,7 @@
 
 import RealmSwift
 
-/// GroupDetail
+/// Детальная информация по группе
 final class GroupDetail: Object, Codable {
     /// Идентификатор группы
     @Persisted(primaryKey: true) var id = 0

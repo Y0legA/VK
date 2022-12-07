@@ -117,4 +117,14 @@ final class NetworkService {
             }
         }
     }
+
+    func fetchFotoData(_ url: URL, _ completion: @escaping (Data) -> ()) {
+        URLSession.shared.dataTask(with: url) { data, _, _ in
+            DispatchQueue.main.async {
+                guard let data
+                else { return }
+                completion(data)
+            }
+        }.resume()
+    }
 }

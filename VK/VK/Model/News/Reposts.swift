@@ -3,8 +3,9 @@
 
 import Foundation
 
-/// Количество репостов
+/// Репосты
 struct Reposts: Codable {
+    /// Количество репостов
     let count: Int
 
     enum CodingKeys: String, CodingKey {

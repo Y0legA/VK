@@ -3,7 +3,7 @@
 
 import UIKit
 
-/// NewsPostViewCell
+/// Пост ячейки новостей
 final class NewsPostViewCell: NewsCell {
     // MARK: - Private IBOutlet
 
@@ -11,7 +11,7 @@ final class NewsPostViewCell: NewsCell {
 
     // MARK: - Public Methods
 
-    func configure(_ news: Item) {
+    func configure(_ news: Item, _ networkService: NetworkService) {
         postTextView.text = news.text
     }
 }

@@ -3,7 +3,7 @@
 
 import UIKit
 
-/// NewsFooterViewCell
+/// Футер ячейки новостей
 final class NewsFooterViewCell: NewsCell {
     // MARK: - Private IBOutlet
 
@@ -14,7 +14,7 @@ final class NewsFooterViewCell: NewsCell {
 
     // MARK: - Public Methods
 
-    func configure(_ news: Item) {
+    func configure(_ news: Item, _ networkService: NetworkService) {
         likesControl.configure(news.likes?.count ?? 0)
         commentCountButton.setTitle(String(news.comments?.count ?? 0), for: .normal)
         shareCountButton.setTitle(String(news.reposts?.count ?? 0), for: .normal)

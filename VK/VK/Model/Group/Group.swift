@@ -3,8 +3,9 @@
 
 import Foundation
 
-/// Group
+/// Группа
 struct Group: Decodable {
+    /// Инфо по группе
     let groupInfo: GroupInfo
 
     enum CodingKeys: String, CodingKey {

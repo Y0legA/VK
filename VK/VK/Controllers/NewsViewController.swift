@@ -33,9 +33,9 @@ final class NewsViewController: UIViewController {
 
     private let networkService = NetworkService()
 
-    private var news: [Item] = []
-    private var groups: [GroupDetail] = []
-    private var profile: [Friend] = []
+    private var items: [Item] = []
+    private var groupDetails: [GroupDetail] = []
+    private var friends: [Friend] = []
 
     // MARK: - LifeCycle
 
@@ -56,7 +56,7 @@ final class NewsViewController: UIViewController {
         tableView.dataSource = self
         tableView.estimatedRowHeight = UITableView.automaticDimension
     }
-    
+
     private func fetchNews() {
         networkService.fetchNews { [weak self] response in
             guard let self else { return }
@@ -92,7 +92,7 @@ final class NewsViewController: UIViewController {
             }
         }
         DispatchQueue.main.async {
-            self.news = news.items
+            self.items = news.items
             self.tableView.reloadData()
         }
     }
@@ -102,7 +102,7 @@ final class NewsViewController: UIViewController {
 
 extension NewsViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        news.count
+        items.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -110,7 +110,7 @@ extension NewsViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = news[indexPath.section]
+        let item = items[indexPath.section]
         let cellType = NewsType(rawValue: indexPath.row) ?? .content
         var cellIdentifier = Constants.emptyString
         switch cellType {
@@ -124,7 +124,8 @@ extension NewsViewController: UITableViewDataSource {
         guard let cell = tableView
             .dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? NewsCell
         else { return UITableViewCell() }
-        cell.configure(item)
+        cell.configure(item, networkService)
+
         return cell
     }
 }

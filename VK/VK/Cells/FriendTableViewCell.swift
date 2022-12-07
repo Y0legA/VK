@@ -23,8 +23,8 @@ final class FriendTableViewCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configureCell(_ friend: Friend) {
-        avatarImageView.loadImage(urlImage: friend.photo100)
+    func configureCell(_ friend: Friend, _ networkService: NetworkService) {
+        avatarImageView.loadImage(friend.photo100, networkService)
         friendNameLabel.text = friend.firstName + Constants.emptyString + friend.lastName
     }
 

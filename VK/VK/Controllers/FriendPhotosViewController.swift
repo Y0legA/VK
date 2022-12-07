@@ -74,9 +74,7 @@ final class FriendPhotosViewController: UIViewController {
                 UIView
                     .animate(withDuration: 1.0) {
                         self.imageView.image = nil
-                        self.imageView.loadImage(
-                            urlImage: self.friendPhotoNames[self.currentPhotoIndex]
-                        )
+                        self.imageView.loadImage(self.friendPhotoNames[self.currentPhotoIndex], self.networkService)
                         self.imageView.transform = .identity
                     }
             }
@@ -118,7 +116,7 @@ final class FriendPhotosViewController: UIViewController {
     }
 
     private func configureImageView() {
-        imageView.loadImage(urlImage: firstPhotoName ?? Constants.emptyString)
+        imageView.loadImage(firstPhotoName ?? Constants.emptyString, networkService)
         imageView.isUserInteractionEnabled = true
     }
 }

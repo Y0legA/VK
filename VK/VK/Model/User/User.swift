@@ -3,8 +3,9 @@
 
 import Foundation
 
-/// User
+/// Пользователь
 struct User: Decodable {
+    /// Инфо о друге
     let friendInfo: FriendInfo
 
     enum CodingKeys: String, CodingKey {

@@ -3,7 +3,7 @@
 
 import UIKit
 
-/// NewsHeaderViewCell
+/// Хедер ячейки новостей
 final class NewsHeaderViewCell: NewsCell {
     // MARK: - Private Constants
 
@@ -20,8 +20,8 @@ final class NewsHeaderViewCell: NewsCell {
 
     // MARK: - Public Methods
 
-    func configure(_ news: Item) {
-        postAuthorImageView.loadImage(urlImage: news.photoUrl ?? Constants.emptyString)
+    func configure(_ news: Item, _ networkService: NetworkService) {
+        postAuthorImageView.loadImage(news.photoUrl ?? Constants.emptyString, networkService)
         nameLabel.text = news.name
         postDateLabel.text = convertData(news.date)
     }

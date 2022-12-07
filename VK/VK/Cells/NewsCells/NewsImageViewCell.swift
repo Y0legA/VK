@@ -3,7 +3,7 @@
 
 import UIKit
 
-/// NewsImageViewCell
+/// Ячейка с фото поста новостей
 final class NewsImageViewCell: NewsCell {
     // MARK: - Private Constants
 
@@ -17,7 +17,8 @@ final class NewsImageViewCell: NewsCell {
 
     // MARK: - Public Methods
 
-    func configure(_ news: Item) {
-        let photos = news.attachments?.compactMap(\.friendPhoto)
+    func configure(_ news: Item, _ networkService: NetworkService) {
+        guard let photo = news.attachments?.compactMap(\.friendPhoto).last?.photos.last?.url else { return }
+        postImageView.loadImage(photo, networkService)
     }
 }

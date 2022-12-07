@@ -5,7 +5,9 @@ import Foundation
 
 /// Количество лайков
 struct Likes: Codable {
+    /// Количество лайков всего
     let count: Int?
+    /// Количество лайков пользователя
     let userLikes: Int?
 
     enum CodingKeys: String, CodingKey {

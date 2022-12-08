@@ -242,6 +242,7 @@
 				E10AF80F291012C80077251D /* SceneDelegate.swift */,
 				E1ECEFFF294284A900F21050 /* Future_Promise */,
 				E1BFB8C229351C6A002E223B /* Realm */,
+				E156A6E0294141A800C9DB2F /* OperationQueue */,
 				E1B447C8292D3F8D00310613 /* Network */,
 				E1876398291E1F1E00DC171D /* Transitions */,
 				E1876393291E1E1100DC171D /* Animators */,
@@ -341,7 +342,6 @@
 		E1B447C8292D3F8D00310613 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				E156A6E0294141A800C9DB2F /* OperationQueue */,
 				E1493150292BDCFD0043F052 /* Session.swift */,
 				E1B447C9292D46BC00310613 /* NetworkService.swift */,
 				E1B447CB292D46CD00310613 /* RequestComponents.swift */,

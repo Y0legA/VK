@@ -3,7 +3,7 @@
 
 import Foundation
 
-// Детальная информаци по новости
+/// Детальная информаци по новости
 final class Item: Decodable {
     // ID источника
     let sourceID: Int

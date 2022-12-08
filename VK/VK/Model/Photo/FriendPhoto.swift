@@ -3,7 +3,7 @@
 
 import RealmSwift
 
-// Фото друга
+/// Фото друга
 final class FriendPhoto: Object, Codable {
     // идентификатор пользователя
     @Persisted(primaryKey: true) var id: Int

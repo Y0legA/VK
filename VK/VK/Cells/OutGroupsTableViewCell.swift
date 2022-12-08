@@ -3,7 +3,7 @@
 
 import UIKit
 
-// Ячейка группы на которую не подписан пользователь
+/// Ячейка группы на которую не подписан пользователь
 final class OutGroupsTableViewCell: UITableViewCell {
     // MARK: - Private IBOutlet
 

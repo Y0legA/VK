@@ -1,7 +1,7 @@
 // RequestComponents.swift
 // Copyright © RoadMap. All rights reserved.
 
-// Составляющие запроса
+/// Составляющие запроса
 enum RequestComponents {
     static let acessTokenParameter = "access_token"
     static let versionParameter = "v"
@@ -18,7 +18,7 @@ enum RequestComponents {
     static let host = "oauth.vk.com"
     static let path = "/authorize"
     static let clientParameter = "client_id"
-    static let clientParameterValue = "51496841"
+    static let clientParameterValue = "51498663"
     static let displayParameter = "display"
     static let displayParameterValue = "mobile"
     static let redirectParameter = "redirect_uri"

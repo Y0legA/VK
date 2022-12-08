@@ -3,7 +3,7 @@
 
 import Foundation
 
-// Количество лайков
+/// Количество лайков
 struct Likes: Codable {
     // Количество лайков всего
     let count: Int?

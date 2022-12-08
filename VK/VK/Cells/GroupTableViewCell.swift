@@ -3,7 +3,7 @@
 
 import UIKit
 
-// Ячейка группы пользователя
+/// Ячейка группы пользователя
 final class GroupTableViewCell: UITableViewCell {
     // MARK: - Private IBOutlet
 

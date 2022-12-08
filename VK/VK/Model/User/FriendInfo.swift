@@ -3,7 +3,7 @@
 
 import Foundation
 
-// Инфо о друге
+/// Инфо о друге
 struct FriendInfo: Codable {
     // Информация о друзьях
     let friends: [Friend]

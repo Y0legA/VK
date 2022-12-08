@@ -3,30 +3,31 @@
 
 import RealmSwift
 
-//  Realm Cервис
+/// Реалм сервис
 final class RealmService {
     // MARK: - Public Properties
 
-    let configuration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
+    static let configuration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
 
     // MARK: - Public Methods
 
-    func loadData<T: RealmFetchable>(completion: (Results<T>) -> ()) {
+    static func saveData<T: Object>(_ items: [T]) {
         do {
             let realm = try Realm()
-            let data = realm.objects(T.self)
-            completion(data)
+            try realm.write {
+                realm.add(items, update: .modified)
+            }
         } catch {
             print(error.localizedDescription)
         }
     }
 
-    func saveData<T: Object>(_ items: [T]) {
+    static func loadData<T: RealmFetchable>(completion: (Results<T>) -> ()) {
         do {
             let realm = try Realm(configuration: configuration)
-            realm.beginWrite()
-            realm.add(items, update: .modified)
-            try realm.commitWrite()
+            print(realm.configuration.fileURL as Any)
+            let data = realm.objects(T.self)
+            completion(data)
         } catch {
             print(error.localizedDescription)
         }

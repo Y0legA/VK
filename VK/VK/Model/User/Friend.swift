@@ -3,8 +3,8 @@
 
 import RealmSwift
 
+/// Информация о друге
 @objcMembers
-// Информация о друге
 final class Friend: Object, Codable {
     enum CodingKeys: String, CodingKey {
         case id

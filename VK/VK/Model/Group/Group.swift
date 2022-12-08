@@ -3,7 +3,7 @@
 
 import Foundation
 
-// Группа
+/// Группа
 struct Group: Decodable {
     // Инфо по группе
     let groupInfo: GroupInfo

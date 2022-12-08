@@ -3,7 +3,7 @@
 
 import UIKit
 
-// Контрол для отображения и подсчета лайков поста
+/// Контрол для отображения и подсчета лайков поста
 final class PostLikesControl: UIControl {
     // MARK: - Private Constants
 

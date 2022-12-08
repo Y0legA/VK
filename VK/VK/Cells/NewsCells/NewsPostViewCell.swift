@@ -3,7 +3,7 @@
 
 import UIKit
 
-// Пост ячейки новостей
+/// Пост ячейки новостей
 final class NewsPostViewCell: NewsCell {
     // MARK: - Private IBOutlet
 

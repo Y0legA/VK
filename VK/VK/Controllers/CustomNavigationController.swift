@@ -3,7 +3,7 @@
 
 import UIKit
 
-// Экран кастомного навигейшн контроллера
+/// Экран кастомного навигейшн контроллера
 final class CustomNavigationController: UINavigationController, UINavigationControllerDelegate {
     // MARK: - Private Visual Components
 

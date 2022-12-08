@@ -3,7 +3,7 @@
 
 import UIKit
 
-// Вью для задания градиента
+/// Вью для задания градиента
 @IBDesignable final class GradientView: UIView {
     // MARK: - Public Properties
 
@@ -11,7 +11,7 @@ import UIKit
         CAGradientLayer.self
     }
 
-    // MARK: - Pruvate Properties
+    // MARK: - Private Properties
 
     private var gradientLayer: CAGradientLayer {
         layer as? CAGradientLayer ?? CAGradientLayer()

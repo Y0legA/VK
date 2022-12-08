@@ -3,7 +3,7 @@
 
 import UIKit
 
-// Ячейка фото друга
+/// Ячейка фото друга
 final class PhotoCollectionViewCell: UICollectionViewCell {
     // MARK: - Private Constants
 

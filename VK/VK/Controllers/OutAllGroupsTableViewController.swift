@@ -4,7 +4,7 @@
 import RealmSwift
 import UIKit
 
-// Экран групп в которых не состоит пользователь
+/// Экран групп в которых не состоит пользователь
 final class OutAllGroupsTableViewController: UITableViewController {
     // MARK: - Private Сonstants
 
@@ -13,6 +13,7 @@ final class OutAllGroupsTableViewController: UITableViewController {
         static let lightMintColorName = "lightMintColor"
         static let lightPlaceholderMintColorName = "lightPlaceholderMintColor"
         static let emptyString = ""
+        static let ok = "OK"
     }
 
     // MARK: - Private Visual Properties
@@ -22,7 +23,6 @@ final class OutAllGroupsTableViewController: UITableViewController {
     // MARK: - Private Properties
 
     private let networkService = NetworkService()
-    private let realmService = RealmService()
 
     private var outGroups: Results<GroupDetail>? {
         didSet {
@@ -100,20 +100,24 @@ final class OutAllGroupsTableViewController: UITableViewController {
             guard let self = self else { return }
             switch groups {
             case let .success(data):
-                self.realmService.saveData(data)
+                RealmService.saveData(data)
                 self.tableView.reloadData()
             case let .failure(error):
-                self.showAlert(title: nil, message: error.localizedDescription, actionTitle: nil, handler: nil)
+                self.showAlert(
+                    title: Constants.emptyString,
+                    message: error.localizedDescription,
+                    actionTitle: Constants.ok,
+                    handler: nil
+                )
             }
         }
     }
 
     private func loadData() {
-        realmService.loadData { [weak self] groups in
-            guard let self = self else { return }
-            self.outGroups = groups
+        RealmService.loadData { groups in
             self.addNotificationToken(groups)
-            self.fetchSearchOutGroups()
+            self.outGroups = groups
+            tableView.reloadData()
         }
     }
 
@@ -128,7 +132,12 @@ final class OutAllGroupsTableViewController: UITableViewController {
                 self.outGroups = result
                 self.tableView.reloadData()
             case let .error(error):
-                self.showAlert(title: nil, message: error.localizedDescription, actionTitle: nil, handler: nil)
+                self.showAlert(
+                    title: Constants.emptyString,
+                    message: error.localizedDescription,
+                    actionTitle: Constants.ok,
+                    handler: nil
+                )
             }
         }
     }

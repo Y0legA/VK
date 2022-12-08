@@ -3,7 +3,7 @@
 
 import Foundation
 
-// Пользователь
+/// Пользователь
 struct User: Decodable {
     // Инфо о друге
     let friendInfo: FriendInfo

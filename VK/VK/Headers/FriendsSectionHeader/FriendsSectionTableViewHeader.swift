@@ -3,7 +3,7 @@
 
 import UIKit
 
-// хедер секций друзей
+/// Хедер секций друзей
 final class FriendsSectionTableViewHeader: UITableViewHeaderFooterView {
     // MARK: - Private IBOutlet
 

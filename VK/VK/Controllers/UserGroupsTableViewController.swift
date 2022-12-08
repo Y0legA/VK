@@ -4,7 +4,7 @@
 import RealmSwift
 import UIKit
 
-// Экран групп пользователя
+/// Экран групп пользователя
 final class UserGroupsTableViewController: UITableViewController {
     // MARK: - Private Constants
 
@@ -12,6 +12,7 @@ final class UserGroupsTableViewController: UITableViewController {
         static let userGroupCellIdentifier = "UserGroupCell"
         static let outGroupsSegueIdentifier = "outGroups"
         static let emptyString = ""
+        static let ok = "OK"
         static let photoSegueIdentifier = "photoSegue"
         static let headerNibName = "GroupTableViewHeader"
         static let headerIdentifier = "header"
@@ -27,7 +28,9 @@ final class UserGroupsTableViewController: UITableViewController {
     // MARK: - Private Properties
 
     private let networkService = NetworkService()
-    private let realmService = RealmService()
+    private var searchResults: [GroupDetail] = []
+    private var isSearching = false
+    private var notificationToken: NotificationToken?
 
     private var userGroups: Results<GroupDetail>? {
         didSet {
@@ -43,10 +46,6 @@ final class UserGroupsTableViewController: UITableViewController {
         guard let text = searchBar.text else { return false }
         return text.isEmpty
     }
-
-    private var searchResults: [GroupDetail] = []
-    private var isSearching = false
-    private var notificationToken: NotificationToken?
 
     // MARK: - LifeCycle
 
@@ -77,6 +76,7 @@ final class UserGroupsTableViewController: UITableViewController {
         configureSearchBar()
         configureTableView()
         loadData()
+        fetchGroups()
     }
 
     private func configureSearchBar() {
@@ -100,30 +100,20 @@ final class UserGroupsTableViewController: UITableViewController {
     }
 
     private func fetchGroups() {
-        networkService.fetchGroups { [weak self] group in
-            guard let self = self else { return }
-            switch group {
-            case let .success(data):
-                self.realmService.saveData(data)
-                self.tableView.reloadData()
-            case let .failure(error):
-                self.showAlert(title: nil, message: error.localizedDescription, actionTitle: nil, handler: nil)
-            }
-        }
+        networkService.getGroups()
     }
 
     private func loadData() {
-        realmService.loadData { [weak self] groups in
-            guard let self = self else { return }
-            self.userGroups = groups
+        RealmService.loadData { [weak self] groups in
+            guard let self else { return }
             self.addNotificationToken(groups)
-            self.fetchGroups()
+            self.userGroups = groups
+            tableView.reloadData()
         }
     }
 
     private func addNotificationToken(_ result: Results<GroupDetail>) {
-        guard let userGroups = userGroups else { return }
-        notificationToken = userGroups.observe { [weak self] changes in
+        notificationToken = result.observe { [weak self] changes in
             switch changes {
             case .initial:
                 break
@@ -131,7 +121,12 @@ final class UserGroupsTableViewController: UITableViewController {
                 self?.userGroups = result
                 self?.tableView.reloadData()
             case let .error(error):
-                self?.showAlert(title: nil, message: error.localizedDescription, actionTitle: nil, handler: nil)
+                self?.showAlert(
+                    title: Constants.emptyString,
+                    message: error.localizedDescription,
+                    actionTitle: Constants.ok,
+                    handler: nil
+                )
             }
         }
     }

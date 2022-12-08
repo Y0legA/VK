@@ -5,7 +5,7 @@ import Alamofire
 import UIKit
 import WebKit
 
-// Экран авторизации
+/// Экран авторизации
 final class AuthorizationViewController: UIViewController {
     // MARK: - Private Constants
 

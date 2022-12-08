@@ -3,7 +3,7 @@
 
 import UIKit
 
-// Ячейка друга
+/// Ячейка друга
 final class FriendTableViewCell: UITableViewCell {
     // MARK: - Private Constants
 

@@ -4,7 +4,7 @@
 import Alamofire
 
 /// Форматирование данных
-class GetDataOperation: AsyncOperation {
+final class GetDataOperation: AsyncOperation {
     // MARK: - Public Properties
 
     var data: Data?

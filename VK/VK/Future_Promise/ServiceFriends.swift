@@ -5,7 +5,7 @@ import Alamofire
 import PromiseKit
 
 /// Сервис для получения данных друзей
-class ServiceFriends {
+final class ServiceFriends {
     // MARK: - Private Constants
 
     private enum Constants {
@@ -26,7 +26,6 @@ class ServiceFriends {
             AF.request(path, parameters: parameters).responseData { response in
                 guard let data = response.data else { return }
                 do {
-                    print(#function)
                     let decoder = JSONDecoder()
                     let items = try decoder.decode(User.self, from: data)
                     resolver.fulfill(items.friendInfo.friends)

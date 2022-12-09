@@ -3,7 +3,7 @@
 
 import UIKit
 
-// Контрол для отображения и подсчета лайков на фото друга
+/// Контрол для отображения и подсчета лайков на фото друга
 final class LikesControl: UIControl {
     // MARK: - Private Constants
 

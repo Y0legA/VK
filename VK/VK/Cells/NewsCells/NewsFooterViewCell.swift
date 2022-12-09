@@ -3,7 +3,7 @@
 
 import UIKit
 
-// Футер ячейки новостей
+/// Футер ячейки новостей
 final class NewsFooterViewCell: NewsCell {
     // MARK: - Private IBOutlet
 

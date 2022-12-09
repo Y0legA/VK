@@ -1,10 +1,11 @@
 // FriendsTableViewController.swift
 // Copyright © RoadMap. All rights reserved.
 
+import PromiseKit
 import RealmSwift
 import UIKit
 
-// Экран друзей
+/// Экран друзей
 final class FriendsTableViewController: UITableViewController {
     // MARK: - Private Constants
 
@@ -14,18 +15,18 @@ final class FriendsTableViewController: UITableViewController {
         static let headerNibName = "FriendsSectionTableViewHeader"
         static let headerIdentifier = "header"
         static let emptyString = ""
+        static let ok = "OK"
     }
 
     // MARK: - Private Properties
 
+//    private let networkService = NetworkService()
+    private let promiseFriendsAPIService = PromiseFriendsAPIService()
     private var userFriends: Results<Friend>?
     private var notificationToken: NotificationToken?
-    private let realm = try? Realm()
     private var sortedSectionsFriendMap = [Character: [Friend]]()
     private var sortedFriends: [Friend] = []
     private var sectionTitles: [Character] = []
-    private let networkService = NetworkService()
-    private let realmService = RealmService()
 
     // MARK: - LifeCycle
 
@@ -58,7 +59,7 @@ final class FriendsTableViewController: UITableViewController {
             for: indexPath
         ) as? FriendTableViewCell else { fatalError() }
         guard let friend = sortedSectionsFriendMap[sectionTitles[indexPath.section]]?[indexPath.row] else { abort() }
-        cell.configureCell(friend, networkService)
+        cell.configureCell(friend)
         return cell
     }
 
@@ -98,21 +99,25 @@ final class FriendsTableViewController: UITableViewController {
     }
 
     private func fetchFriends() {
-        networkService.fetchFriends { [weak self] friend in
-            guard let self = self else { return }
-            switch friend {
-            case let .success(data):
-                self.realmService.saveData(data)
-                self.configureListFriends()
-                self.tableView.reloadData()
-            case let .failure(error):
-                self.showAlert(title: nil, message: error.localizedDescription, actionTitle: nil, handler: nil)
-            }
+        firstly {
+            promiseFriendsAPIService.fetchFriends()
+        }.done { [weak self] friends in
+            RealmService.saveData(friends)
+            guard let self else { return }
+            self.configureListFriends()
+            self.tableView.reloadData()
+        }.catch { [weak self] error in
+            self?.showAlert(
+                title: Constants.ok,
+                message: error.localizedDescription,
+                actionTitle: Constants.emptyString,
+                handler: nil
+            )
         }
     }
 
     private func loadData() {
-        realmService.loadData { [weak self] friends in
+        RealmService.loadData { [weak self] friends in
             guard let self = self else { return }
             self.userFriends = friends
             self.addNotificationToken(friends)
@@ -131,7 +136,12 @@ final class FriendsTableViewController: UITableViewController {
                 self.userFriends = result
                 self.tableView.reloadData()
             case let .error(error):
-                self.showAlert(title: nil, message: error.localizedDescription, actionTitle: nil, handler: nil)
+                self.showAlert(
+                    title: Constants.emptyString,
+                    message: error.localizedDescription,
+                    actionTitle: Constants.ok,
+                    handler: nil
+                )
             }
         }
     }

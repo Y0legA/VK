@@ -3,7 +3,7 @@
 
 import Foundation
 
-// Детальная информация о фотольбомах друга
+/// Детальная информация о фотольбомах друга
 struct FriendDetail: Codable {
     // Фото друга
     let friendPhotos: [FriendPhoto]

@@ -3,7 +3,7 @@
 
 import UIKit
 
-// Экран с новостями
+/// Экран с новостями
 final class NewsViewController: UIViewController {
     // MARK: - Private Constants
 

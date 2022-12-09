@@ -3,7 +3,7 @@
 
 import Foundation
 
-// Инфо о сессии пользователя
+/// Инфо о сессии пользователя
 final class Session: CustomStringConvertible {
     // MARK: - Public Properties
 

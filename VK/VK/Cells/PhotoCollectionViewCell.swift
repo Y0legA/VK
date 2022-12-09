@@ -3,7 +3,7 @@
 
 import UIKit
 
-// Ячейка фото друга
+/// Ячейка фото друга
 final class PhotoCollectionViewCell: UICollectionViewCell {
     // MARK: - Private Constants
 
@@ -16,9 +16,13 @@ final class PhotoCollectionViewCell: UICollectionViewCell {
     @IBOutlet private var friendImageView: UIImageView!
     @IBOutlet private var likesControl: LikesControl!
 
+    // MARK: - Private Properties
+
+    let networkService = NetworkService()
+
     // MARK: - Public Methods
 
-    func configure(_ photoNames: [String], _ networkService: NetworkService) {
+    func configure(_ photoNames: [String]) {
         friendImageView.loadImage(photoNames.first ?? Constants.emptyString, networkService)
     }
 }

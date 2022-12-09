@@ -3,7 +3,7 @@
 
 import UIKit
 
-// Хедер ячейки новостей
+/// Хедер ячейки новостей
 final class NewsHeaderViewCell: NewsCell {
     // MARK: - Private Constants
 

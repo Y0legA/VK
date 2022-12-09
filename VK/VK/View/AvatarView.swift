@@ -3,7 +3,7 @@
 
 import UIKit
 
-// Вью тени для аватара
+/// Вью тени для аватара
 final class AvatarView: UIView {
     // MARK: - Private Properties
 

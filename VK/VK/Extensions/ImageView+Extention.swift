@@ -3,8 +3,7 @@
 
 import UIKit
 
-/// Расширение для преобразования URL в UIImage
-
+// Расширение для преобразования URL в UIImage
 private enum Constants {
     static let noPhoto = "noPhoto"
 }

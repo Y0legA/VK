@@ -3,7 +3,7 @@
 
 import UIKit
 
-// Ячейка друга
+/// Ячейка друга
 final class FriendTableViewCell: UITableViewCell {
     // MARK: - Private Constants
 
@@ -21,9 +21,13 @@ final class FriendTableViewCell: UITableViewCell {
         }
     }
 
+    // MARK: - Private Properties
+
+    let networkService = NetworkService()
+
     // MARK: - Public Methods
 
-    func configureCell(_ friend: Friend, _ networkService: NetworkService) {
+    func configureCell(_ friend: Friend) {
         avatarImageView.loadImage(friend.photo100, networkService)
         friendNameLabel.text = friend.firstName + Constants.emptyString + friend.lastName
     }

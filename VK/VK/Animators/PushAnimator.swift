@@ -3,7 +3,7 @@
 
 import UIKit
 
-// Анимирование перехода на другой экран вперед
+/// Анимирование перехода на другой экран вперед
 final class PushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     // MARK: - Private Constants
 

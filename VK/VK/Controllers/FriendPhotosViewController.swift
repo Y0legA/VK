@@ -4,7 +4,7 @@
 import RealmSwift
 import UIKit
 
-// Фото друга
+/// Фото друга
 final class FriendPhotosViewController: UIViewController {
     // Private Constants
 
@@ -19,13 +19,13 @@ final class FriendPhotosViewController: UIViewController {
 
     // MARK: - Private Properties
 
+    private let networkService = NetworkService()
     private lazy var firstPhotoName = friendPhotoNames.first
     private lazy var lastPhotoName = friendPhotoNames.last
     private var friendPhotoNames: [String] = []
     private var currentPhoto = Constants.emptyString
     private var prevousIndex = 0
     private var currentPhotoIndex = 0
-    private let networkService = NetworkService()
 
     // MARK: - LifeCycle
 
@@ -49,7 +49,6 @@ final class FriendPhotosViewController: UIViewController {
             guard currentPhoto != lastPhotoName else { fallthrough }
             currentPhotoIndex += 1
             animatePhotoImageView(view.bounds.width)
-
         case .right:
             guard currentPhoto != firstPhotoName else { fallthrough }
             currentPhotoIndex -= 1

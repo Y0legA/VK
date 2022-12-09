@@ -53,7 +53,7 @@ final class NetworkService {
         return AF.request(path, parameters: parameters)
     }
 
-    func getGroups() {
+    func fetchGroups() {
         let operationQueue = OperationQueue()
         let request = sendGroupRequest()
         let getDataOperation = GetDataOperation(request: request)
@@ -68,7 +68,7 @@ final class NetworkService {
         operationQueue.addOperation(saveToRealm)
     }
 
-    func fetchGroups(completion: @escaping (Result<[GroupDetail], Error>) -> ()) {
+    func fetchOutGroups(completion: @escaping (Result<[GroupDetail], Error>) -> ()) {
         let parameters: Parameters = [
             RequestComponents.acessTokenParameter: Session.shared.token,
             RequestComponents.versionParameter: RequestComponents.versionParameterValue,

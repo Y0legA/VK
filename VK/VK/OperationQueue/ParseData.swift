@@ -3,7 +3,7 @@
 
 import Alamofire
 
-/// Парсинг данных
+/// Асинхронная операция парсинга групп
 final class ParseData: Operation {
     // MARK: - Public Properties
 

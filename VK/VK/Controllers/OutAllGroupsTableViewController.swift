@@ -96,7 +96,7 @@ final class OutAllGroupsTableViewController: UITableViewController {
     }
 
     private func fetchSearchOutGroups() {
-        networkService.fetchGroups { [weak self] groups in
+        networkService.fetchOutGroups { [weak self] groups in
             guard let self = self else { return }
             switch groups {
             case let .success(data):

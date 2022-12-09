@@ -68,7 +68,7 @@
 		E1E1DB08293E7AEE00022571 /* NewsConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E1DB07293E7AEE00022571 /* NewsConfigurable.swift */; };
 		E1EAB3F92913FDF600AC732E /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EAB3F82913FDF600AC732E /* AvatarView.swift */; };
 		E1EAB3FC2914378D00AC732E /* LikesControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EAB3FB2914378D00AC732E /* LikesControl.swift */; };
-		E1ECF001294284E600F21050 /* ServiceFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ECF000294284E600F21050 /* ServiceFriends.swift */; };
+		E1ECF001294284E600F21050 /* PromiseFriendsAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ECF000294284E600F21050 /* PromiseFriendsAPIService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -136,7 +136,7 @@
 		E1E1DB07293E7AEE00022571 /* NewsConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsConfigurable.swift; sourceTree = "<group>"; };
 		E1EAB3F82913FDF600AC732E /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 		E1EAB3FB2914378D00AC732E /* LikesControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesControl.swift; sourceTree = "<group>"; };
-		E1ECF000294284E600F21050 /* ServiceFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceFriends.swift; sourceTree = "<group>"; };
+		E1ECF000294284E600F21050 /* PromiseFriendsAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromiseFriendsAPIService.swift; sourceTree = "<group>"; };
 		FFA8EE7D95DF4E12CF857163 /* Pods_VK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -411,7 +411,7 @@
 		E1ECEFFF294284A900F21050 /* Future_Promise */ = {
 			isa = PBXGroup;
 			children = (
-				E1ECF000294284E600F21050 /* ServiceFriends.swift */,
+				E1ECF000294284E600F21050 /* PromiseFriendsAPIService.swift */,
 			);
 			path = Future_Promise;
 			sourceTree = "<group>";
@@ -596,7 +596,7 @@
 				E10623802912E0E100779500 /* UIViewController+Alert.swift in Sources */,
 				E17989E7294012C200D1E5D2 /* Views.swift in Sources */,
 				E10623842912E4F400779500 /* User.swift in Sources */,
-				E1ECF001294284E600F21050 /* ServiceFriends.swift in Sources */,
+				E1ECF001294284E600F21050 /* PromiseFriendsAPIService.swift in Sources */,
 				E156A6E82941C6B800C9DB2F /* AsyncOperation.swift in Sources */,
 				E10AF80E291012C80077251D /* AppDelegate.swift in Sources */,
 				E10623722911860100779500 /* TextField+Extension.swift in Sources */,

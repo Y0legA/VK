@@ -20,8 +20,8 @@ final class FriendsTableViewController: UITableViewController {
 
     // MARK: - Private Properties
 
-    private let networkService = NetworkService()
-    private let serviceFriends = ServiceFriends()
+//    private let networkService = NetworkService()
+    private let promiseFriendsAPIService = PromiseFriendsAPIService()
     private var userFriends: Results<Friend>?
     private var notificationToken: NotificationToken?
     private var sortedSectionsFriendMap = [Character: [Friend]]()
@@ -59,7 +59,7 @@ final class FriendsTableViewController: UITableViewController {
             for: indexPath
         ) as? FriendTableViewCell else { fatalError() }
         guard let friend = sortedSectionsFriendMap[sectionTitles[indexPath.section]]?[indexPath.row] else { abort() }
-        cell.configureCell(friend, networkService)
+        cell.configureCell(friend)
         return cell
     }
 
@@ -100,7 +100,7 @@ final class FriendsTableViewController: UITableViewController {
 
     private func fetchFriends() {
         firstly {
-            serviceFriends.fetchFriends()
+            promiseFriendsAPIService.fetchFriends()
         }.done { [weak self] friends in
             RealmService.saveData(friends)
             guard let self else { return }

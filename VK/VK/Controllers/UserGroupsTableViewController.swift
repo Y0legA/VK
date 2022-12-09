@@ -100,7 +100,7 @@ final class UserGroupsTableViewController: UITableViewController {
     }
 
     private func fetchGroups() {
-        networkService.getGroups()
+        networkService.fetchGroups()
     }
 
     private func loadData() {

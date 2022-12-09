@@ -3,7 +3,7 @@
 
 import RealmSwift
 
-/// Передача данных
+/// Операция сохранения в базу данных
 final class SaveToRealm: Operation {
     // MARK: - Public Methods
 

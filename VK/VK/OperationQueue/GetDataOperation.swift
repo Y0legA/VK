@@ -3,7 +3,7 @@
 
 import Alamofire
 
-/// Форматирование данных
+/// Асинхронная операция 
 final class GetDataOperation: AsyncOperation {
     // MARK: - Public Properties
 

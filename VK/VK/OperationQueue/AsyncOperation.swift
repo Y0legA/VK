@@ -4,7 +4,7 @@
 import Foundation
 
 /// Асинхронная операция
-final class AsyncOperation: Operation {
+class AsyncOperation: Operation {
     // MARK: - Constants
 
     enum Constants {

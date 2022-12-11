@@ -20,7 +20,6 @@ final class FriendsTableViewController: UITableViewController {
 
     // MARK: - Private Properties
 
-//    private let networkService = NetworkService()
     private let promiseFriendsAPIService = PromiseFriendsAPIService()
     private var userFriends: Results<Friend>?
     private var notificationToken: NotificationToken?
@@ -42,7 +41,8 @@ final class FriendsTableViewController: UITableViewController {
               let collectionVC = segue.destination as? FriendPhotoCollectionViewController else { return }
         guard let indexPath = tableView.indexPathForSelectedRow else { return }
         guard let friend = sortedSectionsFriendMap[sectionTitles[indexPath.section]]?[indexPath.row] else { abort() }
-        collectionVC.configureData(friend.photo100, friend.id)
+        collectionVC.title = friend.firstName
+        collectionVC.configureData(friend.id)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -117,12 +117,10 @@ final class FriendsTableViewController: UITableViewController {
     }
 
     private func loadData() {
-        RealmService.loadData { [weak self] friends in
-            guard let self = self else { return }
-            self.userFriends = friends
-            self.addNotificationToken(friends)
-            self.fetchFriends()
-        }
+        guard let friends = RealmService.loadData(Friend.self) else { return }
+        userFriends = friends
+        addNotificationToken(friends)
+        fetchFriends()
     }
 
     private func addNotificationToken(_ result: Results<Friend>) {

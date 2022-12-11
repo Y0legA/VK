@@ -104,12 +104,10 @@ final class UserGroupsTableViewController: UITableViewController {
     }
 
     private func loadData() {
-        RealmService.loadData { [weak self] groups in
-            guard let self else { return }
-            self.addNotificationToken(groups)
-            self.userGroups = groups
-            tableView.reloadData()
-        }
+        guard let groups = RealmService.loadData(GroupDetail.self) else { return }
+        addNotificationToken(groups)
+        userGroups = groups
+        tableView.reloadData()
     }
 
     private func addNotificationToken(_ result: Results<GroupDetail>) {

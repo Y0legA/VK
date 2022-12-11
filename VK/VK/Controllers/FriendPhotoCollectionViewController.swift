@@ -17,20 +17,20 @@ final class FriendPhotoCollectionViewController: UICollectionViewController {
 
     // MARK: - Private Properties
 
+    private lazy var photoCacheService = PhotoCacheService(__: self.collectionView)
     private let networkService = NetworkService()
     private var currentIndex = 0
     private var photoName = Constants.emptyString
     private var likeCount = 0
     private var isLiked = false
     private var photoNames: [String] = []
+    private var friendPhotos: [FriendPhoto] = []
 
     private var friendID = 0 {
         didSet {
             loadPhotos()
         }
     }
-
-    private var friendPhotos: [FriendPhoto] = []
 
     // MARK: - Public Methods
 
@@ -54,12 +54,11 @@ final class FriendPhotoCollectionViewController: UICollectionViewController {
             withReuseIdentifier: Constants.photosCellIdentifier,
             for: indexPath
         ) as? PhotoCollectionViewCell else { return PhotoCollectionViewCell() }
-        cell.configure(photoNames)
+        cell.friendImageView.image = photoCacheService.photo(indexPath, photoNames.first ?? Constants.emptyString)
         return cell
     }
 
-    func configureData(_ photoUrlName: String, _ id: Int) {
-        photoName = photoUrlName
+    func configureData(_ id: Int) {
         friendID = id
     }
 
@@ -87,18 +86,17 @@ final class FriendPhotoCollectionViewController: UICollectionViewController {
 
     private func loadPhotos() {
         do {
-            let realm = try Realm()
-            let photos = Array(realm.objects(FriendPhoto.self))
+            guard let photos = RealmService.loadData(FriendPhoto.self) else { return }
             photoName = photoNames.first ?? Constants.emptyString
             let photoNamesID = photos.map(\.ownerID)
-            friendPhotos = photos
+            friendPhotos = Array(photos)
             if photoNamesID.contains(where: { tempId in
                 friendID == tempId
             }) {
                 friendPhotos = photos.filter {
                     $0.ownerID == friendID
                 }
-                let friendsDetailArray = photos.map(\.photos.last)
+                let friendsDetailArray = friendPhotos.map(\.photos.last)
                 photoNames = friendsDetailArray.map { $0?.url ?? Constants.emptyString }
             } else {
                 fetchFriends()

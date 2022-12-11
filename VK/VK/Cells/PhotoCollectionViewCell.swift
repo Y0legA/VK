@@ -13,7 +13,7 @@ final class PhotoCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Private IBOutlet
 
-    @IBOutlet private var friendImageView: UIImageView!
+    @IBOutlet var friendImageView: UIImageView!
     @IBOutlet private var likesControl: LikesControl!
 
     // MARK: - Private Properties

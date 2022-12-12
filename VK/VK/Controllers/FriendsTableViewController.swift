@@ -105,7 +105,9 @@ final class FriendsTableViewController: UITableViewController {
             RealmService.saveData(friends)
             guard let self else { return }
             self.configureListFriends()
-            self.tableView.reloadData()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }.catch { [weak self] error in
             self?.showAlert(
                 title: Constants.ok,

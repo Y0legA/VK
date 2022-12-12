@@ -13,7 +13,7 @@ final class PhotoCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Private IBOutlet
 
-    @IBOutlet var friendImageView: UIImageView!
+    @IBOutlet private var friendImageView: UIImageView!
     @IBOutlet private var likesControl: LikesControl!
 
     // MARK: - Private Properties
@@ -22,7 +22,7 @@ final class PhotoCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Public Methods
 
-    func configure(_ photoNames: [String]) {
-        friendImageView.loadImage(photoNames.first ?? Constants.emptyString, networkService)
+    func configure(_ indexPath: IndexPath, _ photoName: String, _ photoCacheService: PhotoCacheService) {
+        friendImageView.image = photoCacheService.photo(indexPath, photoName)
     }
 }

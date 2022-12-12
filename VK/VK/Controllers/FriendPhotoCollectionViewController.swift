@@ -54,7 +54,7 @@ final class FriendPhotoCollectionViewController: UICollectionViewController {
             withReuseIdentifier: Constants.photosCellIdentifier,
             for: indexPath
         ) as? PhotoCollectionViewCell else { return PhotoCollectionViewCell() }
-        cell.friendImageView.image = photoCacheService.photo(indexPath, photoNames.first ?? Constants.emptyString)
+        cell.configure(indexPath, photoNames.first ?? Constants.emptyString, photoCacheService)
         return cell
     }
 
@@ -101,13 +101,6 @@ final class FriendPhotoCollectionViewController: UICollectionViewController {
             } else {
                 fetchFriends()
             }
-        } catch {
-            showAlert(
-                title: Constants.emptyString,
-                message: error.localizedDescription,
-                actionTitle: Constants.ok,
-                handler: nil
-            )
         }
     }
 }

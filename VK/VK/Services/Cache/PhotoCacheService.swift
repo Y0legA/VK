@@ -4,88 +4,110 @@
 import Alamofire
 import UIKit
 
-/// Сервис для cохранения фото в кеш хранилище
-class PhotoCacheService {
-    // Private Constants
+// Сервис для скачивания и кеширования фото
+final class PhotoCacheService {
+    // MARK: - Private Constants
 
     private enum Constants {
-        static let noPhoto = "noPhoto"
-        static let folderName = "images"
-        static let separator: Character = "/"
-        static let defaultString: Substring = "default"
-    }
-
-    // MARK: - Public Properties
-
-    var imagesMap: [String: UIImage] = [:]
-    var placeholderImage: UIImage? = UIImage(systemName: Constants.noPhoto)
-
-    // MARK: - Public Methods
-
-    func photo(_ indexPath: IndexPath, _ url: String) -> UIImage? {
-        if let image = imagesMap[url] {
-            return image
-        } else if let image = getImageFromDisk(url) {
-            return image
-        } else {
-            loadImageFromNet(indexPath, url)
-            return placeholderImage
-        }
-    }
-
-    func loadImageFromNet(_ indexPath: IndexPath, _ url: String) {
-        AF.request(url).responseData { [weak self] response in
-            guard let data = response.data, let image = UIImage(data: data), let self else { return }
-            self.imagesMap[url] = image
-            self.saveImageToDisk(url, image)
-            self.container.reloadRow(indexPath)
-        }
-    }
-
-    func getImageFromDisk(_ url: String) -> UIImage? {
-        guard let filePath = getImagePath(url), let image = UIImage(contentsOfFile: filePath) else { return nil }
-
-        imagesMap[url] = image
-        return image
+        static let pathName = "images"
+        static let cacheLifeTime: TimeInterval = 30 * 24 * 60 * 60
+        static let slash: Character = "/"
     }
 
     // MARK: - Private Properties
 
+    private static let pathName: String = {
+        let pathName = Constants.pathName
+        guard let cachesDirectory = FileManager.default.urls(
+            for:
+            .cachesDirectory,
+            in: .userDomainMask
+        ).first else { return pathName }
+        let url = cachesDirectory.appendingPathComponent(
+            pathName,
+            isDirectory:
+            true
+        )
+        if !FileManager.default.fileExists(atPath: url.path) {
+            try? FileManager.default.createDirectory(
+                at: url,
+                withIntermediateDirectories: true,
+                attributes: nil
+            )
+        }
+        return pathName
+    }()
+
+    private let cacheLifeTime: TimeInterval = Constants.cacheLifeTime
     private let container: Collection
-    private let networkService = NetworkService()
-    private lazy var fileManager = FileManager.default
+
+    private var imagesMap: [String: UIImage] = [:]
+
+    // MARK: - Initializers
 
     init(__ container: UICollectionView) {
         self.container = Collection(container)
     }
 
-    private func getCachFolderPath() -> URL? {
-        guard let docDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
-        else { return nil }
-        let url = docDirectory.appendingPathComponent(Constants.folderName, isDirectory: true)
+    // MARK: - Public Methods
 
-        if !fileManager.fileExists(atPath: url.path) {
-            do {
-                try fileManager.createDirectory(at: url, withIntermediateDirectories: true)
-            } catch {
-                print(error)
-            }
+    func photo(_ indexPath: IndexPath, _ url: String) -> UIImage? {
+        var image: UIImage?
+        if let photo = imagesMap[url] {
+            image = photo
+        } else if let photo = getImageFromCache(url: url) {
+            image = photo
+        } else {
+            loadPhoto(atIndexpath: indexPath, byUrl: url)
         }
-        return url
-    }
-
-    private func getImagePath(_ url: String) -> String? {
-        guard let folderUrl = getCachFolderPath() else { return nil }
-        let fileName = url.split(separator: Constants.separator).last ?? Constants.defaultString
-        return folderUrl.appendingPathComponent(String(fileName)).path
+        return image
     }
 
     // MARK: - Private Methods
 
-    private func saveImageToDisk(_ url: String, _ image: UIImage) {
-        guard let filePath = getImagePath(url), let data = image.pngData() else { return }
+    private func getFilePath(url: String) -> String? {
+        guard let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first,
+              let hashName = url.split(separator: Constants.slash).last
+        else { return nil }
+        return cachesDirectory.appendingPathComponent("\(PhotoCacheService.pathName)\(Constants.slash)\(hashName)")
+            .path
+    }
 
-        fileManager.createFile(atPath: filePath, contents: data)
+    private func saveImageToCache(url: String, image: UIImage) {
+        guard let fileName = getFilePath(url: url),
+              let data = image.pngData() else { return }
+        FileManager.default.createFile(atPath: fileName, contents: data, attributes: nil)
+    }
+
+    private func getImageFromCache(url: String) -> UIImage? {
+        guard let fileName = getFilePath(url: url),
+              let info = try? FileManager.default.attributesOfItem(atPath: fileName),
+              let modificationDate = info[FileAttributeKey.modificationDate] as? Date
+        else { return nil }
+        let lifeTime = Date().timeIntervalSince(modificationDate)
+        guard lifeTime <= cacheLifeTime,
+              let image = UIImage(contentsOfFile: fileName)
+        else { return nil
+        }
+        DispatchQueue.main.async {
+            self.imagesMap[url] = image
+        }
+        return image
+    }
+
+    private func loadPhoto(atIndexpath indexPath: IndexPath, byUrl url: String) {
+        AF.request(url).responseData(queue: DispatchQueue.global()) { [weak self] response in
+            guard let self,
+                  let data = response.data,
+                  let image = UIImage(data: data) else { return }
+            DispatchQueue.main.async {
+                self.imagesMap[url] = image
+            }
+            self.saveImageToCache(url: url, image: image)
+            DispatchQueue.main.async {
+                self.container.reloadRow(indexPath)
+            }
+        }
     }
 }
 

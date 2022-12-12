@@ -34,24 +34,4 @@ final class RealmService {
         }
         return nil
     }
-
-//    static func loadData<T: RealmFetchable>(completion: (Results<T>) -> ()) {
-//        do {
-//            let realm = try Realm()
-//            let data = realm.objects(T.self)
-//            completion(data)
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-//    }
 }
-
-// static func loadData<T: Object>() -> Results<T>? {
-//    do {
-//        let realm = try Realm()
-//        return realm.objects(T.self)
-//    } catch {
-//        print(error.localizedDescription)
-//    }
-//    return nil
-// }

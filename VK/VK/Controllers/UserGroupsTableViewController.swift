@@ -75,7 +75,7 @@ final class UserGroupsTableViewController: UITableViewController {
     private func configureUI() {
         configureSearchBar()
         configureTableView()
-        loadData()
+        groupDetail()
         fetchGroups()
     }
 
@@ -103,13 +103,11 @@ final class UserGroupsTableViewController: UITableViewController {
         networkService.fetchGroups()
     }
 
-    private func loadData() {
-        RealmService.loadData { [weak self] groups in
-            guard let self else { return }
-            self.addNotificationToken(groups)
-            self.userGroups = groups
-            tableView.reloadData()
-        }
+    private func groupDetail() {
+        guard let groups = RealmService.loadData(GroupDetail.self) else { return }
+        addNotificationToken(groups)
+        userGroups = groups
+        tableView.reloadData()
     }
 
     private func addNotificationToken(_ result: Results<GroupDetail>) {

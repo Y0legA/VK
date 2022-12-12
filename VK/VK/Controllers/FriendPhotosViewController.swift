@@ -8,7 +8,7 @@ import UIKit
 final class FriendPhotosViewController: UIViewController {
     // Private Constants
 
-    enum Constants {
+    private enum Constants {
         static let emptyString = ""
         static let opacity = "opacity"
     }
@@ -20,6 +20,7 @@ final class FriendPhotosViewController: UIViewController {
     // MARK: - Private Properties
 
     private let networkService = NetworkService()
+
     private lazy var firstPhotoName = friendPhotoNames.first
     private lazy var lastPhotoName = friendPhotoNames.last
     private var friendPhotoNames: [String] = []

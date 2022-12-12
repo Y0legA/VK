@@ -27,6 +27,7 @@
 		E10AF81A291012CC0077251D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E10AF818291012CC0077251D /* LaunchScreen.storyboard */; };
 		E111E1C2291D10900083597B /* InteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E111E1C1291D10900083597B /* InteractiveTransition.swift */; };
 		E111E1C6291D666D0083597B /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E111E1C5291D666D0083597B /* CustomNavigationController.swift */; };
+		E126A216294478A60088BF74 /* PhotoCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E126A215294478A60088BF74 /* PhotoCacheService.swift */; };
 		E13C66C429197DF800F67059 /* FriendsSectionTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C66C329197DF800F67059 /* FriendsSectionTableViewHeader.swift */; };
 		E13C66C629197E2C00F67059 /* FriendsSectionTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = E13C66C529197E2C00F67059 /* FriendsSectionTableViewHeader.xib */; };
 		E1493151292BDCFD0043F052 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1493150292BDCFD0043F052 /* Session.swift */; };
@@ -96,6 +97,7 @@
 		E10AF81B291012CC0077251D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E111E1C1291D10900083597B /* InteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractiveTransition.swift; sourceTree = "<group>"; };
 		E111E1C5291D666D0083597B /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
+		E126A215294478A60088BF74 /* PhotoCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCacheService.swift; sourceTree = "<group>"; };
 		E13C66C329197DF800F67059 /* FriendsSectionTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsSectionTableViewHeader.swift; sourceTree = "<group>"; };
 		E13C66C529197E2C00F67059 /* FriendsSectionTableViewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendsSectionTableViewHeader.xib; sourceTree = "<group>"; };
 		E1493150292BDCFD0043F052 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
@@ -240,10 +242,7 @@
 			children = (
 				E10AF80D291012C80077251D /* AppDelegate.swift */,
 				E10AF80F291012C80077251D /* SceneDelegate.swift */,
-				E1ECEFFF294284A900F21050 /* Future_Promise */,
-				E1BFB8C229351C6A002E223B /* Realm */,
-				E156A6E0294141A800C9DB2F /* OperationQueue */,
-				E1B447C8292D3F8D00310613 /* Network */,
+				E126A213294478700088BF74 /* Services */,
 				E1876398291E1F1E00DC171D /* Transitions */,
 				E1876393291E1E1100DC171D /* Animators */,
 				E13C66C229197DAE00F67059 /* Headers */,
@@ -261,6 +260,26 @@
 				E10AF81B291012CC0077251D /* Info.plist */,
 			);
 			path = VK;
+			sourceTree = "<group>";
+		};
+		E126A213294478700088BF74 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E126A214294478870088BF74 /* Cache */,
+				E1ECEFFF294284A900F21050 /* Future_Promise */,
+				E1BFB8C229351C6A002E223B /* Realm */,
+				E156A6E0294141A800C9DB2F /* OperationQueue */,
+				E1B447C8292D3F8D00310613 /* Network */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		E126A214294478870088BF74 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				E126A215294478A60088BF74 /* PhotoCacheService.swift */,
+			);
+			path = Cache;
 			sourceTree = "<group>";
 		};
 		E13C66C229197DAE00F67059 /* Headers */ = {
@@ -625,6 +644,7 @@
 				E17B834B2919BD0F000918AB /* NewsViewController.swift in Sources */,
 				E17989ED29401F4C00D1E5D2 /* Attachments.swift in Sources */,
 				E1EAB3F92913FDF600AC732E /* AvatarView.swift in Sources */,
+				E126A216294478A60088BF74 /* PhotoCacheService.swift in Sources */,
 				E1B447D1292F3B6500310613 /* ImageView+Extention.swift in Sources */,
 				E156A6E42941C60000C9DB2F /* GetDataOperation.swift in Sources */,
 				E106238E2912E9A100779500 /* UserGroupsTableViewController.swift in Sources */,

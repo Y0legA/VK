@@ -77,7 +77,7 @@ final class OutAllGroupsTableViewController: UITableViewController {
     private func configureUI() {
         configureSearchBar()
         configureTableView()
-        loadData()
+        groupDetail()
     }
 
     private func configureSearchBar() {
@@ -113,12 +113,11 @@ final class OutAllGroupsTableViewController: UITableViewController {
         }
     }
 
-    private func loadData() {
-        RealmService.loadData { groups in
-            self.addNotificationToken(groups)
-            self.outGroups = groups
-            tableView.reloadData()
-        }
+    private func groupDetail() {
+        guard let groups = RealmService.loadData(GroupDetail.self) else { return }
+        addNotificationToken(groups)
+        outGroups = groups
+        tableView.reloadData()
     }
 
     private func addNotificationToken(_ result: Results<GroupDetail>) {

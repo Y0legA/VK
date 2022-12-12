@@ -5,9 +5,9 @@ import RealmSwift
 
 /// Реалм сервис
 final class RealmService {
-    // MARK: - Public Properties
+    // MARK: - Private Properties
 
-    static let configuration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
+    private static let deleteIfMigration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
 
     // MARK: - Public Methods
 
@@ -22,14 +22,16 @@ final class RealmService {
         }
     }
 
-    static func loadData<T: RealmFetchable>(completion: (Results<T>) -> ()) {
+    static func loadData<T: Object>(
+        _ type: T.Type,
+        config: Realm.Configuration = Realm.Configuration.defaultConfiguration
+    ) -> Results<T>? {
         do {
-            let realm = try Realm(configuration: configuration)
-            print(realm.configuration.fileURL as Any)
-            let data = realm.objects(T.self)
-            completion(data)
+            let realm = try Realm()
+            return realm.objects(type)
         } catch {
             print(error.localizedDescription)
         }
+        return nil
     }
 }

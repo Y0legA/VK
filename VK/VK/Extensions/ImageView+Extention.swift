@@ -10,16 +10,14 @@ private enum Constants {
 
 extension UIImageView {
     func loadImage(_ imageURL: String, _ networkService: NetworkService) {
-        if let url = URL(string: imageURL) {
-            networkService.fetchFotoData(url) { [weak self] data in
-                guard let self,
-                      let image = UIImage(data: data)
-                else {
-                    self?.image = UIImage(named: Constants.noPhoto)
-                    return
-                }
-                self.image = image
+        networkService.fetchFotoData(imageURL) { [weak self] result in
+            guard let self,
+                  let image = UIImage(data: result)
+            else {
+                self?.image = UIImage(named: Constants.noPhoto)
+                return
             }
+            self.image = image
         }
     }
 }

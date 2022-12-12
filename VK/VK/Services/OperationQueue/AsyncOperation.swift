@@ -11,7 +11,7 @@ class AsyncOperation: Operation {
         static let prefix = "is"
     }
 
-    // MARK: - Public Enum
+    // MARK: - Types
 
     enum State: String {
         case ready, executing, finished

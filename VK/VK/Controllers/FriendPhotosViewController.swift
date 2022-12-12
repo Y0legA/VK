@@ -20,7 +20,6 @@ final class FriendPhotosViewController: UIViewController {
     // MARK: - Private Properties
 
     private let networkService = NetworkService()
-//    let photoCacheService = PhotoCacheService()
 
     private lazy var firstPhotoName = friendPhotoNames.first
     private lazy var lastPhotoName = friendPhotoNames.last

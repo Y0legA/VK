@@ -107,12 +107,9 @@ final class NetworkService {
 
     func fetchFotoData(_ url: String, _ completion: @escaping (Data) -> ()) {
         guard let url = URL(string: url) else { return }
-        URLSession.shared.dataTask(with: url) { data, _, _ in
-            DispatchQueue.main.async {
-                guard let data
-                else { return }
-                completion(data)
-            }
-        }.resume()
+        AF.request(url).responseData { response in
+            guard let data = response.data else { return }
+            completion(data)
+        }
     }
 }

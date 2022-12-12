@@ -75,7 +75,7 @@ final class UserGroupsTableViewController: UITableViewController {
     private func configureUI() {
         configureSearchBar()
         configureTableView()
-        loadData()
+        groupDetail()
         fetchGroups()
     }
 
@@ -103,7 +103,7 @@ final class UserGroupsTableViewController: UITableViewController {
         networkService.fetchGroups()
     }
 
-    private func loadData() {
+    private func groupDetail() {
         guard let groups = RealmService.loadData(GroupDetail.self) else { return }
         addNotificationToken(groups)
         userGroups = groups

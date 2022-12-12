@@ -54,7 +54,7 @@ final class FriendPhotoCollectionViewController: UICollectionViewController {
             withReuseIdentifier: Constants.photosCellIdentifier,
             for: indexPath
         ) as? PhotoCollectionViewCell else { return PhotoCollectionViewCell() }
-        cell.configure(indexPath, photoNames.first ?? Constants.emptyString, photoCacheService)
+        cell.configure(forIndex: indexPath.row, forPhoto: photoNames.first ?? Constants.emptyString, photoCacheService)
         return cell
     }
 

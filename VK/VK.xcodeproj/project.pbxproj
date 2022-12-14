@@ -31,6 +31,8 @@
 		E13C66C429197DF800F67059 /* FriendsSectionTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13C66C329197DF800F67059 /* FriendsSectionTableViewHeader.swift */; };
 		E13C66C629197E2C00F67059 /* FriendsSectionTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = E13C66C529197E2C00F67059 /* FriendsSectionTableViewHeader.xib */; };
 		E1493151292BDCFD0043F052 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1493150292BDCFD0043F052 /* Session.swift */; };
+		E1526C6E2947B5C30044EAA8 /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1526C6D2947B5C30044EAA8 /* DateFormatter+Extension.swift */; };
+		E1526C702948B6CE0044EAA8 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1526C6F2948B6CE0044EAA8 /* UITableView+Extension.swift */; };
 		E156A6E2294141CC00C9DB2F /* ParseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E156A6E1294141CC00C9DB2F /* ParseData.swift */; };
 		E156A6E42941C60000C9DB2F /* GetDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E156A6E32941C60000C9DB2F /* GetDataOperation.swift */; };
 		E156A6E62941C64000C9DB2F /* SaveToRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E156A6E52941C64000C9DB2F /* SaveToRealm.swift */; };
@@ -101,6 +103,8 @@
 		E13C66C329197DF800F67059 /* FriendsSectionTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsSectionTableViewHeader.swift; sourceTree = "<group>"; };
 		E13C66C529197E2C00F67059 /* FriendsSectionTableViewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendsSectionTableViewHeader.xib; sourceTree = "<group>"; };
 		E1493150292BDCFD0043F052 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		E1526C6D2947B5C30044EAA8 /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
+		E1526C6F2948B6CE0044EAA8 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		E156A6E1294141CC00C9DB2F /* ParseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseData.swift; sourceTree = "<group>"; };
 		E156A6E32941C60000C9DB2F /* GetDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDataOperation.swift; sourceTree = "<group>"; };
 		E156A6E52941C64000C9DB2F /* SaveToRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveToRealm.swift; sourceTree = "<group>"; };
@@ -192,6 +196,8 @@
 				E10623712911860100779500 /* TextField+Extension.swift */,
 				E106237F2912E0E100779500 /* UIViewController+Alert.swift */,
 				E1B447D0292F3B6500310613 /* ImageView+Extention.swift */,
+				E1526C6D2947B5C30044EAA8 /* DateFormatter+Extension.swift */,
+				E1526C6F2948B6CE0044EAA8 /* UITableView+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -616,6 +622,7 @@
 				E17989E7294012C200D1E5D2 /* Views.swift in Sources */,
 				E10623842912E4F400779500 /* User.swift in Sources */,
 				E1ECF001294284E600F21050 /* PromiseFriendsAPIService.swift in Sources */,
+				E1526C702948B6CE0044EAA8 /* UITableView+Extension.swift in Sources */,
 				E156A6E82941C6B800C9DB2F /* AsyncOperation.swift in Sources */,
 				E10AF80E291012C80077251D /* AppDelegate.swift in Sources */,
 				E10623722911860100779500 /* TextField+Extension.swift in Sources */,
@@ -642,6 +649,7 @@
 				E10623922912EA2800779500 /* GroupTableViewCell.swift in Sources */,
 				E1876395291E1E2B00DC171D /* PushAnimator.swift in Sources */,
 				E17B834B2919BD0F000918AB /* NewsViewController.swift in Sources */,
+				E1526C6E2947B5C30044EAA8 /* DateFormatter+Extension.swift in Sources */,
 				E17989ED29401F4C00D1E5D2 /* Attachments.swift in Sources */,
 				E1EAB3F92913FDF600AC732E /* AvatarView.swift in Sources */,
 				E126A216294478A60088BF74 /* PhotoCacheService.swift in Sources */,
@@ -724,7 +732,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -778,7 +786,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -804,6 +812,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -833,6 +842,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

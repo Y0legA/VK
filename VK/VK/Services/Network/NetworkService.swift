@@ -6,6 +6,12 @@ import RealmSwift
 
 /// VK API Сервис
 final class NetworkService {
+    // MARK: - Constants
+
+    enum Constants {
+        static let emptyString = ""
+    }
+
     // MARK: - Public Methods
 
     func setupURLComponents() -> URL? {
@@ -87,11 +93,17 @@ final class NetworkService {
         }
     }
 
-    func fetchNews(completion: @escaping (Result<NewsResponse, Error>) -> ()) {
+    func fetchNews(
+        _ startTime: Int,
+        _ startFrom: String = Constants.emptyString,
+        completion: @escaping (Result<NewsResponse, Error>) -> ()
+    ) {
         let parameters: Parameters = [
             RequestComponents.acessTokenParameter: Session.shared.token,
             RequestComponents.filter: RequestComponents.filterValue,
-            RequestComponents.versionParameter: RequestComponents.versionParameterValue
+            RequestComponents.versionParameter: RequestComponents.versionParameterValue,
+            RequestComponents.startTime: startTime,
+            RequestComponents.startFrom: startFrom
         ]
         let path = Path.news.rawValue
         AF.request(path, parameters: parameters).responseData { response in

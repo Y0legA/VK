@@ -1,6 +1,7 @@
 // Item.swift
 // Copyright © RoadMap. All rights reserved.
 
+import Alamofire
 import Foundation
 
 /// Детальная информаци по новости
@@ -18,7 +19,7 @@ final class Item: Decodable {
     // Заголовок новости
     let text: String?
     /// Вложения новости
-    let attachments: [ItemAttachment]?
+    let attachments: [Attachments]?
     // Инфо по лайкам
     let likes: Likes?
     // Инфо по просмотрам

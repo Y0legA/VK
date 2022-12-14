@@ -17,8 +17,13 @@ final class NewsImageViewCell: NewsCell {
 
     // MARK: - Public Methods
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        postImageView.image = nil
+    }
+
     func configure(_ news: Item, _ networkService: NetworkService) {
-        guard let photo = news.attachments?.compactMap(\.friendPhoto).last?.photos.last?.url else { return }
+        guard let photo = news.attachments?.first?.friendPhoto?.photos.last?.url else { return }
         postImageView.loadImage(photo, networkService)
     }
 }

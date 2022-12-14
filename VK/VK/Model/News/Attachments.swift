@@ -4,7 +4,7 @@
 import Foundation
 
 /// Вложения новости
-struct ItemAttachment: Decodable {
+struct Attachments: Decodable {
     // Все фото друга
     let friendPhoto: FriendPhoto?
 

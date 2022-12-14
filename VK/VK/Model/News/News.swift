@@ -11,12 +11,15 @@ struct NewsResponse: Decodable {
     var groupDetail: [GroupDetail]
     // Друзья
     var friends: [Friend]
+    // Следующая страница
+    var nextPage: String?
 
     enum CodingKeys: String, CodingKey {
         case response
         case items
         case groupDetail = "groups"
         case friends = "profiles"
+        case nextPage = "next_from"
     }
 
     init(from decoder: Decoder) throws {
@@ -25,5 +28,6 @@ struct NewsResponse: Decodable {
         items = try responseContainer.decode([Item].self, forKey: .items)
         groupDetail = try responseContainer.decode([GroupDetail].self, forKey: .groupDetail)
         friends = try responseContainer.decode([Friend].self, forKey: .friends)
+        nextPage = try responseContainer.decode(String.self, forKey: .nextPage)
     }
 }

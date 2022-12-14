@@ -7,11 +7,11 @@ import UIKit
 final class NewsPostViewCell: NewsCell {
     // MARK: - Private IBOutlet
 
-    @IBOutlet private var postTextView: UITextView!
+    @IBOutlet private var postLabel: UILabel!
 
     // MARK: - Public Methods
 
     func configure(_ news: Item, _ networkService: NetworkService) {
-        postTextView.text = news.text
+        postLabel.text = news.text
     }
 }

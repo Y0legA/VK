@@ -23,7 +23,6 @@ final class PhotoCollectionViewCell: UICollectionViewCell {
     // MARK: - Public Methods
 
     func configure(forPhoto photoName: String, _ photoCacheService: PhotoCacheService) {
-        // let indexPath = IndexPath(index: index)
         friendImageView.image = photoCacheService.photo(photoName)
     }
 }

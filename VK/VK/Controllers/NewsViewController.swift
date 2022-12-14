@@ -15,13 +15,16 @@ final class NewsViewController: UIViewController {
         static let newsImageCellIdentifier = "newsImageCell"
         static let newsFooterCellIdentifier = "newsFooterCell"
         static let photoSegueIdentifier = "photoSegue"
+        static let loading = "Loading..."
+        static let loadedText = "No news loaded"
     }
 
     // MARK: - Private Types
 
     private enum NewsType: Int, CaseIterable {
         case header
-        case content
+        case text
+        case image
         case footer
     }
 
@@ -32,10 +35,12 @@ final class NewsViewController: UIViewController {
     // MARK: - Private Properties
 
     private let networkService = NetworkService()
-
     private var items: [Item] = []
     private var groupDetails: [GroupDetail] = []
     private var friends: [Friend] = []
+    private var currentDate = 0
+    private var nextFrom = Constants.emptyString
+    private var isLoading = false
 
     // MARK: - LifeCycle
 
@@ -46,6 +51,11 @@ final class NewsViewController: UIViewController {
 
     // MARK: - Private Methods
 
+    @objc private func refreshAction() {
+        fetchNews()
+        tableView.refreshControl?.endRefreshing()
+    }
+
     private func configureUI() {
         configureTableView()
         fetchNews()
@@ -54,15 +64,21 @@ final class NewsViewController: UIViewController {
     private func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.estimatedRowHeight = UITableView.automaticDimension
+        tableView.prefetchDataSource = self
+        tableView.rowHeight = UITableView.automaticDimension
+        configurePullToRefresh()
     }
 
     private func fetchNews() {
-        networkService.fetchNews { [weak self] response in
+        let date = items.first?.date ?? 0
+        networkService.fetchNews(date + 10) { [weak self] response in
             guard let self else { return }
             switch response {
             case let .success(data):
-                self.filterNews(data)
+                print(data.nextPage as Any)
+                self.currentDate = data.items.last?.date ?? 0
+                self.items = self.filterNews(data) + self.items
+                self.nextFrom = data.nextPage ?? Constants.emptyString
                 self.tableView.reloadData()
             case let .failure(error):
                 self.showAlert(
@@ -75,7 +91,7 @@ final class NewsViewController: UIViewController {
         }
     }
 
-    private func filterNews(_ news: NewsResponse) {
+    private func filterNews(_ news: NewsResponse) -> [Item] {
         news.items.forEach { item in
             if item.sourceID < 0 {
                 guard let group = news.groupDetail.filter({ group in
@@ -91,10 +107,14 @@ final class NewsViewController: UIViewController {
                 item.photoUrl = friend.photo100
             }
         }
-        DispatchQueue.main.async {
-            self.items = news.items
-            self.tableView.reloadData()
-        }
+        return news.items
+    }
+
+    private func configurePullToRefresh() {
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.tintColor = .lightGray
+        tableView.refreshControl?.attributedTitle = NSAttributedString(string: Constants.loading)
+        tableView.refreshControl?.addTarget(self, action: #selector(refreshAction), for: .valueChanged)
     }
 }
 
@@ -102,7 +122,12 @@ final class NewsViewController: UIViewController {
 
 extension NewsViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        items.count
+        if items.isEmpty {
+            tableView.showEmptyMessage(Constants.loadedText)
+        } else {
+            tableView.hideEmptyMessage()
+        }
+        return items.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -111,21 +136,24 @@ extension NewsViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = items[indexPath.section]
-        let cellType = NewsType(rawValue: indexPath.row) ?? .content
+        let cellType = NewsType(rawValue: indexPath.row)
         var cellIdentifier = Constants.emptyString
         switch cellType {
         case .header:
             cellIdentifier = Constants.newsHeaderCellIdentifier
-        case .content:
+        case .text:
             cellIdentifier = Constants.newsPostCellIdentifier
+        case .image:
+            cellIdentifier = Constants.newsImageCellIdentifier
         case .footer:
             cellIdentifier = Constants.newsFooterCellIdentifier
+        default:
+            break
         }
         guard let cell = tableView
             .dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? NewsCell
         else { return UITableViewCell() }
         cell.configure(item, networkService)
-
         return cell
     }
 }
@@ -133,6 +161,46 @@ extension NewsViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension NewsViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) ->
-        CGFloat { UITableView.automaticDimension }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.row {
+        case 2:
+            let tableWidth = tableView.bounds.width
+            let news = items[indexPath.section].attachments?.first?.friendPhoto?.photos.last?.aspectRatio ?? CGFloat()
+            let cellHeight = tableWidth * news
+            return cellHeight
+        default:
+            return UITableView.automaticDimension
+        }
+    }
+}
+
+extension NewsViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        guard let maxSection = indexPaths.map(\.section).max() else { return }
+        if maxSection > items.count - 3, !isLoading {
+            isLoading = true
+            networkService.fetchNews(currentDate, nextFrom) { [weak self] response in
+                guard let self = self else { return }
+                switch response {
+                case let .success(data):
+                    let indexSet = IndexSet(integersIn: self.items.count ..< self.items.count + data.items.count)
+                    let news = self.filterNews(data)
+                    self.currentDate = news.first?.date ?? 0
+                    self.items.append(contentsOf: data.items)
+                    self.tableView.insertSections(indexSet, with: .automatic)
+                    if let page = data.nextPage {
+                        self.nextFrom = page
+                    }
+                    self.isLoading = false
+                case let .failure(error):
+                    self.showAlert(
+                        title: nil,
+                        message: error.localizedDescription,
+                        actionTitle: Constants.emptyString,
+                        handler: nil
+                    )
+                }
+            }
+        }
+    }
 }

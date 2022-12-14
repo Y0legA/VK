@@ -15,8 +15,8 @@ final class NewsViewController: UIViewController {
         static let newsImageCellIdentifier = "newsImageCell"
         static let newsFooterCellIdentifier = "newsFooterCell"
         static let photoSegueIdentifier = "photoSegue"
-        static let loading = "Loading..."
-        static let loadedText = "No news loaded"
+        static let loadingText = "Loading..."
+        static let loadedErrorText = "No news loaded"
     }
 
     // MARK: - Private Types
@@ -75,7 +75,6 @@ final class NewsViewController: UIViewController {
             guard let self else { return }
             switch response {
             case let .success(data):
-                print(data.nextPage as Any)
                 self.currentDate = data.items.last?.date ?? 0
                 self.items = self.filterNews(data) + self.items
                 self.nextFrom = data.nextPage ?? Constants.emptyString
@@ -113,7 +112,7 @@ final class NewsViewController: UIViewController {
     private func configurePullToRefresh() {
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.tintColor = .lightGray
-        tableView.refreshControl?.attributedTitle = NSAttributedString(string: Constants.loading)
+        tableView.refreshControl?.attributedTitle = NSAttributedString(string: Constants.loadingText)
         tableView.refreshControl?.addTarget(self, action: #selector(refreshAction), for: .valueChanged)
     }
 
@@ -148,7 +147,7 @@ final class NewsViewController: UIViewController {
 extension NewsViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         if items.isEmpty {
-            tableView.showEmptyMessage(Constants.loadedText)
+            tableView.showEmptyMessage(Constants.loadedErrorText)
         } else {
             tableView.hideEmptyMessage()
         }

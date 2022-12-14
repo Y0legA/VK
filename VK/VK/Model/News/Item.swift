@@ -19,7 +19,7 @@ final class Item: Decodable {
     // Заголовок новости
     let text: String?
     /// Вложения новости
-    let attachments: [Attachment]?
+    let attachments: [Attachments]?
     // Инфо по лайкам
     let likes: Likes?
     // Инфо по просмотрам

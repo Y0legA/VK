@@ -116,6 +116,31 @@ final class NewsViewController: UIViewController {
         tableView.refreshControl?.attributedTitle = NSAttributedString(string: Constants.loading)
         tableView.refreshControl?.addTarget(self, action: #selector(refreshAction), for: .valueChanged)
     }
+
+    private func fetchNextPage() {
+        networkService.fetchNews(currentDate, nextFrom) { [weak self] response in
+            guard let self = self else { return }
+            switch response {
+            case let .success(data):
+                let indexSet = IndexSet(integersIn: self.items.count ..< self.items.count + data.items.count)
+                let news = self.filterNews(data)
+                self.currentDate = news.first?.date ?? 0
+                self.items.append(contentsOf: data.items)
+                self.tableView.insertSections(indexSet, with: .automatic)
+                if let page = data.nextPage {
+                    self.nextFrom = page
+                }
+                self.isLoading = false
+            case let .failure(error):
+                self.showAlert(
+                    title: nil,
+                    message: error.localizedDescription,
+                    actionTitle: Constants.emptyString,
+                    handler: nil
+                )
+            }
+        }
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -179,28 +204,7 @@ extension NewsViewController: UITableViewDataSourcePrefetching {
         guard let maxSection = indexPaths.map(\.section).max() else { return }
         if maxSection > items.count - 3, !isLoading {
             isLoading = true
-            networkService.fetchNews(currentDate, nextFrom) { [weak self] response in
-                guard let self = self else { return }
-                switch response {
-                case let .success(data):
-                    let indexSet = IndexSet(integersIn: self.items.count ..< self.items.count + data.items.count)
-                    let news = self.filterNews(data)
-                    self.currentDate = news.first?.date ?? 0
-                    self.items.append(contentsOf: data.items)
-                    self.tableView.insertSections(indexSet, with: .automatic)
-                    if let page = data.nextPage {
-                        self.nextFrom = page
-                    }
-                    self.isLoading = false
-                case let .failure(error):
-                    self.showAlert(
-                        title: nil,
-                        message: error.localizedDescription,
-                        actionTitle: Constants.emptyString,
-                        handler: nil
-                    )
-                }
-            }
+            fetchNextPage()
         }
     }
 }

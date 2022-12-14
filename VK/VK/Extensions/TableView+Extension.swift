@@ -3,6 +3,7 @@
 
 import UIKit
 
+/// Формирование сообщения при загрузке данных
 extension UITableView {
     func showEmptyMessage(_ message: String) {
         let label = UILabel()
